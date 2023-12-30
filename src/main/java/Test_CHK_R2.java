@@ -32,7 +32,7 @@ public class Test_CHK_R2 {
                 HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skus);
 
                 //Check for free items
-                String filteredSKUs = checkForFreeItems(skus, specialOffers);
+                String filteredSKUs = checkForFreeItems(mapSKUsCounter, specialOffers);
 
                 ArrayList<String> chargedSKUs = new ArrayList<>();
 
@@ -100,19 +100,22 @@ public class Test_CHK_R2 {
         return 0;
     }
 
-    private String checkForFreeItems(String skus, ArrayList<SpecialOffer> specialOffers)
+    private HashMap<String, Integer> checkForFreeItems(HashMap<String, Integer> mapSKUsCounter, ArrayList<SpecialOffer> specialOffers)
     {
-        String filteredSKUs = "";
+        HashMap<String, Integer> mapSKUsCounterFiltered = new HashMap<>();
 
         for (SpecialOffer specialOffer : specialOffers)
         {
-            if (!specialOffer.getSkuFree().isEmpty())
+            if (!specialOffer.getFreeSKU().isEmpty())
             {
-                String requiredSKU = specialOffer.getSkuRequired();
+                String requiredSKU = specialOffer.getRequiredSKU();
+
+                String freeSKU = specialOffer.getFreeSKU();
+                int freeAmount = specialOffer.getFreeAmount();
 
                 if (skus.contains(requiredSKU))
                 {
-                    
+                    skus.
                 }
             }
         }
@@ -180,5 +183,6 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
+
 
 

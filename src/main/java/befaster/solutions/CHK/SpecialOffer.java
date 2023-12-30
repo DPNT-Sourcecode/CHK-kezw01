@@ -3,10 +3,10 @@ package befaster.solutions.CHK;
 import org.javatuples.Pair;
 
 public class SpecialOffer {
-    private String skuRequired;
+    private String requiredSKU;
     private int amountRequired;
     private int totalPrice;
-    private String skuFree;
+    private String freeSKU;
     private int freeAmount;
 
     public int getAmountRequired() {
@@ -17,25 +17,17 @@ public class SpecialOffer {
         this.amountRequired = amountRequired;
     }
 
-    public SpecialOffer(String skuRequired, int amountRequired, int totalPrice) {
-        this.skuRequired = skuRequired;
+    public SpecialOffer(String requiredSKU, int amountRequired, int totalPrice) {
+        this.requiredSKU = requiredSKU;
         this.amountRequired = amountRequired;
         this.totalPrice = totalPrice;
     }
 
-    public SpecialOffer(String skuRequired, int amountRequired, String skuFree, int freeAmount) {
-        this.skuRequired = skuRequired;
+    public SpecialOffer(String requiredSKU, int amountRequired, String freeSKU, int freeAmount) {
+        this.requiredSKU = requiredSKU;
         this.amountRequired = amountRequired;
-        this.skuFree = skuFree;
+        this.freeSKU = freeSKU;
         this.freeAmount = freeAmount;
-    }
-
-    public String getSkuFree() {
-        return skuFree;
-    }
-
-    public void setSkuFree(String skuFree) {
-        this.skuFree = skuFree;
     }
 
     public int getFreeAmount() {
@@ -46,12 +38,20 @@ public class SpecialOffer {
         this.freeAmount = freeAmount;
     }
 
-    public String getSkuRequired() {
-        return skuRequired;
+    public String getRequiredSKU() {
+        return requiredSKU;
     }
 
-    public void setSkuRequired(String skuRequired) {
-        this.skuRequired = skuRequired;
+    public void setRequiredSKU(String requiredSKU) {
+        this.requiredSKU = requiredSKU;
+    }
+
+    public String getFreeSKU() {
+        return freeSKU;
+    }
+
+    public void setFreeSKU(String freeSKU) {
+        this.freeSKU = freeSKU;
     }
 
     public int getTotalPrice() {
@@ -62,3 +62,4 @@ public class SpecialOffer {
         this.totalPrice = totalPrice;
     }
 }
+

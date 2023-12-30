@@ -44,7 +44,7 @@ public class Test_CHK_R2 {
 
                     while (amount > 0)
                     {
-                        if (!specialOffersCurrentSKU.isEmpty())
+                        if (specialOffersCurrentSKU != null && !specialOffersCurrentSKU.isEmpty())
                         {
                             SpecialOffer bestSpecialOffer = getBestSpecialOffer(amount, specialOffersCurrentSKU);
                             //Check which offer is the best
@@ -202,6 +202,7 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
+
 
 
 

@@ -83,6 +83,12 @@ public class CheckoutSolution {
                                 amount--;
                             }
                         }
+                        else
+                        {
+                            int price = mapSKUsPrice.get(sku);
+                            totalPrice += price;
+                            amount--;
+                        }
                     }
                 }
                 return totalPrice;
@@ -193,6 +199,7 @@ public class CheckoutSolution {
         return mapSKUsCounter;
     }
 }
+
 
 
 

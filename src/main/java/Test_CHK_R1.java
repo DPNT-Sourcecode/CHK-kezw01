@@ -6,7 +6,7 @@ public class Test_CHK_R1 {
     public static void main(String[] args)
     {
         System.out.println("hello");
-        checkout("ABBAACCD");
+        checkout("CC");
 
     }
 
@@ -35,17 +35,25 @@ public class Test_CHK_R1 {
             //Check if there is a special offer for this sku
             Pair<Integer, Integer> specialOffer = mapSKUsSpecialOffers.get(sku);
 
-            if (specialOffer != null)
+            while (amount > 0)
             {
-                int offerAmount = specialOffer.getValue0();
-                int offerPrice = specialOffer.getValue1();
-                System.out.println(offerAmount + " - "  + offerPrice);
+                if (specialOffer != null)
+                {
+                    int offerAmount = specialOffer.getValue0();
+                    int offerPrice = specialOffer.getValue1();
+                    System.out.println(offerAmount + " - "  + offerPrice);
 
+                    //
+                }
+                //The is no special offer this sku, calculate using the "normal" price
+                else {
+                    int price = mapSKUsPrice.get(sku);
+                    totalPrice += price;
+                    amount--;
+                }
             }
-
-
         }
-
+        System.out.println(totalPrice);
         return totalPrice;
     }
 
@@ -71,5 +79,4 @@ public class Test_CHK_R1 {
         return mapSKUsCounter;
     }
 }
-
 

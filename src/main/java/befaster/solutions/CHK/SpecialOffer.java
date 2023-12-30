@@ -9,6 +9,14 @@ public class SpecialOffer {
     private String skuFree;
     private int freeAmount;
 
+    public int getAmountRequired() {
+        return amountRequired;
+    }
+
+    public void setAmountRequired(int amountRequired) {
+        this.amountRequired = amountRequired;
+    }
+
     public SpecialOffer(String skuRequired, int amountRequired, int totalPrice) {
         this.skuRequired = skuRequired;
         this.amountRequired = amountRequired;
@@ -54,4 +62,5 @@ public class SpecialOffer {
         this.totalPrice = totalPrice;
     }
 }
+
 

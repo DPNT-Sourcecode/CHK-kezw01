@@ -94,9 +94,9 @@ public class Test_CHK_R3 {
         return 0;
     }
 
-    private static HashMap<String, Integer> checkForFreeItems(HashMap<String, Integer> mapSKUsCounter, ArrayList<SpecialOffer> specialOffers)
+    private static HashMap<String, Integer> checkForFreeItems(HashMap<String, Integer> mapCurrentAmountSKUs, ArrayList<SpecialOffer> specialOffers)
     {
-        HashMap<String, Integer> mapSKUsCounterHelper = new HashMap<>(mapSKUsCounter);
+        HashMap<String, Integer> mapSKUsCounterHelper = new HashMap<>(mapCurrentAmountSKUs);
 
         boolean tryToApplyOfferAgain = false;
         while (true)
@@ -120,7 +120,7 @@ public class Test_CHK_R3 {
 
                             if (mapSKUsCounterHelper.containsKey(freeSKU))
                             {
-                                int currentAmountFreeSKU = mapSKUsCounter.get(freeSKU);
+                                int currentAmountFreeSKU = mapCurrentAmountSKUs.get(freeSKU);
 
                                 int freeAmount = specialOffer.getFreeAmount();
 
@@ -128,7 +128,7 @@ public class Test_CHK_R3 {
                                 if (currentAmountFreeSKU >= freeAmount)
                                 {
                                     currentAmountFreeSKU -= freeAmount;
-                                    mapSKUsCounter.put(freeSKU, currentAmountFreeSKU);
+                                    mapCurrentAmountSKUs.put(freeSKU, currentAmountFreeSKU);
 
                                     int sub = currentAmountRequiredSKU - requiredAmount;
                                     mapSKUsCounterHelper.put(requiredSKU, sub);
@@ -147,7 +147,7 @@ public class Test_CHK_R3 {
             }
         }
 
-        return mapSKUsCounter;
+        return mapCurrentAmountSKUs;
     }
 
     private static SpecialOffer getBestSpecialOffer(String skuRequired, int amountOfItems, ArrayList<SpecialOffer> specialOffers)
@@ -211,6 +211,7 @@ public class Test_CHK_R3 {
         return mapSKUsCounter;
     }
 }
+
 
 
 

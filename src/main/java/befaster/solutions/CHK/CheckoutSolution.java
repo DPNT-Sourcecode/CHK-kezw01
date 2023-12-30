@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 public class CheckoutSolution {
     public Integer checkout(String skus) {
+        /*
         if (!skus.isEmpty())
         {
             if (skus.matches("[A-Z]+"))
@@ -19,7 +20,7 @@ public class CheckoutSolution {
                 mapSKUsPrice.put("A", 50);
                 mapSKUsPrice.put("B", 30);
                 mapSKUsPrice.put("C", 20);
-                mapSKUsPrice.put("D", 15);s
+                mapSKUsPrice.put("D", 15);
                 mapSKUsPrice.put("E", 40);
 
                 //Map with special offers
@@ -27,7 +28,7 @@ public class CheckoutSolution {
 
                 /*for (String sku : mapSKUsSpecialOffers.keySet()){
                     System.out.println(mapSKUsSpecialOffers.get(sku).toString());
-                }*/
+                }
 
                 HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skus);
 
@@ -91,7 +92,7 @@ public class CheckoutSolution {
             {
                 return -1;
             }
-        }
+        }*/
         return 0;
     }
 
@@ -193,6 +194,7 @@ public class CheckoutSolution {
         return mapSKUsCounter;
     }
 }
+
 
 
 

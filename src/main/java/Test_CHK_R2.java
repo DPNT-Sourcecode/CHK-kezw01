@@ -1,6 +1,7 @@
 import befaster.solutions.CHK.SpecialOffer;
 import org.javatuples.Pair;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -139,7 +140,13 @@ public class Test_CHK_R2 {
 
     private static HashMap<String, ArrayList<SpecialOffer>> getMapSKUsSpecialOffers()
     {
+        ArrayList<SpecialOffer> offers = new ArrayList<>();
+
+        offers.add(new SpecialOffer())
+
         HashMap<String, ArrayList<SpecialOffer>> mapSKUsSpecialOffers = new HashMap<>();
+
+
 
         //A
         ArrayList<SpecialOffer> listOffersA = new ArrayList<>();
@@ -204,4 +211,5 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
+
 

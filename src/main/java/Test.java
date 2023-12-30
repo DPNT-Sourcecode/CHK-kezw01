@@ -1,4 +1,4 @@
-import org.javatuples.Tuple;
+import org.javatuples.Pair;
 
 import java.util.HashMap;
 
@@ -13,17 +13,26 @@ public class Test {
     public static Integer checkout(String skus) {
         int totalPrice = 0;
 
-        //Price for each SKU
-        HashMap<String, Integer> mapSKUsPrice = new HashMap<String, Integer>();
+        //Map with the price for each SKU
+        HashMap<String, Integer> mapSKUsPrice = new HashMap<>();
         mapSKUsPrice.put("A", 50);
         mapSKUsPrice.put("B", 30);
         mapSKUsPrice.put("C", 20);
         mapSKUsPrice.put("D", 15);
 
-        Tuple tuple = new Tuple() {
-        }
+        //Map with special offers
+        HashMap<String, Pair<Integer, Integer>> mapSKUsSpecialOffers = new HashMap<>();
+        mapSKUsSpecialOffers.put("A", new Pair<>(3, 130));
+        mapSKUsSpecialOffers.put("B", new Pair<>(2, 45));
 
         HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skus);
+
+        //Calculate price
+        for (String sku : mapSKUsCounter.keySet())
+        {
+            int amount = mapSKUsCounter.get(sku);
+            System.out.println(amount);
+        }
 
         return totalPrice;
     }
@@ -50,6 +59,7 @@ public class Test {
         return mapSKUsCounter;
     }
 }
+
 
 
 

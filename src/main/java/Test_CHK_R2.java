@@ -86,6 +86,12 @@ public class Test_CHK_R2 {
                                 amount--;
                             }
                         }
+                        else
+                        {
+                            int price = mapSKUsPrice.get(sku);
+                            totalPrice += price;
+                            amount--;
+                        }
                     }
                 }
                 return totalPrice;
@@ -196,6 +202,7 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
+
 
 
 

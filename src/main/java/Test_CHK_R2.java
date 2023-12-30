@@ -28,10 +28,6 @@ public class Test_CHK_R2 {
                 //Map with special offers
                 HashMap<String, ArrayList<SpecialOffer>> mapSKUsSpecialOffers = getMapSKUsSpecialOffers();
 
-                /*for (String sku : mapSKUsSpecialOffers.keySet()){
-                    System.out.println(mapSKUsSpecialOffers.get(sku).toString());
-                }*/
-
                 HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skus);
                 StringBuilder chargedSKUs = new StringBuilder();
 
@@ -208,9 +204,4 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
-
-
-
-
-
 

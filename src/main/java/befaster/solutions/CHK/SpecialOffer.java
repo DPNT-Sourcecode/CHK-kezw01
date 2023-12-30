@@ -3,44 +3,52 @@ package befaster.solutions.CHK;
 import org.javatuples.Pair;
 
 public class SpecialOffer {
-    private int amount;
-    private int price;
-    private Pair<String, Integer> skuFreeAmount;
+    private String skuRequired;
+    private int totalPrice;
+    private String skuFree;
+    private int freeAmount
+    private
 
-    public SpecialOffer() {
-        this.price = 0;
+    public SpecialOffer(String skuRequired, int totalPrice) {
+        this.skuRequired = skuRequired;
+        this.totalPrice = totalPrice;
     }
 
-    public int getAmount() {
-        return amount;
+    public SpecialOffer(String skuRequired, String skuFree, int freeAmount) {
+        this.skuRequired = skuRequired;
+        this.skuFree = skuFree;
+        this.freeAmount = freeAmount;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public String getSkuFree() {
+        return skuFree;
     }
 
-    public int getPrice() {
-        return price;
+    public void setSkuFree(String skuFree) {
+        this.skuFree = skuFree;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public int getFreeAmount() {
+        return freeAmount;
     }
 
-    public Pair<String, Integer> getSkuFreeAmount() {
-        return skuFreeAmount;
+    public void setFreeAmount(int freeAmount) {
+        this.freeAmount = freeAmount;
     }
 
-    public void setSkuFreeAmount(Pair<String, Integer> skuFreeAmount) {
-        this.skuFreeAmount = skuFreeAmount;
+    public String getSkuRequired() {
+        return skuRequired;
     }
 
-    @Override
-    public String toString() {
-        return "SpecialOffer{" +
-                "amount=" + amount +
-                ", price=" + price +
-                ", skuFreeAmount=" + skuFreeAmount +
-                '}';
+    public void setSkuRequired(String skuRequired) {
+        this.skuRequired = skuRequired;
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

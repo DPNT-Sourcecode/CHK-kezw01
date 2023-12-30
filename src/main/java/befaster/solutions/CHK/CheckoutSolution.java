@@ -41,7 +41,7 @@ public class CheckoutSolution {
 
                     while (amount > 0)
                     {
-                        if (!specialOffersCurrentSKU.isEmpty())
+                        if (specialOffersCurrentSKU != null && !specialOffersCurrentSKU.isEmpty())
                         {
                             SpecialOffer bestSpecialOffer = getBestSpecialOffer(amount, specialOffersCurrentSKU);
                             //Check which offer is the best
@@ -193,4 +193,5 @@ public class CheckoutSolution {
         return mapSKUsCounter;
     }
 }
+
 

@@ -27,7 +27,11 @@ public class Test_CHK_R2 {
 
                 //Map with special offers
                 HashMap<String, ArrayList<Pair<Integer, Integer>>> mapSKUsSpecialOffers = new HashMap<>();
-                mapSKUsSpecialOffers.put("A", new ArrayList<>()));
+
+                ArrayList<Pair<Integer, Integer>> offersA = new ArrayList<>();
+                offersA.add(new Pair<>(3, 130));
+                offersA.add(new Pair<>(3, 130));
+                mapSKUsSpecialOffers.put("A", new Pair<>(3, 130));
                 mapSKUsSpecialOffers.put("A", new Pair<>(3, 130));
                 mapSKUsSpecialOffers.put("A", new Pair<>(5, 200));
                 mapSKUsSpecialOffers.put("B", new Pair<>(2, 45));
@@ -105,4 +109,5 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
+
 

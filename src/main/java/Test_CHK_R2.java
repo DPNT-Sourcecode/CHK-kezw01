@@ -107,6 +107,8 @@ public class Test_CHK_R2 {
 
     private static HashMap<String, Integer> checkForFreeItems(HashMap<String, Integer> mapSKUsCounter, ArrayList<SpecialOffer> specialOffers)
     {
+        HashMap<String, Integer> mapSKUsCounterHelper = new HashMap<>(mapSKUsCounter);
+
         for (SpecialOffer specialOffer : specialOffers)
         {
             if (specialOffer.getFreeSKU() != null && !specialOffer.getFreeSKU().isEmpty())
@@ -115,17 +117,17 @@ public class Test_CHK_R2 {
                 int requiredAmount = specialOffer.getAmountRequired();
 
                 //Check if we have the required amount of items to apply the offer
-                if (mapSKUsCounter.containsKey(requiredSKU))
+                if (mapSKUsCounterHelper.containsKey(requiredSKU))
                 {
-                    int currentAmountRequiredSKU = mapSKUsCounter.get(requiredSKU);
+                    int currentAmountRequiredSKU = mapSKUsCounterHelper.get(requiredSKU);
 
                     if (currentAmountRequiredSKU >= requiredAmount)
                     {
                         String freeSKU = specialOffer.getFreeSKU();
 
-                        if (mapSKUsCounter.containsKey(freeSKU))
+                        if (mapSKUsCounterHelper.containsKey(freeSKU))
                         {
-                            int currentAmountFreeSKU = mapSKUsCounter.get(freeSKU);
+                            int currentAmountFreeSKU = mapSKUsCounterHelper.get(freeSKU);
 
                             int freeAmount = specialOffer.getFreeAmount();
 
@@ -133,8 +135,10 @@ public class Test_CHK_R2 {
                             if (currentAmountFreeSKU >= freeAmount)
                             {
                                 currentAmountFreeSKU -= freeAmount;
-
                                 mapSKUsCounter.put(freeSKU, currentAmountFreeSKU);
+
+                                int sub = currentAmountRequiredSKU - requiredAmount;
+                                mapSKUsCounterHelper.put(requiredSKU, sub);
                             }
                         }
                     }
@@ -205,4 +209,5 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
+
 

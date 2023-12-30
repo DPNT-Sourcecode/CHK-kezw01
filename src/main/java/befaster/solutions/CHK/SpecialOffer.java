@@ -62,5 +62,3 @@ public class SpecialOffer {
         this.totalPrice = totalPrice;
     }
 }
-
-

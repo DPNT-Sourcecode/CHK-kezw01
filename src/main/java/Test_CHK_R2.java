@@ -1,5 +1,6 @@
 import org.javatuples.Pair;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Test_CHK_R2 {
@@ -25,9 +26,13 @@ public class Test_CHK_R2 {
 
 
                 //Map with special offers
-                HashMap<String, Pair<Integer, Integer>> mapSKUsSpecialOffers = new HashMap<>();
+                HashMap<String, ArrayList<Pair<Integer, Integer>>> mapSKUsSpecialOffers = new HashMap<>();
+                mapSKUsSpecialOffers.put("A", new ArrayList<>()));
                 mapSKUsSpecialOffers.put("A", new Pair<>(3, 130));
+                mapSKUsSpecialOffers.put("A", new Pair<>(5, 200));
                 mapSKUsSpecialOffers.put("B", new Pair<>(2, 45));
+                mapSKUsSpecialOffers.put("E", new Pair<>(2, 45));
+
 
                 HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skus);
 
@@ -100,5 +105,4 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
-
 

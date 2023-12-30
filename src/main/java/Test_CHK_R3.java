@@ -96,7 +96,7 @@ public class Test_CHK_R3 {
 
     private static HashMap<String, Integer> checkForFreeItems(HashMap<String, Integer> mapCurrentAmountSKUs, ArrayList<SpecialOffer> specialOffers)
     {
-        HashMap<String, Integer> mapSKUsCounterHelper = new HashMap<>(mapCurrentAmountSKUs);
+        HashMap<String, Integer> mapFilteredAmountSKUs = new HashMap<>(mapCurrentAmountSKUs);
 
         boolean tryToApplyOfferAgain = false;
         while (true)
@@ -110,15 +110,15 @@ public class Test_CHK_R3 {
                     int requiredAmount = specialOffer.getAmountRequired();
 
                     //Check if we have the required amount of items to apply the offer
-                    if (mapSKUsCounterHelper.containsKey(requiredSKU))
+                    if (mapFilteredAmountSKUs.containsKey(requiredSKU))
                     {
-                        int currentAmountRequiredSKU = mapSKUsCounterHelper.get(requiredSKU);
+                        int currentAmountRequiredSKU = mapFilteredAmountSKUs.get(requiredSKU);
 
                         if (currentAmountRequiredSKU >= requiredAmount)
                         {
                             String freeSKU = specialOffer.getFreeSKU();
 
-                            if (mapSKUsCounterHelper.containsKey(freeSKU))
+                            if (mapFilteredAmountSKUs.containsKey(freeSKU))
                             {
                                 int currentAmountFreeSKU = mapCurrentAmountSKUs.get(freeSKU);
 
@@ -131,7 +131,7 @@ public class Test_CHK_R3 {
                                     mapCurrentAmountSKUs.put(freeSKU, currentAmountFreeSKU);
 
                                     int sub = currentAmountRequiredSKU - requiredAmount;
-                                    mapSKUsCounterHelper.put(requiredSKU, sub);
+                                    mapFilteredAmountSKUs.put(requiredSKU, sub);
 
                                     tryToApplyOfferAgain = true;
                                 }
@@ -211,6 +211,7 @@ public class Test_CHK_R3 {
         return mapSKUsCounter;
     }
 }
+
 
 
 

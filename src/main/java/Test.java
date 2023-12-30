@@ -18,6 +18,15 @@ public class Test {
         mapSKUsPrice.put("C", 20);
         mapSKUsPrice.put("D", 15);
 
+        
+
+        HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skus);
+
+        return totalPrice;
+    }
+
+    private static HashMap<String, Integer> getMapSKUSCounter(String skus)
+    {
         HashMap<String, Integer> mapSKUsCounter = new HashMap<String, Integer>();
 
         for (int i = 0; i < skus.length(); i++)
@@ -35,8 +44,9 @@ public class Test {
             }
         }
 
-        return totalPrice;
+        return mapSKUsCounter;
     }
 }
+
 
 

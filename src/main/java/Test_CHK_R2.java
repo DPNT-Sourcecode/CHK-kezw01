@@ -51,21 +51,32 @@ public class Test_CHK_R2 {
 
                             if (bestSpecialOffer != null)
                             {
-                                int offerAmount = bestSpecialOffer.getAmount();
-                                int offerPrice = bestSpecialOffer.getPrice();
-
-                                //Check if there is enough items to apply the special offer
-                                if (amount >= offerAmount)
+                                if (bestSpecialOffer.getSkuFreeAmount() != null)
                                 {
-                                    totalPrice += offerPrice;
+                                    int offerAmount = bestSpecialOffer.getAmount();
+                                    int price = mapSKUsPrice.get(sku);
+
+                                    totalPrice += (price * offerAmount);
                                     amount -= offerAmount;
                                 }
-                                //Not enough items to apply special offer, calculate using the "normal" price
                                 else
                                 {
-                                    int price = mapSKUsPrice.get(sku);
-                                    totalPrice += price;
-                                    amount--;
+                                    int offerAmount = bestSpecialOffer.getAmount();
+                                    int offerPrice = bestSpecialOffer.getPrice();
+
+                                    //Check if there is enough items to apply the special offer
+                                    if (amount >= offerAmount)
+                                    {
+                                        totalPrice += offerPrice;
+                                        amount -= offerAmount;
+                                    }
+                                    //Not enough items to apply special offer, calculate using the "normal" price
+                                    else
+                                    {
+                                        int price = mapSKUsPrice.get(sku);
+                                        totalPrice += price;
+                                        amount--;
+                                    }
                                 }
                             }
                             //The is no special offer this sku, calculate using the "normal" price
@@ -98,9 +109,10 @@ public class Test_CHK_R2 {
             int offerAmount = specialOffer.getAmount();
             int offerPrice = specialOffer.getPrice();
 
-            if (offerPrice == Integer.MIN_VALUE)
+            if (specialOffer.getSkuFreeAmount() != null)
             {
                 //Free item
+                bestSpecialOffer = specialOffer;
             }
             else
             {
@@ -184,4 +196,5 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
+
 

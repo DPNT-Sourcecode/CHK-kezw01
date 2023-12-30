@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class Test_CHK_R2 {
     public static void main(String[] args)
     {
-        checkout("AAAABB");
+        checkout("AAA");
     }
 
     public static Integer checkout(String skus) {
@@ -49,15 +49,23 @@ public class Test_CHK_R2 {
                             //Check which offer is the best
                             float bestSingleItemPrice = Integer.MAX_VALUE;
 
+                            SpecialOffer bestSpecialOffer = null;
                             for (SpecialOffer specialOffer : specialOffers)
                             {
                                 int offerAmount = specialOffer.getAmount();
                                 int offerPrice = specialOffer.getPrice();
 
                                 float singleItemPrice = (float) offerPrice / offerAmount;
+
+                                if (singleItemPrice < bestSingleItemPrice)
+                                {
+                                    bestSingleItemPrice = singleItemPrice;
+                                    bestSpecialOffer = specialOffer;
+                                }
                                 System.out.println(offerAmount + " - " + offerPrice + " - " + singleItemPrice);
                             }
-amount--;
+                            amount--;
+                            System.out.println(bestSpecialOffer);
                             /*for (SpecialOffer specialOffer : specialOffers)
                             {
                                 int offerAmount = specialOffer.getValue0();
@@ -165,6 +173,7 @@ amount--;
         return mapSKUsCounter;
     }
 }
+
 
 
 

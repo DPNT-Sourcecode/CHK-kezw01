@@ -53,19 +53,11 @@ public class Test_CHK_R2 {
                             {
                                 if (bestSpecialOffer.getSkuFreeAmount() != null)
                                 {
-                                    int offerAmount = bestSpecialOffer.getAmount();
-                                    int price = mapSKUsPrice.get(sku);
+                                    String skuFree = bestSpecialOffer.getSkuFreeAmount().getValue0();
+                                    int amountSkuFree = bestSpecialOffer.getSkuFreeAmount().getValue1();
 
-                                    if (amount >= offerAmount)
-                                    {
-                                        totalPrice += (price * offerAmount);
-                                        amount -= offerAmount;
-                                    }
-                                    else
-                                    {
-                                        totalPrice += (price * amount);
-                                        amount--;
-                                    }
+                                    //Check SKUs list to see if there is 
+                                    if ()
                                 }
                                 else
                                 {
@@ -210,6 +202,7 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
+
 
 
 

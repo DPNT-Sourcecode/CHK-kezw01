@@ -47,9 +47,18 @@ public class Test_CHK_R2 {
                         if (!specialOffers.isEmpty())
                         {
                             //Check which offer is the best
-                            float singleItemPrice = Integer.MAX_VALUE;
+                            float bestSingleItemPrice = Integer.MAX_VALUE;
 
                             for (SpecialOffer specialOffer : specialOffers)
+                            {
+                                int offerAmount = specialOffer.getAmount();
+                                int offerPrice = specialOffer.getPrice();
+
+                                float singleItemPrice = (float) offerPrice / offerAmount;
+                                System.out.println(offerAmount + " - " + offerPrice + " - " + singleItemPrice);
+                            }
+amount--;
+                            /*for (SpecialOffer specialOffer : specialOffers)
                             {
                                 int offerAmount = specialOffer.getValue0();
                                 int offerPrice = specialOffer.getValue1();
@@ -69,7 +78,7 @@ public class Test_CHK_R2 {
                                     totalPrice += price;
                                     amount--;
                                 }
-                            }
+                            }*/
                         }
                         //The is no special offer this sku, calculate using the "normal" price
                         else {
@@ -156,5 +165,6 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
+
 
 

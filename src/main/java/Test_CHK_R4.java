@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class Test_CHK_R4 {
     public static void main(String[] args)
     {
-        System.out.println(checkout("FF"));
+        System.out.println(checkout("VVV"));
     }
 
     public static Integer checkout(String skus) {
@@ -19,13 +19,7 @@ public class Test_CHK_R4 {
                 int totalPrice = 0;
 
                 //Map with the price for each SKU
-                HashMap<String, Integer> mapSKUsPrice = new HashMap<>();
-                mapSKUsPrice.put("A", 50);
-                mapSKUsPrice.put("B", 30);
-                mapSKUsPrice.put("C", 20);
-                mapSKUsPrice.put("D", 15);
-                mapSKUsPrice.put("E", 40);
-                mapSKUsPrice.put("F", 10);
+                HashMap<String, Integer> mapSKUsPrice = getSinglePrices();
 
                 //Map with special offers
                 ArrayList<SpecialOffer> specialOffers = getSpecialOffers();
@@ -205,6 +199,40 @@ public class Test_CHK_R4 {
         return bestSpecialOffer;
     }
 
+    private static HashMap<String, Integer> getSinglePrices()
+    {
+        HashMap<String, Integer> mapSKUsPrice = new HashMap<>();
+
+        mapSKUsPrice.put("A", 50);
+        mapSKUsPrice.put("B", 30);
+        mapSKUsPrice.put("C", 20);
+        mapSKUsPrice.put("D", 15);
+        mapSKUsPrice.put("E", 40);
+        mapSKUsPrice.put("F", 10);
+        mapSKUsPrice.put("G", 20);
+        mapSKUsPrice.put("H", 10);
+        mapSKUsPrice.put("I", 35);
+        mapSKUsPrice.put("J", 60);
+        mapSKUsPrice.put("K", 80);
+        mapSKUsPrice.put("L", 90);
+        mapSKUsPrice.put("M", 15);
+        mapSKUsPrice.put("N", 40);
+        mapSKUsPrice.put("O", 10);
+        mapSKUsPrice.put("P", 50);
+        mapSKUsPrice.put("Q", 30);
+        mapSKUsPrice.put("R", 50);
+        mapSKUsPrice.put("S", 30);
+        mapSKUsPrice.put("T", 20);
+        mapSKUsPrice.put("U", 40);
+        mapSKUsPrice.put("V", 50);
+        mapSKUsPrice.put("W", 20);
+        mapSKUsPrice.put("X", 90);
+        mapSKUsPrice.put("Y", 10);
+        mapSKUsPrice.put("Z", 50);
+
+        return mapSKUsPrice;
+    }
+
     private static ArrayList<SpecialOffer> getSpecialOffers()
     {
         ArrayList<SpecialOffer> offers = new ArrayList<>();
@@ -214,6 +242,16 @@ public class Test_CHK_R4 {
         offers.add(new SpecialOffer("B", 2, 45));
         offers.add(new SpecialOffer("E", 2, "B",1));
         offers.add(new SpecialOffer("F", 2, "F",1));
+        offers.add(new SpecialOffer("H", 5, 45));
+        offers.add(new SpecialOffer("H", 10, 80));
+        offers.add(new SpecialOffer("K", 2, 150));
+        offers.add(new SpecialOffer("N", 3, "M",1));
+        offers.add(new SpecialOffer("P", 5, 200));
+        offers.add(new SpecialOffer("Q", 3, 80));
+        offers.add(new SpecialOffer("R", 3, "Q",1));
+        offers.add(new SpecialOffer("U", 3, "U",1));
+        offers.add(new SpecialOffer("V", 2, 90));
+        offers.add(new SpecialOffer("V", 3, 130));
 
         return offers;
     }
@@ -240,4 +278,5 @@ public class Test_CHK_R4 {
         return mapSKUsCounter;
     }
 }
+
 

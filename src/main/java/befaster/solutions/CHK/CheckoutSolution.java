@@ -9,6 +9,7 @@ public class CheckoutSolution {
     public Integer checkout(String skus) {
         if (!skus.isEmpty())
         {
+            System.out.println(skus);
             int totalPrice = 0;
 
             //Map with the price for each SKU
@@ -89,5 +90,6 @@ public class CheckoutSolution {
         return mapSKUsCounter;
     }
 }
+
 
 

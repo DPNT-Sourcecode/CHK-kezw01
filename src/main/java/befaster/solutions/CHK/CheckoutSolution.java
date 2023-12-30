@@ -7,60 +7,64 @@ import java.util.HashMap;
 
 public class CheckoutSolution {
     public Integer checkout(String skus) {
-        int totalPrice = 0;
-
-        //Map with the price for each SKU
-        HashMap<String, Integer> mapSKUsPrice = new HashMap<>();
-        mapSKUsPrice.put("A", 50);
-        mapSKUsPrice.put("B", 30);
-        mapSKUsPrice.put("C", 20);
-        mapSKUsPrice.put("D", 15);
-
-        //Map with special offers
-        HashMap<String, Pair<Integer, Integer>> mapSKUsSpecialOffers = new HashMap<>();
-        mapSKUsSpecialOffers.put("A", new Pair<>(3, 130));
-        mapSKUsSpecialOffers.put("B", new Pair<>(2, 45));
-
-        HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skus);
-
-        //Calculate price
-        for (String sku : mapSKUsCounter.keySet())
+        if (!skus.isEmpty())
         {
-            int amount = mapSKUsCounter.get(sku);
+            int totalPrice = 0;
 
-            //Check if there is a special offer for this sku
-            Pair<Integer, Integer> specialOffer = mapSKUsSpecialOffers.get(sku);
+            //Map with the price for each SKU
+            HashMap<String, Integer> mapSKUsPrice = new HashMap<>();
+            mapSKUsPrice.put("A", 50);
+            mapSKUsPrice.put("B", 30);
+            mapSKUsPrice.put("C", 20);
+            mapSKUsPrice.put("D", 15);
 
-            while (amount > 0)
+            //Map with special offers
+            HashMap<String, Pair<Integer, Integer>> mapSKUsSpecialOffers = new HashMap<>();
+            mapSKUsSpecialOffers.put("A", new Pair<>(3, 130));
+            mapSKUsSpecialOffers.put("B", new Pair<>(2, 45));
+
+            HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skus);
+
+            //Calculate price
+            for (String sku : mapSKUsCounter.keySet())
             {
-                if (specialOffer != null)
-                {
-                    int offerAmount = specialOffer.getValue0();
-                    int offerPrice = specialOffer.getValue1();
+                int amount = mapSKUsCounter.get(sku);
 
-                    //Check if there is enough items to apply the special offer
-                    if (amount >= offerAmount)
+                //Check if there is a special offer for this sku
+                Pair<Integer, Integer> specialOffer = mapSKUsSpecialOffers.get(sku);
+
+                while (amount > 0)
+                {
+                    if (specialOffer != null)
                     {
-                        totalPrice += offerPrice;
-                        amount -= offerAmount;
+                        int offerAmount = specialOffer.getValue0();
+                        int offerPrice = specialOffer.getValue1();
+
+                        //Check if there is enough items to apply the special offer
+                        if (amount >= offerAmount)
+                        {
+                            totalPrice += offerPrice;
+                            amount -= offerAmount;
+                        }
+                        //Not enough items to apply special offer, calculate using the "normal" price
+                        else
+                        {
+                            int price = mapSKUsPrice.get(sku);
+                            totalPrice += price;
+                            amount--;
+                        }
                     }
-                    //Not enough items to apply special offer, calculate using the "normal" price
-                    else
-                    {
+                    //The is no special offer this sku, calculate using the "normal" price
+                    else {
                         int price = mapSKUsPrice.get(sku);
                         totalPrice += price;
                         amount--;
                     }
                 }
-                //The is no special offer this sku, calculate using the "normal" price
-                else {
-                    int price = mapSKUsPrice.get(sku);
-                    totalPrice += price;
-                    amount--;
-                }
             }
+            return totalPrice;
         }
-        return totalPrice;
+        return 0;
     }
 
     private HashMap<String, Integer> getMapSKUSCounter(String skus)
@@ -85,4 +89,5 @@ public class CheckoutSolution {
         return mapSKUsCounter;
     }
 }
+
 

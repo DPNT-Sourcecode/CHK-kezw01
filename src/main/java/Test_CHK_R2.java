@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class Test_CHK_R2 {
     public static void main(String[] args)
     {
-        checkout("AAA");
+        System.out.println(checkout("AAAA"));
     }
 
     public static Integer checkout(String skus) {
@@ -40,38 +40,19 @@ public class Test_CHK_R2 {
                     int amount = mapSKUsCounter.get(sku);
 
                     //Check if there is a special offer for this sku
-                    ArrayList<SpecialOffer> specialOffers = mapSKUsSpecialOffers.get(sku);
+                    ArrayList<SpecialOffer> specialOffersCurrentSKU = mapSKUsSpecialOffers.get(sku);
 
                     while (amount > 0)
                     {
-                        if (!specialOffers.isEmpty())
+                        if (!specialOffersCurrentSKU.isEmpty())
                         {
+                            SpecialOffer bestSpecialOffer = getBestSpecialOffer(specialOffersCurrentSKU);
                             //Check which offer is the best
-                            float bestSingleItemPrice = Integer.MAX_VALUE;
 
-                            SpecialOffer bestSpecialOffer = null;
-                            for (SpecialOffer specialOffer : specialOffers)
+                            if (bestSpecialOffer != null)
                             {
-                                int offerAmount = specialOffer.getAmount();
-                                int offerPrice = specialOffer.getPrice();
-
-                                float singleItemPrice = (float) offerPrice / offerAmount;
-
-                                if (singleItemPrice < bestSingleItemPrice)
-                                {
-                                    bestSingleItemPrice = singleItemPrice;
-                                    bestSpecialOffer = specialOffer;
-                                }
-                                System.out.println(offerAmount + " - " + offerPrice + " - " + singleItemPrice);
-                            }
-                            amount--;
-                            System.out.println(bestSpecialOffer);
-                            /*for (SpecialOffer specialOffer : specialOffers)
-                            {
-                                int offerAmount = specialOffer.getValue0();
-                                int offerPrice = specialOffer.getValue1();
-
-                                //
+                                int offerAmount = bestSpecialOffer.getAmount();
+                                int offerPrice = bestSpecialOffer.getPrice();
 
                                 //Check if there is enough items to apply the special offer
                                 if (amount >= offerAmount)
@@ -86,7 +67,7 @@ public class Test_CHK_R2 {
                                     totalPrice += price;
                                     amount--;
                                 }
-                            }*/
+                            }
                         }
                         //The is no special offer this sku, calculate using the "normal" price
                         else {
@@ -104,6 +85,31 @@ public class Test_CHK_R2 {
             }
         }
         return 0;
+    }
+
+    private static SpecialOffer getBestSpecialOffer(ArrayList<SpecialOffer> specialOffers)
+    {
+        float bestSingleItemPrice = Integer.MAX_VALUE;
+
+        SpecialOffer bestSpecialOffer = null;
+
+        for (SpecialOffer specialOffer : specialOffers)
+        {
+            int offerAmount = specialOffer.getAmount();
+            int offerPrice = specialOffer.getPrice();
+
+            float singleItemPrice = (float) offerPrice / offerAmount;
+
+            if (singleItemPrice < bestSingleItemPrice)
+            {
+                bestSingleItemPrice = singleItemPrice;
+                bestSpecialOffer = specialOffer;
+            }
+            System.out.println(offerAmount + " - " + offerPrice + " - " + singleItemPrice);
+        }
+        System.out.println(bestSpecialOffer);
+
+        return bestSpecialOffer;
     }
 
     private static HashMap<String, ArrayList<SpecialOffer>> getMapSKUsSpecialOffers()
@@ -173,6 +179,7 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
+
 
 
 

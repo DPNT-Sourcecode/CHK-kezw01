@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class Test_CHK_R2 {
     public static void main(String[] args)
     {
-        System.out.println(checkout("EEB"));
+        System.out.println(checkout("ABDD"));
     }
 
     public static Integer checkout(String skus) {
@@ -33,6 +33,7 @@ public class Test_CHK_R2 {
                 }*/
 
                 HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skus);
+                StringBuilder chargedSKUs = new StringBuilder();
 
                 //Calculate price
                 for (String sku : mapSKUsCounter.keySet())
@@ -56,7 +57,7 @@ public class Test_CHK_R2 {
                                     String skuFree = bestSpecialOffer.getSkuFreeAmount().getValue0();
                                     int amountSkuFree = bestSpecialOffer.getSkuFreeAmount().getValue1();
 
-                                    //Check SKUs list to see if there is 
+                                    //Check SKUs list to see if there is
                                     if ()
                                 }
                                 else
@@ -69,6 +70,7 @@ public class Test_CHK_R2 {
                                     {
                                         totalPrice += offerPrice;
                                         amount -= offerAmount;
+                                        chargedSKUs.append(sku);
                                     }
                                     //Not enough items to apply special offer, calculate using the "normal" price
                                     else
@@ -76,6 +78,7 @@ public class Test_CHK_R2 {
                                         int price = mapSKUsPrice.get(sku);
                                         totalPrice += price;
                                         amount--;
+                                        chargedSKUs.append(sku);
                                     }
                                 }
                             }
@@ -84,6 +87,7 @@ public class Test_CHK_R2 {
                                 int price = mapSKUsPrice.get(sku);
                                 totalPrice += price;
                                 amount--;
+                                chargedSKUs.append(sku);
                             }
                         }
                         else
@@ -91,9 +95,11 @@ public class Test_CHK_R2 {
                             int price = mapSKUsPrice.get(sku);
                             totalPrice += price;
                             amount--;
+                            chargedSKUs.append(sku);
                         }
                     }
                 }
+                System.out.println(chargedSKUs);
                 return totalPrice;
             }
             else
@@ -202,6 +208,7 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
+
 
 
 

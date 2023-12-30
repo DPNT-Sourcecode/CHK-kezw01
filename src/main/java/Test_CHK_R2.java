@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class Test_CHK_R2 {
     public static void main(String[] args)
     {
-        System.out.println(checkout("EEBBB"));
+        System.out.println(checkout("EEEEBBB"));
     }
 
     public static Integer checkout(String skus) {
@@ -125,7 +125,7 @@ public class Test_CHK_R2 {
 
                         if (mapSKUsCounter.containsKey(freeSKU))
                         {
-                            int currentAmountFreeSKU = mapSKUsCounter.get(requiredSKU);
+                            int currentAmountFreeSKU = mapSKUsCounter.get(freeSKU);
 
                             int freeAmount = specialOffer.getFreeAmount();
 
@@ -205,6 +205,7 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
+
 
 
 

@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class Test_CHK_R2 {
     public static void main(String[] args)
     {
-        System.out.println(checkout("EEA"));
+        System.out.println(checkout("C"));
     }
 
     public static Integer checkout(String skus) {
@@ -196,6 +196,7 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
+
 
 
 

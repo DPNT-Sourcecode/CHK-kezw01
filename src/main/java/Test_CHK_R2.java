@@ -27,21 +27,36 @@ public class Test_CHK_R2 {
                 mapSKUsPrice.put("E", 40);
 
                 //Map with special offers
-                HashMap<String, ArrayList<SpecialOffer>> mapSKUsSpecialOffers = getMapSKUsSpecialOffers();
+                ArrayList<SpecialOffer> specialOffers = getSpecialOffers();
 
                 HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skus);
-                StringBuilder chargedSKUs = new StringBuilder();
+                ArrayList<String> chargedSKUs = new ArrayList<>();
 
                 //Calculate price
-                for (String sku : mapSKUsCounter.keySet())
+                for (String currentSku : mapSKUsCounter.keySet())
                 {
-                    int amount = mapSKUsCounter.get(sku);
-
-                    //Check if there is a special offer for this sku
-                    ArrayList<SpecialOffer> specialOffersCurrentSKU = mapSKUsSpecialOffers.get(sku);
+                    int amount = mapSKUsCounter.get(currentSku);
 
                     while (amount > 0)
                     {
+                        if (!specialOffers.isEmpty())
+                        {
+                            for (SpecialOffer specialOffer : specialOffers)
+                            {
+                                if (specialOffer.getSkuRequired().equals(currentSku))
+                                {
+
+                                }
+                            }
+                        }
+                        else
+                        {
+                            int price = mapSKUsPrice.get(currentSku);
+                            totalPrice += price;
+                            amount--;
+
+                        }
+
                         if (specialOffersCurrentSKU != null && !specialOffersCurrentSKU.isEmpty())
                         {
                             SpecialOffer bestSpecialOffer = getBestSpecialOffer(amount, specialOffersCurrentSKU);
@@ -89,10 +104,7 @@ public class Test_CHK_R2 {
                         }
                         else
                         {
-                            int price = mapSKUsPrice.get(sku);
-                            totalPrice += price;
-                            amount--;
-                            chargedSKUs.append(sku);
+
                         }
                     }
                 }
@@ -138,55 +150,16 @@ public class Test_CHK_R2 {
         return bestSpecialOffer;
     }
 
-    private static HashMap<String, ArrayList<SpecialOffer>> getMapSKUsSpecialOffers()
+    private static ArrayList<SpecialOffer> getSpecialOffers()
     {
         ArrayList<SpecialOffer> offers = new ArrayList<>();
 
-        offers.add(new SpecialOffer())
+        offers.add(new SpecialOffer("A", 3, 130));
+        offers.add(new SpecialOffer("A", 5, 200));
+        offers.add(new SpecialOffer("B", 2, 45));
+        offers.add(new SpecialOffer("E", 2, "B",1));
 
-        HashMap<String, ArrayList<SpecialOffer>> mapSKUsSpecialOffers = new HashMap<>();
-
-
-
-        //A
-        ArrayList<SpecialOffer> listOffersA = new ArrayList<>();
-
-        SpecialOffer offerA1 = new SpecialOffer();
-        offerA1.setAmount(3);
-        offerA1.setPrice(130);
-
-        SpecialOffer offerA2 = new SpecialOffer();
-        offerA2.setAmount(5);
-        offerA2.setPrice(200);
-
-        listOffersA.add(offerA1);
-        listOffersA.add(offerA2);
-
-        mapSKUsSpecialOffers.put("A", listOffersA);
-
-        //B
-        ArrayList<SpecialOffer> listOffersB = new ArrayList<>();
-
-        SpecialOffer offerB1 = new SpecialOffer();
-        offerB1.setAmount(2);
-        offerB1.setPrice(45);
-
-        listOffersB.add(offerB1);
-
-        mapSKUsSpecialOffers.put("B", listOffersB);
-
-        //E
-        ArrayList<SpecialOffer> listOffersE = new ArrayList<>();
-
-        SpecialOffer offerE1 = new SpecialOffer();
-        offerE1.setAmount(2);
-        offerE1.setSkuFreeAmount(new Pair<>("B", 1));
-
-        listOffersE.add(offerE1);
-
-        mapSKUsSpecialOffers.put("E", listOffersE);
-
-        return mapSKUsSpecialOffers;
+        return offers;
     }
 
     private static HashMap<String, Integer> getMapSKUSCounter(String skus)
@@ -211,5 +184,6 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
+
 
 

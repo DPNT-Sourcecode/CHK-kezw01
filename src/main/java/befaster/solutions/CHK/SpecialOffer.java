@@ -4,18 +4,20 @@ import org.javatuples.Pair;
 
 public class SpecialOffer {
     private String skuRequired;
+    private int amountRequired;
     private int totalPrice;
     private String skuFree;
-    private int freeAmount
-    private
+    private int freeAmount;
 
-    public SpecialOffer(String skuRequired, int totalPrice) {
+    public SpecialOffer(String skuRequired, int amountRequired, int totalPrice) {
         this.skuRequired = skuRequired;
+        this.amountRequired = amountRequired;
         this.totalPrice = totalPrice;
     }
 
-    public SpecialOffer(String skuRequired, String skuFree, int freeAmount) {
+    public SpecialOffer(String skuRequired, int amountRequired, String skuFree, int freeAmount) {
         this.skuRequired = skuRequired;
+        this.amountRequired = amountRequired;
         this.skuFree = skuFree;
         this.freeAmount = freeAmount;
     }
@@ -52,3 +54,4 @@ public class SpecialOffer {
         this.totalPrice = totalPrice;
     }
 }
+

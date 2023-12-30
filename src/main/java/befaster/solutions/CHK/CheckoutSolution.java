@@ -53,7 +53,7 @@ public class CheckoutSolution {
                                     int offerAmount = bestSpecialOffer.getAmount();
                                     int price = mapSKUsPrice.get(sku);
 
-                                    totalPrice += (price * offerAmount);
+                                    totalPrice += (price * amount);
                                     amount -= offerAmount;
                                 }
                                 else
@@ -199,3 +199,4 @@ public class CheckoutSolution {
         return mapSKUsCounter;
     }
 }
+

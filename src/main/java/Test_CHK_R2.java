@@ -46,10 +46,13 @@ public class Test_CHK_R2 {
                     {
                         if (!specialOffers.isEmpty())
                         {
+                            //Check which offer is the best
                             for (SpecialOffer specialOffer : specialOffers)
                             {
                                 int offerAmount = specialOffer.getValue0();
                                 int offerPrice = specialOffer.getValue1();
+
+                                //
 
                                 //Check if there is enough items to apply the special offer
                                 if (amount >= offerAmount)
@@ -151,7 +154,4 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
-
-
-
 

@@ -42,9 +42,9 @@ public class Test_CHK_R2 {
                 ArrayList<String> chargedSKUs = new ArrayList<>();
 
                 //Calculate price
-                for (String currentSku : mapSKUsCounter.keySet())
+                for (String currentSku : filteredSKUs.keySet())
                 {
-                    int amount = mapSKUsCounter.get(currentSku);
+                    int amount = filteredSKUs.get(currentSku);
 
                     while (amount > 0)
                     {
@@ -221,7 +221,4 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
-
-
-
 

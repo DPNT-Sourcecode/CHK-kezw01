@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class Test_CHK_R3 {
     public static void main(String[] args)
     {
-        System.out.println(checkout("EEEEBB"));
+        System.out.println(checkout("FFFFFFF"));
     }
 
     public static Integer checkout(String skus) {
@@ -25,6 +25,7 @@ public class Test_CHK_R3 {
                 mapSKUsPrice.put("C", 20);
                 mapSKUsPrice.put("D", 15);
                 mapSKUsPrice.put("E", 40);
+                mapSKUsPrice.put("F", 10);
 
                 //Map with special offers
                 ArrayList<SpecialOffer> specialOffers = getSpecialOffers();
@@ -183,6 +184,7 @@ public class Test_CHK_R3 {
         offers.add(new SpecialOffer("A", 5, 200));
         offers.add(new SpecialOffer("B", 2, 45));
         offers.add(new SpecialOffer("E", 2, "B",1));
+        offers.add(new SpecialOffer("F", 2, "F",1));
 
         return offers;
     }
@@ -209,4 +211,5 @@ public class Test_CHK_R3 {
         return mapSKUsCounter;
     }
 }
+
 

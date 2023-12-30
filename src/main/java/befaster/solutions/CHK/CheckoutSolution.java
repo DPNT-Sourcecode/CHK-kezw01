@@ -21,6 +21,7 @@ public class CheckoutSolution {
                 mapSKUsPrice.put("C", 20);
                 mapSKUsPrice.put("D", 15);
                 mapSKUsPrice.put("E", 40);
+                mapSKUsPrice.put("F", 10);
 
                 //Map with special offers
                 ArrayList<SpecialOffer> specialOffers = getSpecialOffers();
@@ -179,6 +180,7 @@ public class CheckoutSolution {
         offers.add(new SpecialOffer("A", 5, 200));
         offers.add(new SpecialOffer("B", 2, 45));
         offers.add(new SpecialOffer("E", 2, "B",1));
+        offers.add(new SpecialOffer("F", 2, "F",1));
 
         return offers;
     }
@@ -205,4 +207,5 @@ public class CheckoutSolution {
         return mapSKUsCounter;
     }
 }
+
 

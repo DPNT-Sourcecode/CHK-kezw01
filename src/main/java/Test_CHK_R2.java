@@ -34,13 +34,6 @@ public class Test_CHK_R2 {
                 //Check for free items
                 HashMap<String, Integer> filteredSKUs = checkForFreeItems(mapSKUsCounter, specialOffers);
 
-                for (String key : filteredSKUs.keySet())
-                {
-                    System.out.println(key + " - " + filteredSKUs.get(key));
-                }
-
-                ArrayList<String> chargedSKUs = new ArrayList<>();
-
                 //Calculate price
                 for (String currentSku : filteredSKUs.keySet())
                 {
@@ -63,7 +56,6 @@ public class Test_CHK_R2 {
                                 {
                                     totalPrice += offerPrice;
                                     amount -= offerAmount;
-                                    chargedSKUs.add(currentSku);
                                 }
                                 //Not enough items to apply special offer, calculate using the "normal" price
                                 else
@@ -71,7 +63,6 @@ public class Test_CHK_R2 {
                                     int price = mapSKUsPrice.get(currentSku);
                                     totalPrice += price;
                                     amount--;
-                                    chargedSKUs.add(currentSku);
                                 }
                             }
                             //No special offers for this sku
@@ -81,7 +72,6 @@ public class Test_CHK_R2 {
                                 int price = mapSKUsPrice.get(currentSku);
                                 totalPrice += price;
                                 amount--;
-                                chargedSKUs.add(currentSku);
                             }
                         }
                         else
@@ -90,11 +80,9 @@ public class Test_CHK_R2 {
                             int price = mapSKUsPrice.get(currentSku);
                             totalPrice += price;
                             amount--;
-                            chargedSKUs.add(currentSku);
                         }
                     }
                 }
-                System.out.println(chargedSKUs);
                 return totalPrice;
             }
             else
@@ -109,10 +97,10 @@ public class Test_CHK_R2 {
     {
         HashMap<String, Integer> mapSKUsCounterHelper = new HashMap<>(mapSKUsCounter);
 
-        boolean tryAgain = false;
+        boolean tryToApplyOfferAgain = false;
         while (true)
         {
-            tryAgain = false;
+            tryToApplyOfferAgain = false;
             for (SpecialOffer specialOffer : specialOffers)
             {
                 if (specialOffer.getFreeSKU() != null && !specialOffer.getFreeSKU().isEmpty())
@@ -144,7 +132,7 @@ public class Test_CHK_R2 {
                                     int sub = currentAmountRequiredSKU - requiredAmount;
                                     mapSKUsCounterHelper.put(requiredSKU, sub);
 
-                                    tryAgain = true;
+                                    tryToApplyOfferAgain = true;
                                 }
                             }
                         }
@@ -152,7 +140,7 @@ public class Test_CHK_R2 {
                 }
             }
 
-            if (!tryAgain)
+            if (!tryToApplyOfferAgain)
             {
                 break;
             }
@@ -221,5 +209,6 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
+
 
 

@@ -30,6 +30,10 @@ public class Test_CHK_R2 {
                 ArrayList<SpecialOffer> specialOffers = getSpecialOffers();
 
                 HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skus);
+
+                //Check for free items
+                String filteredSKUs = checkForFreeItems(skus, specialOffers);
+
                 ArrayList<String> chargedSKUs = new ArrayList<>();
 
                 //Calculate price
@@ -96,6 +100,26 @@ public class Test_CHK_R2 {
         return 0;
     }
 
+    private String checkForFreeItems(String skus, ArrayList<SpecialOffer> specialOffers)
+    {
+        String filteredSKUs = "";
+
+        for (SpecialOffer specialOffer : specialOffers)
+        {
+            if (!specialOffer.getSkuFree().isEmpty())
+            {
+                String requiredSKU = specialOffer.getSkuRequired();
+
+                if (skus.contains(requiredSKU))
+                {
+                    
+                }
+            }
+        }
+
+        return filteredSKUs;
+    }
+
     private static SpecialOffer getBestSpecialOffer(String skuRequired, int amountOfItems, ArrayList<SpecialOffer> specialOffers)
     {
         float bestSingleItemPrice = Integer.MAX_VALUE;
@@ -156,4 +180,5 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
+
 

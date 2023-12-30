@@ -28,9 +28,9 @@ public class Test_CHK_R2 {
                 //Map with special offers
                 HashMap<String, ArrayList<SpecialOffer>> mapSKUsSpecialOffers = getMapSKUsSpecialOffers();
 
-                for (String sku : mapSKUsSpecialOffers.keySet()){
+                /*for (String sku : mapSKUsSpecialOffers.keySet()){
                     System.out.println(mapSKUsSpecialOffers.get(sku).toString());
-                }
+                }*/
 
                 HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skus);
 
@@ -46,7 +46,7 @@ public class Test_CHK_R2 {
                     {
                         if (!specialOffersCurrentSKU.isEmpty())
                         {
-                            SpecialOffer bestSpecialOffer = getBestSpecialOffer(specialOffersCurrentSKU);
+                            SpecialOffer bestSpecialOffer = getBestSpecialOffer(amount, specialOffersCurrentSKU);
                             //Check which offer is the best
 
                             if (bestSpecialOffer != null)
@@ -87,7 +87,7 @@ public class Test_CHK_R2 {
         return 0;
     }
 
-    private static SpecialOffer getBestSpecialOffer(ArrayList<SpecialOffer> specialOffers)
+    private static SpecialOffer getBestSpecialOffer(int amountOfItems, ArrayList<SpecialOffer> specialOffers)
     {
         float bestSingleItemPrice = Integer.MAX_VALUE;
 
@@ -100,12 +100,12 @@ public class Test_CHK_R2 {
 
             float singleItemPrice = (float) offerPrice / offerAmount;
 
-            if (singleItemPrice < bestSingleItemPrice)
+            if (amountOfItems >= offerAmount && singleItemPrice < bestSingleItemPrice)
             {
                 bestSingleItemPrice = singleItemPrice;
                 bestSpecialOffer = specialOffer;
             }
-            System.out.println(offerAmount + " - " + offerPrice + " - " + singleItemPrice);
+            //System.out.println(offerAmount + " - " + offerPrice + " - " + singleItemPrice);
         }
         System.out.println(bestSpecialOffer);
 
@@ -179,6 +179,7 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
+
 
 
 

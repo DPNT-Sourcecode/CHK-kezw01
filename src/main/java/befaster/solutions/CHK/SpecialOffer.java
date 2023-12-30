@@ -8,7 +8,7 @@ public class SpecialOffer {
     private Pair<String, Integer> skuFreeAmount;
 
     public SpecialOffer() {
-        this.price = -Integer.MIN_VALUE;
+        this.price = 0;
     }
 
     public int getAmount() {
@@ -44,4 +44,3 @@ public class SpecialOffer {
                 '}';
     }
 }
-

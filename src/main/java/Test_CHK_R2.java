@@ -98,12 +98,19 @@ public class Test_CHK_R2 {
             int offerAmount = specialOffer.getAmount();
             int offerPrice = specialOffer.getPrice();
 
-            float singleItemPrice = (float) offerPrice / offerAmount;
-
-            if (amountOfItems >= offerAmount && singleItemPrice < bestSingleItemPrice)
+            if (offerPrice == Integer.MIN_VALUE)
             {
-                bestSingleItemPrice = singleItemPrice;
-                bestSpecialOffer = specialOffer;
+                //Free item
+            }
+            else
+            {
+                float singleItemPrice = (float) offerPrice / offerAmount;
+
+                if (amountOfItems >= offerAmount && singleItemPrice < bestSingleItemPrice)
+                {
+                    bestSingleItemPrice = singleItemPrice;
+                    bestSpecialOffer = specialOffer;
+                }
             }
         }
 
@@ -177,10 +184,4 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
-
-
-
-
-
-
 

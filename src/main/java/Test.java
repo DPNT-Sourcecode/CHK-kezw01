@@ -1,3 +1,5 @@
+import org.javatuples.Tuple;
+
 import java.util.HashMap;
 
 public class Test {
@@ -18,7 +20,8 @@ public class Test {
         mapSKUsPrice.put("C", 20);
         mapSKUsPrice.put("D", 15);
 
-        
+        Tuple tuple = new Tuple() {
+        }
 
         HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skus);
 
@@ -47,6 +50,7 @@ public class Test {
         return mapSKUsCounter;
     }
 }
+
 
 
 

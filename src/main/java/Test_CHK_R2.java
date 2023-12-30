@@ -1,3 +1,4 @@
+import befaster.solutions.CHK.SpecialOffer;
 import org.javatuples.Pair;
 
 import java.util.ArrayList;
@@ -26,22 +27,17 @@ public class Test_CHK_R2 {
 
 
                 //Map with special offers
-                HashMap<String, ArrayList<Pair<Integer, Integer>>> mapSKUsSpecialOffers = new HashMap<>();
+                HashMap<String, ArrayList<SpecialOffer>> mapSKUsSpecialOffers = getMapSKUsSpecialOffers();
 
-                ArrayList<Pair<Integer, Integer>> offersA = new ArrayList<>();
-                offersA.add(new Pair<>(3, 130));
-                offersA.add(new Pair<>(3, 130));
-                mapSKUsSpecialOffers.put("A", new Pair<>(3, 130));
-                mapSKUsSpecialOffers.put("A", new Pair<>(3, 130));
-                mapSKUsSpecialOffers.put("A", new Pair<>(5, 200));
-                mapSKUsSpecialOffers.put("B", new Pair<>(2, 45));
-                mapSKUsSpecialOffers.put("E", new Pair<>(2, 45));
+                for (String sku : mapSKUsSpecialOffers.keySet()){
+                    System.out.println(mapSKUsSpecialOffers.get(sku).toString());
+                }
 
 
                 HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skus);
 
                 //Calculate price
-                for (String sku : mapSKUsCounter.keySet())
+                /*for (String sku : mapSKUsCounter.keySet())
                 {
                     int amount = mapSKUsCounter.get(sku);
 
@@ -76,7 +72,7 @@ public class Test_CHK_R2 {
                             amount--;
                         }
                     }
-                }
+                }*/
                 return totalPrice;
             }
             else
@@ -85,6 +81,51 @@ public class Test_CHK_R2 {
             }
         }
         return 0;
+    }
+
+    private static HashMap<String, ArrayList<SpecialOffer>> getMapSKUsSpecialOffers()
+    {
+        HashMap<String, ArrayList<SpecialOffer>> mapSKUsSpecialOffers = new HashMap<>();
+
+        //A
+        ArrayList<SpecialOffer> listOffersA = new ArrayList<>();
+
+        SpecialOffer offerA1 = new SpecialOffer();
+        offerA1.setAmount(3);
+        offerA1.setPrice(130);
+
+        SpecialOffer offerA2 = new SpecialOffer();
+        offerA2.setAmount(5);
+        offerA2.setPrice(200);
+
+        listOffersA.add(offerA1);
+        listOffersA.add(offerA2);
+
+        mapSKUsSpecialOffers.put("A", listOffersA);
+
+        //B
+        ArrayList<SpecialOffer> listOffersB = new ArrayList<>();
+
+        SpecialOffer offerB1 = new SpecialOffer();
+        offerB1.setAmount(2);
+        offerB1.setPrice(45);
+
+        listOffersB.add(offerB1);
+
+        mapSKUsSpecialOffers.put("B", listOffersB);
+
+        //E
+        ArrayList<SpecialOffer> listOffersE = new ArrayList<>();
+
+        SpecialOffer offerE1 = new SpecialOffer();
+        offerE1.setAmount(2);
+        offerE1.setSkuFreeAmount(new Pair<>("B", 1));
+
+        listOffersE.add(offerE1);
+
+        mapSKUsSpecialOffers.put("E", listOffersE);
+
+        return mapSKUsSpecialOffers;
     }
 
     private static HashMap<String, Integer> getMapSKUSCounter(String skus)
@@ -109,5 +150,6 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
+
 
 

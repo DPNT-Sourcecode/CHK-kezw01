@@ -19,7 +19,7 @@ public class CheckoutSolution {
                 mapSKUsPrice.put("A", 50);
                 mapSKUsPrice.put("B", 30);
                 mapSKUsPrice.put("C", 20);
-                mapSKUsPrice.put("D", 15);
+                mapSKUsPrice.put("D", 15);s
                 mapSKUsPrice.put("E", 40);
 
                 //Map with special offers
@@ -193,5 +193,6 @@ public class CheckoutSolution {
         return mapSKUsCounter;
     }
 }
+
 
 

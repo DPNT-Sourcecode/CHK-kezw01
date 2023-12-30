@@ -2,7 +2,7 @@ import org.javatuples.Pair;
 
 import java.util.HashMap;
 
-public class Test {
+public class Test_CHK_R1 {
     public static void main(String[] args)
     {
         System.out.println("hello");
@@ -32,6 +32,8 @@ public class Test {
         {
             int amount = mapSKUsCounter.get(sku);
             System.out.println(amount);
+
+
         }
 
         return totalPrice;
@@ -58,9 +60,12 @@ public class Test {
 
         return mapSKUsCounter;
     }
+
+    private static HashMap<String, Pair<Integer, Integer>> getSpecialOffer(String sku)
+    {
+        HashMap<String, Pair<Integer, Integer>> specialOffer = null;
+        
+        return specialOffer;
+    }
 }
-
-
-
-
 

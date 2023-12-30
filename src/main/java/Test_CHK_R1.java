@@ -5,7 +5,6 @@ import java.util.HashMap;
 public class Test_CHK_R1 {
     public static void main(String[] args)
     {
-        System.out.println("hello");
         checkout("AAAABB");
 
     }
@@ -48,6 +47,7 @@ public class Test_CHK_R1 {
                         totalPrice += offerPrice;
                         amount -= offerAmount;
                     }
+                    //Not enough items to apply special offer, calculate using the "normal" price
                     else
                     {
                         int price = mapSKUsPrice.get(sku);
@@ -63,7 +63,6 @@ public class Test_CHK_R1 {
                 }
             }
         }
-        System.out.println(totalPrice);
         return totalPrice;
     }
 
@@ -89,5 +88,6 @@ public class Test_CHK_R1 {
         return mapSKUsCounter;
     }
 }
+
 
 

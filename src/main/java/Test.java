@@ -22,18 +22,21 @@ public class Test {
 
         for (int i = 0; i < skus.length(); i++)
         {
-            char sku = skus.charAt(i);
+            String sku = String.valueOf(skus.charAt(i));
 
             if (mapSKUsCounter.get(sku) != null)
             {
-
+                int count = mapSKUsCounter.get(sku);
+                count++;
+                mapSKUsCounter.put(sku, count);
             }
             else {
-
+                mapSKUsCounter.put(sku, 1);
             }
         }
 
         return totalPrice;
     }
 }
+
 

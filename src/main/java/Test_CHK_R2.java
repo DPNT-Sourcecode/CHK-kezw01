@@ -131,7 +131,7 @@ public class Test_CHK_R2 {
 
                             if (mapSKUsCounterHelper.containsKey(freeSKU))
                             {
-                                int currentAmountFreeSKU = mapSKUsCounterHelper.get(freeSKU);
+                                int currentAmountFreeSKU = mapSKUsCounter.get(freeSKU);
 
                                 int freeAmount = specialOffer.getFreeAmount();
 
@@ -221,6 +221,7 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
+
 
 
 

@@ -32,7 +32,12 @@ public class Test_CHK_R2 {
                 HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skus);
 
                 //Check for free items
-                String filteredSKUs = checkForFreeItems(mapSKUsCounter, specialOffers);
+                HashMap<String, Integer> filteredSKUs = checkForFreeItems(mapSKUsCounter, specialOffers);
+
+                for (String key : filteredSKUs.keySet())
+                {
+                    System.out.println(key + " - " + filteredSKUs.get(key));
+                }
 
                 ArrayList<String> chargedSKUs = new ArrayList<>();
 
@@ -100,27 +105,44 @@ public class Test_CHK_R2 {
         return 0;
     }
 
-    private HashMap<String, Integer> checkForFreeItems(HashMap<String, Integer> mapSKUsCounter, ArrayList<SpecialOffer> specialOffers)
+    private static HashMap<String, Integer> checkForFreeItems(HashMap<String, Integer> mapSKUsCounter, ArrayList<SpecialOffer> specialOffers)
     {
-        HashMap<String, Integer> mapSKUsCounterFiltered = new HashMap<>();
-
         for (SpecialOffer specialOffer : specialOffers)
         {
             if (!specialOffer.getFreeSKU().isEmpty())
             {
                 String requiredSKU = specialOffer.getRequiredSKU();
+                int requiredAmount = specialOffer.getAmountRequired();
 
-                String freeSKU = specialOffer.getFreeSKU();
-                int freeAmount = specialOffer.getFreeAmount();
-
-                if (skus.contains(requiredSKU))
+                //Check if we have the required amount of items to apply the offer
+                if (mapSKUsCounter.containsKey(requiredSKU))
                 {
-                    skus.
+                    int currentAmountRequiredSKU = mapSKUsCounter.get(requiredSKU);
+
+                    if (currentAmountRequiredSKU >= requiredAmount)
+                    {
+                        String freeSKU = specialOffer.getFreeSKU();
+
+                        if (mapSKUsCounter.containsKey(freeSKU))
+                        {
+                            int currentAmountFreeSKU = mapSKUsCounter.get(requiredSKU);
+
+                            int freeAmount = specialOffer.getFreeAmount();
+
+                            //Apply discount
+                            if (currentAmountFreeSKU >= freeAmount)
+                            {
+                                currentAmountFreeSKU -= freeAmount;
+
+                                mapSKUsCounter.put(freeSKU, currentAmountFreeSKU);
+                            }
+                        }
+                    }
                 }
             }
         }
 
-        return filteredSKUs;
+        return mapSKUsCounter;
     }
 
     private static SpecialOffer getBestSpecialOffer(String skuRequired, int amountOfItems, ArrayList<SpecialOffer> specialOffers)
@@ -131,7 +153,7 @@ public class Test_CHK_R2 {
 
         for (SpecialOffer specialOffer : specialOffers)
         {
-            if (skuRequired.equals(specialOffer.getSkuRequired()))
+            if (skuRequired.equals(specialOffer.getRequiredSKU()))
             {
                 int offerAmount = specialOffer.getAmountRequired();
                 int offerPrice = specialOffer.getTotalPrice();
@@ -183,6 +205,7 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
+
 
 
 

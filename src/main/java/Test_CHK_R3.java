@@ -114,26 +114,55 @@ public class Test_CHK_R3 {
                     {
                         int currentAmountRequiredSKU = mapFilteredAmountSKUs.get(requiredSKU);
 
-                        if (currentAmountRequiredSKU >= requiredAmount)
+                        String freeSKU = specialOffer.getFreeSKU();
+
+                        //Required SKU is different from the free SKU
+                        if (!requiredSKU.equals(freeSKU))
                         {
-                            String freeSKU = specialOffer.getFreeSKU();
-
-                            if (mapFilteredAmountSKUs.containsKey(freeSKU))
+                            if (currentAmountRequiredSKU >= requiredAmount)
                             {
-                                int currentAmountFreeSKU = mapCurrentAmountSKUs.get(freeSKU);
-
-                                int freeAmount = specialOffer.getFreeAmount();
-
-                                //Apply discount
-                                if (currentAmountFreeSKU >= freeAmount)
+                                if (mapFilteredAmountSKUs.containsKey(freeSKU))
                                 {
-                                    currentAmountFreeSKU -= freeAmount;
-                                    mapCurrentAmountSKUs.put(freeSKU, currentAmountFreeSKU);
+                                    int currentAmountFreeSKU = mapCurrentAmountSKUs.get(freeSKU);
 
-                                    int sub = currentAmountRequiredSKU - requiredAmount;
-                                    mapFilteredAmountSKUs.put(requiredSKU, sub);
+                                    int freeAmount = specialOffer.getFreeAmount();
 
-                                    tryToApplyOfferAgain = true;
+                                    //Apply discount
+                                    if (currentAmountFreeSKU >= freeAmount)
+                                    {
+                                        currentAmountFreeSKU -= freeAmount;
+                                        mapCurrentAmountSKUs.put(freeSKU, currentAmountFreeSKU);
+
+                                        int sub = currentAmountRequiredSKU - requiredAmount;
+                                        mapFilteredAmountSKUs.put(requiredSKU, sub);
+
+                                        tryToApplyOfferAgain = true;
+                                    }
+                                }
+                            }
+                        }
+                        //Required and free are the same
+                        else
+                        {
+                            if (currentAmountRequiredSKU > requiredAmount)
+                            {
+                                if (mapFilteredAmountSKUs.containsKey(freeSKU))
+                                {
+                                    int currentAmountFreeSKU = mapCurrentAmountSKUs.get(freeSKU);
+
+                                    int freeAmount = specialOffer.getFreeAmount();
+
+                                    //Apply discount
+                                    if (currentAmountFreeSKU >= freeAmount)
+                                    {
+                                        currentAmountFreeSKU -= freeAmount;
+                                        mapCurrentAmountSKUs.put(freeSKU, currentAmountFreeSKU);
+
+                                        int sub = currentAmountRequiredSKU - requiredAmount;
+                                        mapFilteredAmountSKUs.put(requiredSKU, sub);
+
+                                        tryToApplyOfferAgain = true;
+                                    }
                                 }
                             }
                         }
@@ -211,4 +240,5 @@ public class Test_CHK_R3 {
         return mapSKUsCounter;
     }
 }
+
 

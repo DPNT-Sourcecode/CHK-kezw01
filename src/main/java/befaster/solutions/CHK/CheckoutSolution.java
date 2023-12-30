@@ -90,9 +90,9 @@ public class CheckoutSolution {
         return 0;
     }
 
-    private HashMap<String, Integer> checkForFreeItems(HashMap<String, Integer> mapSKUsCounter, ArrayList<SpecialOffer> specialOffers)
+    private HashMap<String, Integer> checkForFreeItems(HashMap<String, Integer> mapCurrentAmountSKUs, ArrayList<SpecialOffer> specialOffers)
     {
-        HashMap<String, Integer> mapSKUsCounterHelper = new HashMap<>(mapSKUsCounter);
+        HashMap<String, Integer> mapFilteredAmountSKUs = new HashMap<>(mapCurrentAmountSKUs);
 
         boolean tryToApplyOfferAgain = false;
         while (true)
@@ -106,30 +106,59 @@ public class CheckoutSolution {
                     int requiredAmount = specialOffer.getAmountRequired();
 
                     //Check if we have the required amount of items to apply the offer
-                    if (mapSKUsCounterHelper.containsKey(requiredSKU))
+                    if (mapFilteredAmountSKUs.containsKey(requiredSKU))
                     {
-                        int currentAmountRequiredSKU = mapSKUsCounterHelper.get(requiredSKU);
+                        int currentAmountRequiredSKU = mapFilteredAmountSKUs.get(requiredSKU);
 
-                        if (currentAmountRequiredSKU > requiredAmount)
+                        String freeSKU = specialOffer.getFreeSKU();
+
+                        //Required SKU is different from the free SKU
+                        if (!requiredSKU.equals(freeSKU))
                         {
-                            String freeSKU = specialOffer.getFreeSKU();
-
-                            if (mapSKUsCounterHelper.containsKey(freeSKU))
+                            if (currentAmountRequiredSKU >= requiredAmount)
                             {
-                                int currentAmountFreeSKU = mapSKUsCounter.get(freeSKU);
-
-                                int freeAmount = specialOffer.getFreeAmount();
-
-                                //Apply discount
-                                if (currentAmountFreeSKU >= freeAmount)
+                                if (mapFilteredAmountSKUs.containsKey(freeSKU))
                                 {
-                                    currentAmountFreeSKU -= freeAmount;
-                                    mapSKUsCounter.put(freeSKU, currentAmountFreeSKU);
+                                    int currentAmountFreeSKU = mapCurrentAmountSKUs.get(freeSKU);
 
-                                    int sub = currentAmountRequiredSKU - requiredAmount;
-                                    mapSKUsCounterHelper.put(requiredSKU, sub);
+                                    int freeAmount = specialOffer.getFreeAmount();
 
-                                    tryToApplyOfferAgain = true;
+                                    //Apply discount
+                                    if (currentAmountFreeSKU >= freeAmount)
+                                    {
+                                        currentAmountFreeSKU -= freeAmount;
+                                        mapCurrentAmountSKUs.put(freeSKU, currentAmountFreeSKU);
+
+                                        int sub = currentAmountRequiredSKU - requiredAmount;
+                                        mapFilteredAmountSKUs.put(requiredSKU, sub);
+
+                                        tryToApplyOfferAgain = true;
+                                    }
+                                }
+                            }
+                        }
+                        //Required and free are the same
+                        else
+                        {
+                            if (currentAmountRequiredSKU > requiredAmount)
+                            {
+                                if (mapFilteredAmountSKUs.containsKey(freeSKU))
+                                {
+                                    int currentAmountFreeSKU = mapCurrentAmountSKUs.get(freeSKU);
+
+                                    int freeAmount = specialOffer.getFreeAmount();
+
+                                    //Apply discount
+                                    if (currentAmountFreeSKU >= freeAmount)
+                                    {
+                                        currentAmountFreeSKU -= freeAmount;
+                                        mapCurrentAmountSKUs.put(freeSKU, currentAmountFreeSKU);
+
+                                        int sub = currentAmountRequiredSKU - requiredAmount;
+                                        mapFilteredAmountSKUs.put(requiredSKU, sub);
+
+                                        tryToApplyOfferAgain = true;
+                                    }
                                 }
                             }
                         }
@@ -143,7 +172,7 @@ public class CheckoutSolution {
             }
         }
 
-        return mapSKUsCounter;
+        return mapCurrentAmountSKUs;
     }
 
     private SpecialOffer getBestSpecialOffer(String skuRequired, int amountOfItems, ArrayList<SpecialOffer> specialOffers)
@@ -207,3 +236,4 @@ public class CheckoutSolution {
         return mapSKUsCounter;
     }
 }
+

@@ -31,7 +31,17 @@ public class Test_CHK_R1 {
         for (String sku : mapSKUsCounter.keySet())
         {
             int amount = mapSKUsCounter.get(sku);
-            System.out.println(amount);
+
+            //Check if there is a special offer for this sku
+            Pair<Integer, Integer> specialOffer = mapSKUsSpecialOffers.get(sku);
+
+            if (specialOffer != null)
+            {
+                int offerAmount = specialOffer.getValue0();
+                int offerPrice = specialOffer.getValue1();
+                System.out.println(offerAmount + " - "  + offerPrice);
+
+            }
 
 
         }
@@ -60,12 +70,6 @@ public class Test_CHK_R1 {
 
         return mapSKUsCounter;
     }
-
-    private static HashMap<String, Pair<Integer, Integer>> getSpecialOffer(String sku)
-    {
-        HashMap<String, Pair<Integer, Integer>> specialOffer = null;
-        
-        return specialOffer;
-    }
 }
+
 

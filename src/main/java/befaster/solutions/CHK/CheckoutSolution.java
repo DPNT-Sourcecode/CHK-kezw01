@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class CheckoutSolution {
     public Integer checkout(String skus) {
-        if (!skus.isEmpty())
+        if (!skus.isEmpty() && skus.matches("[A-Z]+"))
         {
             System.out.println(skus);
             int totalPrice = 0;
@@ -90,6 +90,7 @@ public class CheckoutSolution {
         return mapSKUsCounter;
     }
 }
+
 
 
 

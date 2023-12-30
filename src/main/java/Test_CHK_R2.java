@@ -25,7 +25,6 @@ public class Test_CHK_R2 {
                 mapSKUsPrice.put("D", 15);
                 mapSKUsPrice.put("E", 40);
 
-
                 //Map with special offers
                 HashMap<String, ArrayList<SpecialOffer>> mapSKUsSpecialOffers = getMapSKUsSpecialOffers();
 
@@ -33,36 +32,38 @@ public class Test_CHK_R2 {
                     System.out.println(mapSKUsSpecialOffers.get(sku).toString());
                 }
 
-
                 HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skus);
 
                 //Calculate price
-                /*for (String sku : mapSKUsCounter.keySet())
+                for (String sku : mapSKUsCounter.keySet())
                 {
                     int amount = mapSKUsCounter.get(sku);
 
                     //Check if there is a special offer for this sku
-                    Pair<Integer, Integer> specialOffer = mapSKUsSpecialOffers.get(sku);
+                    ArrayList<SpecialOffer> specialOffers = mapSKUsSpecialOffers.get(sku);
 
                     while (amount > 0)
                     {
-                        if (specialOffer != null)
+                        if (!specialOffers.isEmpty())
                         {
-                            int offerAmount = specialOffer.getValue0();
-                            int offerPrice = specialOffer.getValue1();
+                            for (SpecialOffer specialOffer : specialOffers)
+                            {
+                                int offerAmount = specialOffer.getValue0();
+                                int offerPrice = specialOffer.getValue1();
 
-                            //Check if there is enough items to apply the special offer
-                            if (amount >= offerAmount)
-                            {
-                                totalPrice += offerPrice;
-                                amount -= offerAmount;
-                            }
-                            //Not enough items to apply special offer, calculate using the "normal" price
-                            else
-                            {
-                                int price = mapSKUsPrice.get(sku);
-                                totalPrice += price;
-                                amount--;
+                                //Check if there is enough items to apply the special offer
+                                if (amount >= offerAmount)
+                                {
+                                    totalPrice += offerPrice;
+                                    amount -= offerAmount;
+                                }
+                                //Not enough items to apply special offer, calculate using the "normal" price
+                                else
+                                {
+                                    int price = mapSKUsPrice.get(sku);
+                                    totalPrice += price;
+                                    amount--;
+                                }
                             }
                         }
                         //The is no special offer this sku, calculate using the "normal" price
@@ -72,7 +73,7 @@ public class Test_CHK_R2 {
                             amount--;
                         }
                     }
-                }*/
+                }
                 return totalPrice;
             }
             else
@@ -150,6 +151,7 @@ public class Test_CHK_R2 {
         return mapSKUsCounter;
     }
 }
+
 
 
 

@@ -114,7 +114,7 @@ public class Test_CHK_R3 {
                     {
                         int currentAmountRequiredSKU = mapFilteredAmountSKUs.get(requiredSKU);
 
-                        if (currentAmountRequiredSKU >= requiredAmount)
+                        if (currentAmountRequiredSKU > requiredAmount)
                         {
                             String freeSKU = specialOffer.getFreeSKU();
 
@@ -211,6 +211,7 @@ public class Test_CHK_R3 {
         return mapSKUsCounter;
     }
 }
+
 
 
 

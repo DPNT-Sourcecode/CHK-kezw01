@@ -110,7 +110,7 @@ public class CheckoutSolution {
                     {
                         int currentAmountRequiredSKU = mapSKUsCounterHelper.get(requiredSKU);
 
-                        if (currentAmountRequiredSKU >= requiredAmount)
+                        if (currentAmountRequiredSKU > requiredAmount)
                         {
                             String freeSKU = specialOffer.getFreeSKU();
 
@@ -207,5 +207,6 @@ public class CheckoutSolution {
         return mapSKUsCounter;
     }
 }
+
 
 

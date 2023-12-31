@@ -30,7 +30,6 @@ public class Test_CHK_R5 {
                 //Check for free items
                 HashMap<String, Integer> filteredFreeSKUs = checkForFreeItems(mapSKUsCounter, specialOffers);
 
-
                 //Calculate price
                 for (String currentSku : filteredFreeSKUs.keySet())
                 {
@@ -294,6 +293,7 @@ public class Test_CHK_R5 {
         return mapSKUsCounter;
     }
 }
+
 
 
 

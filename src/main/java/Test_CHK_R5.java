@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class Test_CHK_R5 {
     public static void main(String[] args)
     {
-        System.out.println(checkout("SSS"));
+        System.out.println(checkout("STXSTX"));
     }
 
     public static Integer checkout(String skus) {
@@ -202,40 +202,36 @@ public class Test_CHK_R5 {
 
                     ArrayList<String> listSKUsToDecrease = new ArrayList<>();
 
-                    //Loop through SKUs in the current group offer
-                    for (String currentSKUInGroup : groupOffer.getGroupSKUs())
+                    //Loop through SKUs in input SKUs counter map
+                    for (String currentSKUInput : mapCurrentAmountSKUs.keySet())
                     {
-                        //Loop through SKUs in input SKUs counter map
-                        for (String currentSKUInput : mapCurrentAmountSKUs.keySet())
+                        //SKU is in a group offer
+                        if (groupOffer.getGroupSKUs().contains(currentSKUInput))
                         {
-                            //SKU is in a group offer
-                            if (currentSKUInGroup.equals(currentSKUInput))
+                            int currentSKUInputAmount = mapCurrentAmountSKUs.get(currentSKUInput);
+
+                            //For each SKU occurrence in the input
+                            for (int i = 0; i < currentSKUInputAmount; i++)
                             {
-                                int currentSKUInputAmount = mapCurrentAmountSKUs.get(currentSKUInput);
+                                matchSKUsAmount++;
 
-                                //If the SKU amount is > 0, increase the counter
-                                if (currentSKUInputAmount > 0)
+                                listSKUsToDecrease.add(currentSKUInput);
+
+                                //Apply group offer
+                                if (matchSKUsAmount >= requiredSKUsAmount)
                                 {
-                                    matchSKUsAmount++;
+                                    //Update price
+                                    totalPrice += groupOffer.getPrice();
 
-                                    listSKUsToDecrease.add(currentSKUInput);
-
-                                    //Apply group offer
-                                    if (matchSKUsAmount >= requiredSKUsAmount)
+                                    //Decrease the counter of the SKUs in the map
+                                    for (String skuToDecrease : listSKUsToDecrease)
                                     {
-                                        //Update price
-                                        totalPrice += groupOffer.getPrice();
-
-                                        //Decrease the counter of the SKUs in the map
-                                        for (String skuToDecrease : listSKUsToDecrease)
-                                        {
-                                            int currentAmount = mapCurrentAmountSKUs.get(currentSKUInput);
-                                            currentAmount--;
-                                            mapCurrentAmountSKUs.put(skuToDecrease, currentAmount);
-                                        }
-
-                                        tryToApplyOfferAgain = true;
+                                        int currentAmount = mapCurrentAmountSKUs.get(currentSKUInput);
+                                        currentAmount--;
+                                        mapCurrentAmountSKUs.put(skuToDecrease, currentAmount);
                                     }
+
+                                    tryToApplyOfferAgain = true;
                                 }
                             }
                         }
@@ -370,4 +366,5 @@ public class Test_CHK_R5 {
         return mapSKUsCounter;
     }
 }
+
 

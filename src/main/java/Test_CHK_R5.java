@@ -186,7 +186,6 @@ public class Test_CHK_R5 {
     private static Pair<HashMap<String, Integer>, Integer> checkForGroupOffers(HashMap<String, Integer> mapCurrentAmountSKUs, ArrayList<SpecialOffer> specialOffers)
     {
         int totalPrice = 0;
-        HashMap<String, Integer> mapFilteredAmountSKUs = new HashMap<>(mapCurrentAmountSKUs);
 
         boolean tryToApplyOfferAgain = false;
         while (true)
@@ -371,7 +370,4 @@ public class Test_CHK_R5 {
         return mapSKUsCounter;
     }
 }
-
-
-
 

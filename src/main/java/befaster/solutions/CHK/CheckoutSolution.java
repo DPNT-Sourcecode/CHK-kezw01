@@ -273,5 +273,3 @@ public class CheckoutSolution {
         return mapSKUsCounter;
     }
 }
-
-

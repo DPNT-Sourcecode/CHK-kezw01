@@ -56,5 +56,3 @@ public class FreeOffer extends SpecialOffer
                 '}';
     }
 }
-
-

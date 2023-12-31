@@ -47,4 +47,3 @@ public class DiscountOffer extends SpecialOffer
                 '}';
     }
 }
-

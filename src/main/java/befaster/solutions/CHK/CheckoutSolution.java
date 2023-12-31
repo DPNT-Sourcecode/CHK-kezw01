@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CheckoutSolution {
-    public Integer checkout(String skus) {
+    public  Integer checkout(String skus) {
         if (!skus.isEmpty())
         {
             if (skus.matches("[A-Z]+"))
@@ -84,7 +84,7 @@ public class CheckoutSolution {
         return 0;
     }
 
-    private HashMap<String, Integer> checkForFreeItems(HashMap<String, Integer> mapCurrentAmountSKUs, ArrayList<SpecialOffer> specialOffers)
+    private  HashMap<String, Integer> checkForFreeItems(HashMap<String, Integer> mapCurrentAmountSKUs, ArrayList<SpecialOffer> specialOffers)
     {
         HashMap<String, Integer> mapFilteredAmountSKUs = new HashMap<>(mapCurrentAmountSKUs);
 
@@ -169,7 +169,7 @@ public class CheckoutSolution {
         return mapCurrentAmountSKUs;
     }
 
-    private SpecialOffer getBestSpecialOffer(String skuRequired, int amountOfItems, ArrayList<SpecialOffer> specialOffers)
+    private  SpecialOffer getBestSpecialOffer(String skuRequired, int amountOfItems, ArrayList<SpecialOffer> specialOffers)
     {
         float bestSingleItemPrice = Integer.MAX_VALUE;
 
@@ -195,7 +195,7 @@ public class CheckoutSolution {
         return bestSpecialOffer;
     }
 
-    private HashMap<String, Integer> getSinglePrices()
+    private  HashMap<String, Integer> getSinglePrices()
     {
         HashMap<String, Integer> mapSKUsPrice = new HashMap<>();
 
@@ -209,7 +209,7 @@ public class CheckoutSolution {
         mapSKUsPrice.put("H", 10);
         mapSKUsPrice.put("I", 35);
         mapSKUsPrice.put("J", 60);
-        mapSKUsPrice.put("K", 80);
+        mapSKUsPrice.put("K", 70);
         mapSKUsPrice.put("L", 90);
         mapSKUsPrice.put("M", 15);
         mapSKUsPrice.put("N", 40);
@@ -217,19 +217,19 @@ public class CheckoutSolution {
         mapSKUsPrice.put("P", 50);
         mapSKUsPrice.put("Q", 30);
         mapSKUsPrice.put("R", 50);
-        mapSKUsPrice.put("S", 30);
+        mapSKUsPrice.put("S", 20);
         mapSKUsPrice.put("T", 20);
         mapSKUsPrice.put("U", 40);
         mapSKUsPrice.put("V", 50);
         mapSKUsPrice.put("W", 20);
-        mapSKUsPrice.put("X", 90);
-        mapSKUsPrice.put("Y", 10);
-        mapSKUsPrice.put("Z", 50);
+        mapSKUsPrice.put("X", 17);
+        mapSKUsPrice.put("Y", 20);
+        mapSKUsPrice.put("Z", 21);
 
         return mapSKUsPrice;
     }
 
-    private ArrayList<SpecialOffer> getSpecialOffers()
+    private  ArrayList<SpecialOffer> getSpecialOffers()
     {
         ArrayList<SpecialOffer> offers = new ArrayList<>();
 
@@ -240,7 +240,7 @@ public class CheckoutSolution {
         offers.add(new SpecialOffer("F", 2, "F",1));
         offers.add(new SpecialOffer("H", 5, 45));
         offers.add(new SpecialOffer("H", 10, 80));
-        offers.add(new SpecialOffer("K", 2, 150));
+        offers.add(new SpecialOffer("K", 2, 120));
         offers.add(new SpecialOffer("N", 3, "M",1));
         offers.add(new SpecialOffer("P", 5, 200));
         offers.add(new SpecialOffer("Q", 3, 80));
@@ -252,7 +252,7 @@ public class CheckoutSolution {
         return offers;
     }
 
-    private HashMap<String, Integer> getMapSKUSCounter(String skus)
+    private  HashMap<String, Integer> getMapSKUSCounter(String skus)
     {
         HashMap<String, Integer> mapSKUsCounter = new HashMap<String, Integer>();
 
@@ -274,3 +274,4 @@ public class CheckoutSolution {
         return mapSKUsCounter;
     }
 }
+

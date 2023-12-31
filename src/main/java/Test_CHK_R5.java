@@ -213,7 +213,7 @@ public class Test_CHK_R5 {
         mapSKUsPrice.put("H", 10);
         mapSKUsPrice.put("I", 35);
         mapSKUsPrice.put("J", 60);
-        mapSKUsPrice.put("K", 80);
+        mapSKUsPrice.put("K", 70);
         mapSKUsPrice.put("L", 90);
         mapSKUsPrice.put("M", 15);
         mapSKUsPrice.put("N", 40);
@@ -221,14 +221,14 @@ public class Test_CHK_R5 {
         mapSKUsPrice.put("P", 50);
         mapSKUsPrice.put("Q", 30);
         mapSKUsPrice.put("R", 50);
-        mapSKUsPrice.put("S", 30);
+        mapSKUsPrice.put("S", 20);
         mapSKUsPrice.put("T", 20);
         mapSKUsPrice.put("U", 40);
         mapSKUsPrice.put("V", 50);
         mapSKUsPrice.put("W", 20);
-        mapSKUsPrice.put("X", 90);
-        mapSKUsPrice.put("Y", 10);
-        mapSKUsPrice.put("Z", 50);
+        mapSKUsPrice.put("X", 17);
+        mapSKUsPrice.put("Y", 20);
+        mapSKUsPrice.put("Z", 21);
 
         return mapSKUsPrice;
     }
@@ -244,7 +244,7 @@ public class Test_CHK_R5 {
         offers.add(new SpecialOffer("F", 2, "F",1));
         offers.add(new SpecialOffer("H", 5, 45));
         offers.add(new SpecialOffer("H", 10, 80));
-        offers.add(new SpecialOffer("K", 2, 150));
+        offers.add(new SpecialOffer("K", 2, 120));
         offers.add(new SpecialOffer("N", 3, "M",1));
         offers.add(new SpecialOffer("P", 5, 200));
         offers.add(new SpecialOffer("Q", 3, 80));
@@ -278,4 +278,5 @@ public class Test_CHK_R5 {
         return mapSKUsCounter;
     }
 }
+
 

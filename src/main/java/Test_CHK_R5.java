@@ -231,6 +231,7 @@ public class Test_CHK_R5 {
                                         int updateAmount = currentAmount - amountToDecrease;
                                         mapCurrentAmountSKUs.put(skuToDecrease, updateAmount);
                                     }
+                                    mapSKUsToDecrease.clear();
                                     matchSKUsAmount = 0;
                                     tryToApplyOfferAgain = true;
                                 }
@@ -367,5 +368,6 @@ public class Test_CHK_R5 {
         return mapSKUsCounter;
     }
 }
+
 
 

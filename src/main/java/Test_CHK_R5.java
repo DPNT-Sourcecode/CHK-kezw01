@@ -200,7 +200,7 @@ public class Test_CHK_R5 {
                     int requiredSKUsAmount = groupOffer.getRequiredAmount();
                     int matchSKUsAmount = 0;
 
-                    ArrayList<String> listSKUsToDecrease = new ArrayList<>();
+                    HashMap<String, Integer> mapSKUsToDecrease = new HashMap<>();
 
                     //Loop through SKUs in input SKUs counter map
                     for (String currentSKUInput : mapCurrentAmountSKUs.keySet())
@@ -215,7 +215,7 @@ public class Test_CHK_R5 {
                             {
                                 matchSKUsAmount++;
 
-                                listSKUsToDecrease.add(currentSKUInput);
+                                mapSKUsToDecrease.put(currentSKUInput, matchSKUsAmount);
 
                                 //Apply group offer
                                 if (matchSKUsAmount == requiredSKUsAmount)
@@ -224,11 +224,12 @@ public class Test_CHK_R5 {
                                     totalPrice += groupOffer.getPrice();
 
                                     //Decrease the counter of the SKUs in the map
-                                    for (String skuToDecrease : listSKUsToDecrease)
+                                    for (String skuToDecrease : mapSKUsToDecrease.keySet())
                                     {
                                         int currentAmount = mapCurrentAmountSKUs.get(currentSKUInput);
-                                        currentAmount--;
-                                        mapCurrentAmountSKUs.put(skuToDecrease, currentAmount);
+                                        int amountToDecrease = mapSKUsToDecrease.get(skuToDecrease);
+                                        int updateAmount = currentAmount - amountToDecrease;
+                                        mapCurrentAmountSKUs.put(skuToDecrease, updateAmount);
                                     }
                                     matchSKUsAmount = 0;
                                     tryToApplyOfferAgain = true;
@@ -366,4 +367,5 @@ public class Test_CHK_R5 {
         return mapSKUsCounter;
     }
 }
+
 

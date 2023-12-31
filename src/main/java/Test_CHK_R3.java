@@ -1,7 +1,5 @@
-import befaster.solutions.CHK.SpecialOffer;
-import org.javatuples.Pair;
+import befaster.solutions.CHK.specialoffers.SpecialOffer;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -240,4 +238,5 @@ public class Test_CHK_R3 {
         return mapSKUsCounter;
     }
 }
+
 

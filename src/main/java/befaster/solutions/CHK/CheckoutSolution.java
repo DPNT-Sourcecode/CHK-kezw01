@@ -1,7 +1,6 @@
 package befaster.solutions.CHK;
 
-import befaster.runner.SolutionNotImplementedException;
-import org.javatuples.Pair;
+import befaster.solutions.CHK.specialoffers.SpecialOffer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -274,4 +273,5 @@ public class CheckoutSolution {
         return mapSKUsCounter;
     }
 }
+
 

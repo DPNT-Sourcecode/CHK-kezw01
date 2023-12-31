@@ -1,6 +1,8 @@
-package befaster.solutions.CHK;
+package befaster.solutions.CHK.specialoffers;
 
 import org.javatuples.Pair;
+
+import java.util.ArrayList;
 
 public class SpecialOffer {
     private String requiredSKU;
@@ -8,13 +10,9 @@ public class SpecialOffer {
     private int totalPrice;
     private String freeSKU;
     private int freeAmount;
+    private ArrayList<String> requiredSKUGroup;
 
-    public int getAmountRequired() {
-        return amountRequired;
-    }
-
-    public void setAmountRequired(int amountRequired) {
-        this.amountRequired = amountRequired;
+    public SpecialOffer() {
     }
 
     public SpecialOffer(String requiredSKU, int amountRequired, int totalPrice) {
@@ -28,6 +26,14 @@ public class SpecialOffer {
         this.amountRequired = amountRequired;
         this.freeSKU = freeSKU;
         this.freeAmount = freeAmount;
+    }
+
+    public int getAmountRequired() {
+        return amountRequired;
+    }
+
+    public void setAmountRequired(int amountRequired) {
+        this.amountRequired = amountRequired;
     }
 
     public int getFreeAmount() {
@@ -62,3 +68,4 @@ public class SpecialOffer {
         this.totalPrice = totalPrice;
     }
 }
+

@@ -1,3 +1,5 @@
+import befaster.solutions.CHK.specialoffers.DiscountOffer;
+import befaster.solutions.CHK.specialoffers.FreeOffer;
 import befaster.solutions.CHK.specialoffers.SpecialOffer;
 
 import java.util.ArrayList;
@@ -171,30 +173,33 @@ public class Test_CHK_R5 {
         return mapCurrentAmountSKUs;
     }
 
-    private static SpecialOffer getBestSpecialOffer(String skuRequired, int amountOfItems, ArrayList<SpecialOffer> specialOffers)
+    private static SpecialOffer getBestDiscountOffer(String skuRequired, int amountOfItems, ArrayList<SpecialOffer> specialOffers)
     {
         float bestSingleItemPrice = Integer.MAX_VALUE;
 
-        SpecialOffer bestSpecialOffer = null;
+        SpecialOffer bestDiscountOffer = null;
 
         for (SpecialOffer specialOffer : specialOffers)
         {
-            if (skuRequired.equals(specialOffer.getRequiredSKU()) && specialOffer.getFreeSKU() == null)
+            if (specialOffer instanceof DiscountOffer)
             {
-                int offerAmount = specialOffer.getAmountRequired();
-                int offerPrice = specialOffer.getTotalPrice();
-
-                float singleItemPrice = (float) offerPrice / offerAmount;
-
-                if (amountOfItems >= offerAmount && singleItemPrice < bestSingleItemPrice)
+                if (skuRequired.equals(specialOffer.getRequiredSKU()) && specialOffer.getFreeSKU() == null)
                 {
-                    bestSingleItemPrice = singleItemPrice;
-                    bestSpecialOffer = specialOffer;
+                    int offerAmount = specialOffer.getAmountRequired();
+                    int offerPrice = specialOffer.getTotalPrice();
+
+                    float singleItemPrice = (float) offerPrice / offerAmount;
+
+                    if (amountOfItems >= offerAmount && singleItemPrice < bestSingleItemPrice)
+                    {
+                        bestSingleItemPrice = singleItemPrice;
+                        bestDiscountOffer = specialOffer;
+                    }
                 }
             }
         }
 
-        return bestSpecialOffer;
+        return bestDiscountOffer;
     }
 
     private static HashMap<String, Integer> getSinglePrices()
@@ -235,21 +240,21 @@ public class Test_CHK_R5 {
     {
         ArrayList<SpecialOffer> offers = new ArrayList<>();
 
-        offers.add(new SpecialOffer("A", 3, 130));
-        offers.add(new SpecialOffer("A", 5, 200));
-        offers.add(new SpecialOffer("B", 2, 45));
-        offers.add(new SpecialOffer("E", 2, "B",1));
-        offers.add(new SpecialOffer("F", 2, "F",1));
-        offers.add(new SpecialOffer("H", 5, 45));
-        offers.add(new SpecialOffer("H", 10, 80));
-        offers.add(new SpecialOffer("K", 2, 120));
-        offers.add(new SpecialOffer("N", 3, "M",1));
-        offers.add(new SpecialOffer("P", 5, 200));
-        offers.add(new SpecialOffer("Q", 3, 80));
-        offers.add(new SpecialOffer("R", 3, "Q",1));
-        offers.add(new SpecialOffer("U", 3, "U",1));
-        offers.add(new SpecialOffer("V", 2, 90));
-        offers.add(new SpecialOffer("V", 3, 130));
+        offers.add(new DiscountOffer("A", 3, 130));
+        offers.add(new DiscountOffer("A", 5, 200));
+        offers.add(new DiscountOffer("B", 2, 45));
+        offers.add(new FreeOffer("E", 2, "B",1));
+        offers.add(new FreeOffer("F", 2, "F",1));
+        offers.add(new DiscountOffer("H", 5, 45));
+        offers.add(new DiscountOffer("H", 10, 80));
+        offers.add(new DiscountOffer("K", 2, 120));
+        offers.add(new FreeOffer("N", 3, "M",1));
+        offers.add(new DiscountOffer("P", 5, 200));
+        offers.add(new DiscountOffer("Q", 3, 80));
+        offers.add(new FreeOffer("R", 3, "Q",1));
+        offers.add(new FreeOffer("U", 3, "U",1));
+        offers.add(new DiscountOffer("V", 2, 90));
+        offers.add(new DiscountOffer("V", 3, 130));
 
         return offers;
     }
@@ -276,6 +281,7 @@ public class Test_CHK_R5 {
         return mapSKUsCounter;
     }
 }
+
 
 
 

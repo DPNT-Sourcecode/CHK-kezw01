@@ -1,13 +1,17 @@
-package befaster.solutions.CHK;
-
-import befaster.runner.SolutionNotImplementedException;
+import befaster.solutions.CHK.SpecialOffer;
 import org.javatuples.Pair;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CheckoutSolution {
-    public Integer checkout(String skus) {
+public class Test_CHK_R5 {
+    public static void main(String[] args)
+    {
+        System.out.println(checkout("VVV"));
+    }
+
+    public static Integer checkout(String skus) {
         if (!skus.isEmpty())
         {
             if (skus.matches("[A-Z]+"))
@@ -84,7 +88,7 @@ public class CheckoutSolution {
         return 0;
     }
 
-    private HashMap<String, Integer> checkForFreeItems(HashMap<String, Integer> mapCurrentAmountSKUs, ArrayList<SpecialOffer> specialOffers)
+    private static HashMap<String, Integer> checkForFreeItems(HashMap<String, Integer> mapCurrentAmountSKUs, ArrayList<SpecialOffer> specialOffers)
     {
         HashMap<String, Integer> mapFilteredAmountSKUs = new HashMap<>(mapCurrentAmountSKUs);
 
@@ -169,7 +173,7 @@ public class CheckoutSolution {
         return mapCurrentAmountSKUs;
     }
 
-    private SpecialOffer getBestSpecialOffer(String skuRequired, int amountOfItems, ArrayList<SpecialOffer> specialOffers)
+    private static SpecialOffer getBestSpecialOffer(String skuRequired, int amountOfItems, ArrayList<SpecialOffer> specialOffers)
     {
         float bestSingleItemPrice = Integer.MAX_VALUE;
 
@@ -195,7 +199,7 @@ public class CheckoutSolution {
         return bestSpecialOffer;
     }
 
-    private HashMap<String, Integer> getSinglePrices()
+    private static HashMap<String, Integer> getSinglePrices()
     {
         HashMap<String, Integer> mapSKUsPrice = new HashMap<>();
 
@@ -229,7 +233,7 @@ public class CheckoutSolution {
         return mapSKUsPrice;
     }
 
-    private ArrayList<SpecialOffer> getSpecialOffers()
+    private static ArrayList<SpecialOffer> getSpecialOffers()
     {
         ArrayList<SpecialOffer> offers = new ArrayList<>();
 
@@ -252,7 +256,7 @@ public class CheckoutSolution {
         return offers;
     }
 
-    private HashMap<String, Integer> getMapSKUSCounter(String skus)
+    private static HashMap<String, Integer> getMapSKUSCounter(String skus)
     {
         HashMap<String, Integer> mapSKUsCounter = new HashMap<String, Integer>();
 
@@ -274,3 +278,4 @@ public class CheckoutSolution {
         return mapSKUsCounter;
     }
 }
+

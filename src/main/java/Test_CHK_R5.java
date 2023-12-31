@@ -218,7 +218,7 @@ public class Test_CHK_R5 {
                                 listSKUsToDecrease.add(currentSKUInput);
 
                                 //Apply group offer
-                                if (matchSKUsAmount >= requiredSKUsAmount)
+                                if (matchSKUsAmount == requiredSKUsAmount)
                                 {
                                     //Update price
                                     totalPrice += groupOffer.getPrice();
@@ -366,6 +366,7 @@ public class Test_CHK_R5 {
         return mapSKUsCounter;
     }
 }
+
 
 
 

@@ -30,8 +30,6 @@ public class Test_CHK_R5 {
                 //Check for free items
                 HashMap<String, Integer> filteredFreeSKUs = checkForFreeItems(mapSKUsCounter, specialOffers);
 
-                //Check group offers
-                HashMap<String, Integer> filteredGroupsSKUs = checkForGroups(mapSKUsCounter, specialOffers);
 
                 //Calculate price
                 for (String currentSku : filteredFreeSKUs.keySet())
@@ -42,13 +40,13 @@ public class Test_CHK_R5 {
                     {
                         if (!specialOffers.isEmpty())
                         {
-                            DiscountOffer bestSpecialOffer = getBestDiscountOffer(currentSku, amount, specialOffers);
+                            DiscountOffer bestDiscountOffer = getBestDiscountOffer(currentSku, amount, specialOffers);
 
                             //Special offer found
-                            if (bestSpecialOffer != null)
+                            if (bestDiscountOffer != null)
                             {
-                                int offerAmount = bestSpecialOffer.getRequiredAmount();
-                                int offerPrice = bestSpecialOffer.getPrice();
+                                int offerAmount = bestDiscountOffer.getRequiredAmount();
+                                int offerPrice = bestDiscountOffer.getPrice();
 
                                 //Check if there is enough items to apply the special offer
                                 if (amount >= offerAmount)
@@ -268,7 +266,7 @@ public class Test_CHK_R5 {
         groupSKUs.add("X");
         groupSKUs.add("Y");
         groupSKUs.add("Z");
-        GroupOffer groupOffer = new GroupOffer(groupSKUs);
+        GroupOffer groupOffer = new GroupOffer(groupSKUs, 3, 45);
         offers.add(groupOffer);
 
         return offers;
@@ -296,6 +294,7 @@ public class Test_CHK_R5 {
         return mapSKUsCounter;
     }
 }
+
 
 
 

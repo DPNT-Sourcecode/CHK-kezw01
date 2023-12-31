@@ -1,5 +1,8 @@
 package befaster.solutions.CHK;
 
+import befaster.solutions.CHK.specialoffers.DiscountOffer;
+import befaster.solutions.CHK.specialoffers.FreeOffer;
+import befaster.solutions.CHK.specialoffers.GroupOffer;
 import befaster.solutions.CHK.specialoffers.SpecialOffer;
 
 import java.util.ArrayList;
@@ -7,7 +10,7 @@ import java.util.HashMap;
 
 public class CheckoutSolution {
     public  Integer checkout(String skus) {
-        /*if (!skus.isEmpty())
+        if (!skus.isEmpty())
         {
             if (skus.matches("[A-Z]+"))
             {
@@ -22,24 +25,25 @@ public class CheckoutSolution {
                 HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skus);
 
                 //Check for free items
-                HashMap<String, Integer> filteredSKUs = checkForFreeItems(mapSKUsCounter, specialOffers);
+                HashMap<String, Integer> filteredFreeSKUs = checkForFreeItems(mapSKUsCounter, specialOffers);
+
 
                 //Calculate price
-                for (String currentSku : filteredSKUs.keySet())
+                for (String currentSku : filteredFreeSKUs.keySet())
                 {
-                    int amount = filteredSKUs.get(currentSku);
+                    int amount = filteredFreeSKUs.get(currentSku);
 
                     while (amount > 0)
                     {
                         if (!specialOffers.isEmpty())
                         {
-                            SpecialOffer bestSpecialOffer = getBestSpecialOffer(currentSku, amount, specialOffers);
+                            DiscountOffer bestDiscountOffer = getBestDiscountOffer(currentSku, amount, specialOffers);
 
                             //Special offer found
-                            if (bestSpecialOffer != null)
+                            if (bestDiscountOffer != null)
                             {
-                                int offerAmount = bestSpecialOffer.getAmountRequired();
-                                int offerPrice = bestSpecialOffer.getTotalPrice();
+                                int offerAmount = bestDiscountOffer.getRequiredAmount();
+                                int offerPrice = bestDiscountOffer.getPrice();
 
                                 //Check if there is enough items to apply the special offer
                                 if (amount >= offerAmount)
@@ -79,10 +83,10 @@ public class CheckoutSolution {
             {
                 return -1;
             }
-        }*/
+        }
         return 0;
     }
-/*
+
     private  HashMap<String, Integer> checkForFreeItems(HashMap<String, Integer> mapCurrentAmountSKUs, ArrayList<SpecialOffer> specialOffers)
     {
         HashMap<String, Integer> mapFilteredAmountSKUs = new HashMap<>(mapCurrentAmountSKUs);
@@ -93,17 +97,18 @@ public class CheckoutSolution {
             tryToApplyOfferAgain = false;
             for (SpecialOffer specialOffer : specialOffers)
             {
-                if (specialOffer.getFreeSKU() != null && !specialOffer.getFreeSKU().isEmpty())
+                //Check only DiscountOffer objects
+                if (specialOffer instanceof FreeOffer freeOffer)
                 {
-                    String requiredSKU = specialOffer.getRequiredSKU();
-                    int requiredAmount = specialOffer.getAmountRequired();
+                    String requiredSKU = freeOffer.getRequiredSKU();
+                    int requiredAmount = freeOffer.getRequiredAmount();
 
                     //Check if we have the required amount of items to apply the offer
                     if (mapFilteredAmountSKUs.containsKey(requiredSKU))
                     {
                         int currentAmountRequiredSKU = mapFilteredAmountSKUs.get(requiredSKU);
 
-                        String freeSKU = specialOffer.getFreeSKU();
+                        String freeSKU = freeOffer.getFreeSKU();
 
                         //Required SKU is different from the free SKU
                         if (!requiredSKU.equals(freeSKU))
@@ -114,7 +119,7 @@ public class CheckoutSolution {
                                 {
                                     int currentAmountFreeSKU = mapCurrentAmountSKUs.get(freeSKU);
 
-                                    int freeAmount = specialOffer.getFreeAmount();
+                                    int freeAmount = freeOffer.getFreeAmount();
 
                                     //Apply discount
                                     if (currentAmountFreeSKU >= freeAmount)
@@ -139,7 +144,7 @@ public class CheckoutSolution {
                                 {
                                     int currentAmountFreeSKU = mapCurrentAmountSKUs.get(freeSKU);
 
-                                    int freeAmount = specialOffer.getFreeAmount();
+                                    int freeAmount = freeOffer.getFreeAmount();
 
                                     //Apply discount
                                     if (currentAmountFreeSKU >= freeAmount)
@@ -168,30 +173,34 @@ public class CheckoutSolution {
         return mapCurrentAmountSKUs;
     }
 
-    private  SpecialOffer getBestSpecialOffer(String skuRequired, int amountOfItems, ArrayList<SpecialOffer> specialOffers)
+    private  DiscountOffer getBestDiscountOffer(String skuRequired, int amountOfItems, ArrayList<SpecialOffer> specialOffers)
     {
         float bestSingleItemPrice = Integer.MAX_VALUE;
 
-        SpecialOffer bestSpecialOffer = null;
+        DiscountOffer bestDiscountOffer = null;
 
         for (SpecialOffer specialOffer : specialOffers)
         {
-            if (skuRequired.equals(specialOffer.getRequiredSKU()) && specialOffer.getFreeSKU() == null)
+            //Check only DiscountOffer objects
+            if (specialOffer instanceof DiscountOffer discountOffer)
             {
-                int offerAmount = specialOffer.getAmountRequired();
-                int offerPrice = specialOffer.getTotalPrice();
-
-                float singleItemPrice = (float) offerPrice / offerAmount;
-
-                if (amountOfItems >= offerAmount && singleItemPrice < bestSingleItemPrice)
+                if (skuRequired.equals(discountOffer.getRequiredSKU()))
                 {
-                    bestSingleItemPrice = singleItemPrice;
-                    bestSpecialOffer = specialOffer;
+                    int offerAmount = discountOffer.getRequiredAmount();
+                    int offerPrice = discountOffer.getPrice();
+
+                    float singleItemPrice = (float) offerPrice / offerAmount;
+
+                    if (amountOfItems >= offerAmount && singleItemPrice < bestSingleItemPrice)
+                    {
+                        bestSingleItemPrice = singleItemPrice;
+                        bestDiscountOffer = discountOffer;
+                    }
                 }
             }
         }
 
-        return bestSpecialOffer;
+        return bestDiscountOffer;
     }
 
     private  HashMap<String, Integer> getSinglePrices()
@@ -232,21 +241,30 @@ public class CheckoutSolution {
     {
         ArrayList<SpecialOffer> offers = new ArrayList<>();
 
-        offers.add(new SpecialOffer("A", 3, 130));
-        offers.add(new SpecialOffer("A", 5, 200));
-        offers.add(new SpecialOffer("B", 2, 45));
-        offers.add(new SpecialOffer("E", 2, "B",1));
-        offers.add(new SpecialOffer("F", 2, "F",1));
-        offers.add(new SpecialOffer("H", 5, 45));
-        offers.add(new SpecialOffer("H", 10, 80));
-        offers.add(new SpecialOffer("K", 2, 120));
-        offers.add(new SpecialOffer("N", 3, "M",1));
-        offers.add(new SpecialOffer("P", 5, 200));
-        offers.add(new SpecialOffer("Q", 3, 80));
-        offers.add(new SpecialOffer("R", 3, "Q",1));
-        offers.add(new SpecialOffer("U", 3, "U",1));
-        offers.add(new SpecialOffer("V", 2, 90));
-        offers.add(new SpecialOffer("V", 3, 130));
+        offers.add(new DiscountOffer("A", 3, 130));
+        offers.add(new DiscountOffer("A", 5, 200));
+        offers.add(new DiscountOffer("B", 2, 45));
+        offers.add(new FreeOffer("E", 2, "B",1));
+        offers.add(new FreeOffer("F", 2, "F",1));
+        offers.add(new DiscountOffer("H", 5, 45));
+        offers.add(new DiscountOffer("H", 10, 80));
+        offers.add(new DiscountOffer("K", 2, 120));
+        offers.add(new FreeOffer("N", 3, "M",1));
+        offers.add(new DiscountOffer("P", 5, 200));
+        offers.add(new DiscountOffer("Q", 3, 80));
+        offers.add(new FreeOffer("R", 3, "Q",1));
+        offers.add(new FreeOffer("U", 3, "U",1));
+        offers.add(new DiscountOffer("V", 2, 90));
+        offers.add(new DiscountOffer("V", 3, 130));
+
+        ArrayList<String> groupSKUs = new ArrayList<>();
+        groupSKUs.add("S");
+        groupSKUs.add("T");
+        groupSKUs.add("X");
+        groupSKUs.add("Y");
+        groupSKUs.add("Z");
+        GroupOffer groupOffer = new GroupOffer(groupSKUs, 3, 45);
+        offers.add(groupOffer);
 
         return offers;
     }
@@ -271,7 +289,8 @@ public class CheckoutSolution {
         }
 
         return mapSKUsCounter;
-    }*/
+    }
 }
+
 
 

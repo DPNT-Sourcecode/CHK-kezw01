@@ -1,5 +1,6 @@
 import befaster.solutions.CHK.specialoffers.DiscountOffer;
 import befaster.solutions.CHK.specialoffers.FreeOffer;
+import befaster.solutions.CHK.specialoffers.GroupOffer;
 import befaster.solutions.CHK.specialoffers.SpecialOffer;
 
 import java.util.ArrayList;
@@ -27,12 +28,15 @@ public class Test_CHK_R5 {
                 HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skus);
 
                 //Check for free items
-                HashMap<String, Integer> filteredSKUs = checkForFreeItems(mapSKUsCounter, specialOffers);
+                HashMap<String, Integer> filteredFreeSKUs = checkForFreeItems(mapSKUsCounter, specialOffers);
+
+                //Check group offers
+                HashMap<String, Integer> filteredGroupsSKUs = checkForGroups(mapSKUsCounter, specialOffers);
 
                 //Calculate price
-                for (String currentSku : filteredSKUs.keySet())
+                for (String currentSku : filteredFreeSKUs.keySet())
                 {
-                    int amount = filteredSKUs.get(currentSku);
+                    int amount = filteredFreeSKUs.get(currentSku);
 
                     while (amount > 0)
                     {
@@ -258,6 +262,15 @@ public class Test_CHK_R5 {
         offers.add(new DiscountOffer("V", 2, 90));
         offers.add(new DiscountOffer("V", 3, 130));
 
+        ArrayList<String> groupSKUs = new ArrayList<>();
+        groupSKUs.add("S");
+        groupSKUs.add("T");
+        groupSKUs.add("X");
+        groupSKUs.add("Y");
+        groupSKUs.add("Z");
+        GroupOffer groupOffer = new GroupOffer(groupSKUs);
+        offers.add(groupOffer);
+
         return offers;
     }
 
@@ -283,6 +296,7 @@ public class Test_CHK_R5 {
         return mapSKUsCounter;
     }
 }
+
 
 
 

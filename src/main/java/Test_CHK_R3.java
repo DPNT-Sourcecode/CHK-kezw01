@@ -3,7 +3,7 @@ import befaster.solutions.CHK.specialoffers.SpecialOffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Test_CHK_R3 {
+public class Test_CHK_R3 {/*
     public static void main(String[] args)
     {
         System.out.println(checkout("FF"));
@@ -236,6 +236,7 @@ public class Test_CHK_R3 {
         }
 
         return mapSKUsCounter;
-    }
+    }*/
 }
+
 

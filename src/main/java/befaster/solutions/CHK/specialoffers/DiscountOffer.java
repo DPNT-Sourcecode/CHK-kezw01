@@ -12,12 +12,10 @@ public class DiscountOffer extends SpecialOffer
         this.price = price;
     }
 
-    @Override
     public String getRequiredSKU() {
         return requiredSKU;
     }
 
-    @Override
     public void setRequiredSKU(String requiredSKU) {
         this.requiredSKU = requiredSKU;
     }
@@ -47,3 +45,4 @@ public class DiscountOffer extends SpecialOffer
                 '}';
     }
 }
+

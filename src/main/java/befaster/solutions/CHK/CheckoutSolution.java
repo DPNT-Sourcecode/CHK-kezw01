@@ -5,9 +5,9 @@ import befaster.solutions.CHK.specialoffers.SpecialOffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CheckoutSolution {/*
+public class CheckoutSolution {
     public  Integer checkout(String skus) {
-        if (!skus.isEmpty())
+        /*if (!skus.isEmpty())
         {
             if (skus.matches("[A-Z]+"))
             {
@@ -79,10 +79,10 @@ public class CheckoutSolution {/*
             {
                 return -1;
             }
-        }
+        }*/
         return 0;
     }
-
+/*
     private  HashMap<String, Integer> checkForFreeItems(HashMap<String, Integer> mapCurrentAmountSKUs, ArrayList<SpecialOffer> specialOffers)
     {
         HashMap<String, Integer> mapFilteredAmountSKUs = new HashMap<>(mapCurrentAmountSKUs);
@@ -273,4 +273,5 @@ public class CheckoutSolution {/*
         return mapSKUsCounter;
     }*/
 }
+
 

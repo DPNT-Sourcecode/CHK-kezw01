@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class Test_CHK_R5 {
     public static void main(String[] args)
     {
-        System.out.println(checkout("STXSTX"));
+        System.out.println(checkout("SSS"));
     }
 
     public static Integer checkout(String skus) {
@@ -188,52 +188,65 @@ public class Test_CHK_R5 {
         int totalPrice = 0;
         HashMap<String, Integer> mapFilteredAmountSKUs = new HashMap<>(mapCurrentAmountSKUs);
 
-        for (SpecialOffer specialOffer : specialOffers)
+        boolean tryToApplyOfferAgain = false;
+        while (true)
         {
-            //Check only DiscountOffer objects
-            if (specialOffer instanceof GroupOffer groupOffer)
+            tryToApplyOfferAgain = false;
+
+            for (SpecialOffer specialOffer : specialOffers)
             {
-                int requiredSKUsAmount = groupOffer.getRequiredAmount();
-                int matchSKUsAmount = 0;
-
-                ArrayList<String> listSKUsToDecrease = new ArrayList<>();
-
-                //Loop through SKUs in the current group offer
-                for (String currentSKUInGroup : groupOffer.getGroupSKUs())
+                //Check only DiscountOffer objects
+                if (specialOffer instanceof GroupOffer groupOffer)
                 {
-                    //Loop through SKUs in input SKUs counter map
-                    for (String currentSKUInput : mapCurrentAmountSKUs.keySet())
+                    int requiredSKUsAmount = groupOffer.getRequiredAmount();
+                    int matchSKUsAmount = 0;
+
+                    ArrayList<String> listSKUsToDecrease = new ArrayList<>();
+
+                    //Loop through SKUs in the current group offer
+                    for (String currentSKUInGroup : groupOffer.getGroupSKUs())
                     {
-                        //SKU is in a group offer
-                        if (currentSKUInGroup.equals(currentSKUInput))
+                        //Loop through SKUs in input SKUs counter map
+                        for (String currentSKUInput : mapCurrentAmountSKUs.keySet())
                         {
-                            int currentSKUInputAmount = mapCurrentAmountSKUs.get(currentSKUInput);
-
-                            //If the SKU amount is > 0, increase the counter
-                            if (currentSKUInputAmount > 0)
+                            //SKU is in a group offer
+                            if (currentSKUInGroup.equals(currentSKUInput))
                             {
-                                matchSKUsAmount++;
+                                int currentSKUInputAmount = mapCurrentAmountSKUs.get(currentSKUInput);
 
-                                listSKUsToDecrease.add(currentSKUInput);
-
-                                //Apply group offer
-                                if (matchSKUsAmount >= requiredSKUsAmount)
+                                //If the SKU amount is > 0, increase the counter
+                                if (currentSKUInputAmount > 0)
                                 {
-                                    //Update price
-                                    totalPrice += groupOffer.getPrice();
+                                    matchSKUsAmount++;
 
-                                    //Decrease the counter of the SKUs in the map
-                                    for (String skuToDecrease : listSKUsToDecrease)
+                                    listSKUsToDecrease.add(currentSKUInput);
+
+                                    //Apply group offer
+                                    if (matchSKUsAmount >= requiredSKUsAmount)
                                     {
-                                        int currentAmount = mapCurrentAmountSKUs.get(currentSKUInput);
-                                        currentAmount--;
-                                        mapCurrentAmountSKUs.put(skuToDecrease, currentAmount);
+                                        //Update price
+                                        totalPrice += groupOffer.getPrice();
+
+                                        //Decrease the counter of the SKUs in the map
+                                        for (String skuToDecrease : listSKUsToDecrease)
+                                        {
+                                            int currentAmount = mapCurrentAmountSKUs.get(currentSKUInput);
+                                            currentAmount--;
+                                            mapCurrentAmountSKUs.put(skuToDecrease, currentAmount);
+                                        }
+
+                                        tryToApplyOfferAgain = true;
                                     }
                                 }
                             }
                         }
                     }
                 }
+            }
+
+            if (!tryToApplyOfferAgain)
+            {
+                break;
             }
         }
 
@@ -358,6 +371,7 @@ public class Test_CHK_R5 {
         return mapSKUsCounter;
     }
 }
+
 
 
 

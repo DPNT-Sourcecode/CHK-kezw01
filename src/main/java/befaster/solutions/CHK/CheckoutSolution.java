@@ -5,7 +5,7 @@ import befaster.solutions.CHK.specialoffers.SpecialOffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CheckoutSolution {
+public class CheckoutSolution {/*
     public  Integer checkout(String skus) {
         if (!skus.isEmpty())
         {
@@ -271,5 +271,6 @@ public class CheckoutSolution {
         }
 
         return mapSKUsCounter;
-    }
+    }*/
 }
+

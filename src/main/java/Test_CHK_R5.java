@@ -38,13 +38,13 @@ public class Test_CHK_R5 {
                     {
                         if (!specialOffers.isEmpty())
                         {
-                            SpecialOffer bestSpecialOffer = getBestSpecialOffer(currentSku, amount, specialOffers);
+                            DiscountOffer bestSpecialOffer = getBestDiscountOffer(currentSku, amount, specialOffers);
 
                             //Special offer found
                             if (bestSpecialOffer != null)
                             {
-                                int offerAmount = bestSpecialOffer.getAmountRequired();
-                                int offerPrice = bestSpecialOffer.getTotalPrice();
+                                int offerAmount = bestSpecialOffer.getRequiredAmount();
+                                int offerPrice = bestSpecialOffer.getPrice();
 
                                 //Check if there is enough items to apply the special offer
                                 if (amount >= offerAmount)
@@ -98,17 +98,18 @@ public class Test_CHK_R5 {
             tryToApplyOfferAgain = false;
             for (SpecialOffer specialOffer : specialOffers)
             {
-                if (specialOffer.getFreeSKU() != null && !specialOffer.getFreeSKU().isEmpty())
+                //Check only DiscountOffer objects
+                if (specialOffer instanceof FreeOffer freeOffer)
                 {
-                    String requiredSKU = specialOffer.getRequiredSKU();
-                    int requiredAmount = specialOffer.getAmountRequired();
+                    String requiredSKU = freeOffer.getRequiredSKU();
+                    int requiredAmount = freeOffer.getRequiredAmount();
 
                     //Check if we have the required amount of items to apply the offer
                     if (mapFilteredAmountSKUs.containsKey(requiredSKU))
                     {
                         int currentAmountRequiredSKU = mapFilteredAmountSKUs.get(requiredSKU);
 
-                        String freeSKU = specialOffer.getFreeSKU();
+                        String freeSKU = freeOffer.getFreeSKU();
 
                         //Required SKU is different from the free SKU
                         if (!requiredSKU.equals(freeSKU))
@@ -119,7 +120,7 @@ public class Test_CHK_R5 {
                                 {
                                     int currentAmountFreeSKU = mapCurrentAmountSKUs.get(freeSKU);
 
-                                    int freeAmount = specialOffer.getFreeAmount();
+                                    int freeAmount = freeOffer.getFreeAmount();
 
                                     //Apply discount
                                     if (currentAmountFreeSKU >= freeAmount)
@@ -144,7 +145,7 @@ public class Test_CHK_R5 {
                                 {
                                     int currentAmountFreeSKU = mapCurrentAmountSKUs.get(freeSKU);
 
-                                    int freeAmount = specialOffer.getFreeAmount();
+                                    int freeAmount = freeOffer.getFreeAmount();
 
                                     //Apply discount
                                     if (currentAmountFreeSKU >= freeAmount)
@@ -173,27 +174,28 @@ public class Test_CHK_R5 {
         return mapCurrentAmountSKUs;
     }
 
-    private static SpecialOffer getBestDiscountOffer(String skuRequired, int amountOfItems, ArrayList<SpecialOffer> specialOffers)
+    private static DiscountOffer getBestDiscountOffer(String skuRequired, int amountOfItems, ArrayList<SpecialOffer> specialOffers)
     {
         float bestSingleItemPrice = Integer.MAX_VALUE;
 
-        SpecialOffer bestDiscountOffer = null;
+        DiscountOffer bestDiscountOffer = null;
 
         for (SpecialOffer specialOffer : specialOffers)
         {
-            if (specialOffer instanceof DiscountOffer)
+            //Check only DiscountOffer objects
+            if (specialOffer instanceof DiscountOffer discountOffer)
             {
-                if (skuRequired.equals(specialOffer.getRequiredSKU()) && specialOffer.getFreeSKU() == null)
+                if (skuRequired.equals(discountOffer.getRequiredSKU()))
                 {
-                    int offerAmount = specialOffer.getAmountRequired();
-                    int offerPrice = specialOffer.getTotalPrice();
+                    int offerAmount = discountOffer.getRequiredAmount();
+                    int offerPrice = discountOffer.getPrice();
 
                     float singleItemPrice = (float) offerPrice / offerAmount;
 
                     if (amountOfItems >= offerAmount && singleItemPrice < bestSingleItemPrice)
                     {
                         bestSingleItemPrice = singleItemPrice;
-                        bestDiscountOffer = specialOffer;
+                        bestDiscountOffer = discountOffer;
                     }
                 }
             }
@@ -281,4 +283,5 @@ public class Test_CHK_R5 {
         return mapSKUsCounter;
     }
 }
+
 

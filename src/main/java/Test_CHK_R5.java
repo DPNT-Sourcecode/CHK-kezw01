@@ -384,14 +384,19 @@ public class Test_CHK_R5 {
 
                 if (skus.contains(requiredSKU) && skus.contains(freeSKU))
                 {
-                    int freeAmount = freeOffer.getFreeAmount();
-                    int requiredAmount = freeOffer.getRequiredAmount();
+                    int requiredSKUAmount = freeOffer.getRequiredAmount();
+                    int freeSKUAmount = freeOffer.getFreeAmount();
+
+                    int requiredSKUCurrentAmount = skus.length() - skus.replace(, "").length();
+                    int freeSKUCurrentAmount = skus.length() - skus.replace(".", "").length();
+
                 }
             }
         }
         return skus;
     }
 }
+
 
 
 

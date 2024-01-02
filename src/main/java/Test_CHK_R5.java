@@ -1,4 +1,4 @@
-import befaster.solutions.CHK.sku.DataSKU;
+import befaster.solutions.CHK.sku.SKUData;
 import befaster.solutions.CHK.specialoffers.DiscountOffer;
 import befaster.solutions.CHK.specialoffers.FreeOffer;
 import befaster.solutions.CHK.specialoffers.GroupOffer;
@@ -21,10 +21,12 @@ public class Test_CHK_R5 {
             {
                 int totalPrice = 0;
 
-                HashMap<String, DataSKU> mapDataSKU;
-
                 //Map with the price for each SKU
                 HashMap<String, Integer> mapSKUsPrice = getSinglePrices();
+
+                //Map with the count of each SKU and single price
+                HashMap<String, SKUData> mapSKUData = processSKUs(skus, mapSKUsPrice);
+
 
                 //Map with special offers
                 ArrayList<SpecialOffer> specialOffers = getSpecialOffers();
@@ -370,7 +372,33 @@ public class Test_CHK_R5 {
 
         return mapSKUsCounter;
     }
+
+    private static HashMap<String, SKUData> processSKUs(String skus, HashMap<String, Integer> skuPrices)
+    {
+        HashMap<String, SKUData> mapSKUsCounter = new HashMap<String, SKUData>();
+
+        for (int i = 0; i < skus.length(); i++)
+        {
+            String sku = String.valueOf(skus.charAt(i));
+
+            if (mapSKUsCounter.get(sku) != null)
+            {
+                SKUData skuData = mapSKUsCounter.get(sku);
+                skuData.setCounter(skuData.getCounter() + 1);
+                mapSKUsCounter.put(sku, skuData);
+            }
+            else {
+                int skuPrice = skuPrices.get(sku);
+                int skuCounter = 1;
+                SKUData skuData = new SKUData(sku, skuPrice, skuCounter);
+                mapSKUsCounter.put(sku, skuData);
+            }
+        }
+
+        return mapSKUsCounter;
+    }
 }
+
 
 
 

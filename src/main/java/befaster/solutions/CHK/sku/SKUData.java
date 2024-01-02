@@ -1,11 +1,11 @@
 package befaster.solutions.CHK.sku;
 
-public class DataSKU {
+public class SKUData {
     private String sku;
     private int price;
     private int counter;
 
-    public DataSKU(String sku, int price, int counter) {
+    public SKUData(String sku, int price, int counter) {
         this.sku = sku;
         this.price = price;
         this.counter = counter;
@@ -44,3 +44,4 @@ public class DataSKU {
                 '}';
     }
 }
+

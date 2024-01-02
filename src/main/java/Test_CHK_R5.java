@@ -1,4 +1,5 @@
-import befaster.solutions.CHK.sku.SKUData;
+package befaster.solutions.CHK;
+
 import befaster.solutions.CHK.specialoffers.DiscountOffer;
 import befaster.solutions.CHK.specialoffers.FreeOffer;
 import befaster.solutions.CHK.specialoffers.GroupOffer;
@@ -9,12 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Test_CHK_R5 {
-    public static void main(String[] args)
-    {
-        System.out.println(checkout("EEEEBBEB"));
-    }
-
-    public static Integer checkout(String skus) {
+    public  Integer checkout(String skus) {
         if (!skus.isEmpty())
         {
             if (skus.matches("[A-Z]+"))
@@ -24,27 +20,24 @@ public class Test_CHK_R5 {
                 //Map with the price for each SKU
                 HashMap<String, Integer> mapSKUsPrice = getSinglePrices();
 
-                //Map with the count and price for each sku
-                //key = sku
-                //value = SKUData
-                HashMap<String, SKUData> mapSKUData = processSKUs(skus, mapSKUsPrice);
-
                 //Map with special offers
                 ArrayList<SpecialOffer> specialOffers = getSpecialOffers();
 
+                HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skus);
+
                 //Check for free items
-                HashMap<String, SKUData> filteredFreeSKUs = removeFreeSKUs(mapSKUData, specialOffers);
+                HashMap<String, Integer> filteredFreeSKUs = checkForFreeItems(mapSKUsCounter, specialOffers);
 
                 //A pair with a filtered map of SKUs and respective amounts (with group offers applied), and an integer representing the current total price
-                //Pair<HashMap<String, Integer>, Integer> pairSKUsAmountAndTotalPrice = checkForGroupOffers(filteredFreeSKUs, specialOffers);
+                Pair<HashMap<String, Integer>, Integer> pairSKUsAmountAndTotalPrice = checkForGroupOffers(mapSKUsCounter, specialOffers);
 
-                //filteredFreeSKUs = pairSKUsAmountAndTotalPrice.getValue0();
-                //totalPrice = pairSKUsAmountAndTotalPrice.getValue1();
+                filteredFreeSKUs = pairSKUsAmountAndTotalPrice.getValue0();
+                totalPrice = pairSKUsAmountAndTotalPrice.getValue1();
 
                 //Calculate price
                 for (String currentSku : filteredFreeSKUs.keySet())
                 {
-                    int amount = filteredFreeSKUs.get(currentSku).getCounter();
+                    int amount = filteredFreeSKUs.get(currentSku);
 
                     while (amount > 0)
                     {
@@ -100,9 +93,9 @@ public class Test_CHK_R5 {
         return 0;
     }
 
-    private static HashMap<String, SKUData> removeFreeSKUs(HashMap<String, SKUData> mapSKUDataOriginal, ArrayList<SpecialOffer> specialOffers)
+    private  HashMap<String, Integer> checkForFreeItems(HashMap<String, Integer> mapCurrentAmountSKUs, ArrayList<SpecialOffer> specialOffers)
     {
-        HashMap<String, SKUData> mapSKUDataUpdated = new HashMap<>(mapSKUDataOriginal);
+        HashMap<String, Integer> mapFilteredAmountSKUs = new HashMap<>(mapCurrentAmountSKUs);
 
         boolean tryToApplyOfferAgain = false;
         while (true)
@@ -110,18 +103,16 @@ public class Test_CHK_R5 {
             tryToApplyOfferAgain = false;
             for (SpecialOffer specialOffer : specialOffers)
             {
-                //Check only FreeOffer objects
+                //Check only DiscountOffer objects
                 if (specialOffer instanceof FreeOffer freeOffer)
                 {
                     String requiredSKU = freeOffer.getRequiredSKU();
                     int requiredAmount = freeOffer.getRequiredAmount();
 
                     //Check if we have the required amount of items to apply the offer
-                    if (mapSKUDataUpdated.containsKey(requiredSKU))
+                    if (mapFilteredAmountSKUs.containsKey(requiredSKU))
                     {
-                        SKUData skuDataUpdated = mapSKUDataUpdated.get(requiredSKU);
-
-                        int currentAmountRequiredSKU = skuDataUpdated.getCounter();
+                        int currentAmountRequiredSKU = mapFilteredAmountSKUs.get(requiredSKU);
 
                         String freeSKU = freeOffer.getFreeSKU();
 
@@ -130,10 +121,9 @@ public class Test_CHK_R5 {
                         {
                             if (currentAmountRequiredSKU >= requiredAmount)
                             {
-                                if (mapSKUDataUpdated.containsKey(freeSKU))
+                                if (mapFilteredAmountSKUs.containsKey(freeSKU))
                                 {
-                                    SKUData skuDataOriginal = mapSKUDataOriginal.get(freeSKU);
-                                    int currentAmountFreeSKU = skuDataOriginal.getCounter();
+                                    int currentAmountFreeSKU = mapCurrentAmountSKUs.get(freeSKU);
 
                                     int freeAmount = freeOffer.getFreeAmount();
 
@@ -141,11 +131,10 @@ public class Test_CHK_R5 {
                                     if (currentAmountFreeSKU >= freeAmount)
                                     {
                                         currentAmountFreeSKU -= freeAmount;
-                                        skuDataOriginal.setCounter(currentAmountFreeSKU);
-                                        mapSKUDataOriginal.put(freeSKU, skuDataOriginal);
+                                        mapCurrentAmountSKUs.put(freeSKU, currentAmountFreeSKU);
 
-                                        //skuDataUpdated.setCounter(currentAmountRequiredSKU - requiredAmount);
-                                        mapSKUDataUpdated.put(requiredSKU, skuDataUpdated);
+                                        int sub = currentAmountRequiredSKU - requiredAmount;
+                                        mapFilteredAmountSKUs.put(requiredSKU, sub);
 
                                         tryToApplyOfferAgain = true;
                                     }
@@ -157,10 +146,9 @@ public class Test_CHK_R5 {
                         {
                             if (currentAmountRequiredSKU > requiredAmount)
                             {
-                                if (mapSKUDataUpdated.containsKey(freeSKU))
+                                if (mapFilteredAmountSKUs.containsKey(freeSKU))
                                 {
-                                    SKUData skuDataOriginal = mapSKUDataOriginal.get(freeSKU);
-                                    int currentAmountFreeSKU = skuDataOriginal.getCounter();
+                                    int currentAmountFreeSKU = mapCurrentAmountSKUs.get(freeSKU);
 
                                     int freeAmount = freeOffer.getFreeAmount();
 
@@ -168,12 +156,10 @@ public class Test_CHK_R5 {
                                     if (currentAmountFreeSKU >= freeAmount)
                                     {
                                         currentAmountFreeSKU -= freeAmount;
+                                        mapCurrentAmountSKUs.put(freeSKU, currentAmountFreeSKU);
 
-                                        skuDataOriginal.setCounter(currentAmountFreeSKU);
-                                        mapSKUDataOriginal.put(freeSKU, skuDataOriginal);
-
-                                        //skuDataUpdated.setCounter(currentAmountRequiredSKU - requiredAmount);
-                                        mapSKUDataUpdated.put(requiredSKU, skuDataUpdated);
+                                        int sub = currentAmountRequiredSKU - requiredAmount;
+                                        mapFilteredAmountSKUs.put(requiredSKU, sub);
 
                                         tryToApplyOfferAgain = true;
                                     }
@@ -190,11 +176,11 @@ public class Test_CHK_R5 {
             }
         }
 
-        return mapSKUDataUpdated;
+        return mapCurrentAmountSKUs;
     }
 
 
-    private static Pair<HashMap<String, Integer>, Integer> checkForGroupOffers(HashMap<String, Integer> mapCurrentAmountSKUs, ArrayList<SpecialOffer> specialOffers)
+    private  Pair<HashMap<String, Integer>, Integer> checkForGroupOffers(HashMap<String, Integer> mapCurrentAmountSKUs, ArrayList<SpecialOffer> specialOffers)
     {
         int totalPrice = 0;
 
@@ -261,7 +247,7 @@ public class Test_CHK_R5 {
         return new Pair<>(mapCurrentAmountSKUs, totalPrice);
     }
 
-    private static DiscountOffer getBestDiscountOffer(String skuRequired, int amountOfItems, ArrayList<SpecialOffer> specialOffers)
+    private  DiscountOffer getBestDiscountOffer(String skuRequired, int amountOfItems, ArrayList<SpecialOffer> specialOffers)
     {
         float bestSingleItemPrice = Integer.MAX_VALUE;
 
@@ -291,7 +277,7 @@ public class Test_CHK_R5 {
         return bestDiscountOffer;
     }
 
-    private static HashMap<String, Integer> getSinglePrices()
+    private  HashMap<String, Integer> getSinglePrices()
     {
         HashMap<String, Integer> mapSKUsPrice = new HashMap<>();
 
@@ -325,7 +311,7 @@ public class Test_CHK_R5 {
         return mapSKUsPrice;
     }
 
-    private static ArrayList<SpecialOffer> getSpecialOffers()
+    private  ArrayList<SpecialOffer> getSpecialOffers()
     {
         ArrayList<SpecialOffer> offers = new ArrayList<>();
 
@@ -357,7 +343,7 @@ public class Test_CHK_R5 {
         return offers;
     }
 
-    private static HashMap<String, Integer> getMapSKUSCounter(String skus)
+    private  HashMap<String, Integer> getMapSKUSCounter(String skus)
     {
         HashMap<String, Integer> mapSKUsCounter = new HashMap<String, Integer>();
 
@@ -377,31 +363,6 @@ public class Test_CHK_R5 {
         }
 
         return mapSKUsCounter;
-    }
-
-    private static HashMap<String, SKUData> processSKUs(String skus, HashMap<String, Integer> skuPrices)
-    {
-        HashMap<String, SKUData> mapSKUDataList = new HashMap<>();
-
-        for (int i = 0; i < skus.length(); i++)
-        {
-            String sku = String.valueOf(skus.charAt(i));
-
-            if (mapSKUDataList.get(sku) != null)
-            {
-                SKUData skuData = mapSKUDataList.get(sku);
-                skuData.setCounter(skuData.getCounter() + 1);
-                mapSKUDataList.put(sku, skuData);
-            }
-            else {
-                int skuPrice = skuPrices.get(sku);
-                int skuCounter = 1;
-                SKUData skuData = new SKUData(sku, skuPrice, skuCounter);
-                mapSKUDataList.put(sku, skuData);
-            }
-        }
-
-        return mapSKUDataList;
     }
 }
 

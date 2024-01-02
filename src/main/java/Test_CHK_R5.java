@@ -375,11 +375,11 @@ public class Test_CHK_R5 {
 
     private static String removeFreeSKUs(String skus, ArrayList<SpecialOffer> specialOffers)
     {
-        skus = "EEBBBEE";
+        skus = "FFFFFFF";
         ArrayList<String> saved = new ArrayList<>();
 
         boolean tryToApplyOfferAgain = false;
-        while (true) {
+        do {
             tryToApplyOfferAgain = false;
 
             for (SpecialOffer specialOffer : specialOffers) {
@@ -412,11 +412,7 @@ public class Test_CHK_R5 {
                 }
             }
 
-            if (!tryToApplyOfferAgain)
-            {
-                break;
-            }
-        }
+        } while (tryToApplyOfferAgain);
         StringBuilder skusBuilder = new StringBuilder(skus);
         for (String sku : saved)
             skusBuilder.append(sku);
@@ -440,6 +436,7 @@ public class Test_CHK_R5 {
         return count;
     }
 }
+
 
 
 

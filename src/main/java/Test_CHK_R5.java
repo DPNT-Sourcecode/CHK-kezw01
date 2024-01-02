@@ -349,9 +349,19 @@ public class Test_CHK_R5 {
         int totalPrice = 0;
 
         ArrayList<Pair<String, Integer>> sortedSKUsPrices = sortSKUsDescendingPrice(mapSKUsPrice);
+        StringBuilder sortedSKUs = new StringBuilder();
 
         // Sort SKUs from input, according their price
-
+        for (Pair<String, Integer> skuAndPrice : sortedSKUsPrices)
+        {
+            for (int i = 0; i < skus.length(); i++)
+            {
+                if (String.valueOf(skus.charAt(i)).equals(skuAndPrice.getValue0()))
+                {
+                    sortedSKUs.append(skuAndPrice.getValue0());
+                }
+            }
+        }
 
         boolean tryToApplyOfferAgain = false;
         do {
@@ -412,3 +422,4 @@ public class Test_CHK_R5 {
         return sortedPrices;
     }
 }
+

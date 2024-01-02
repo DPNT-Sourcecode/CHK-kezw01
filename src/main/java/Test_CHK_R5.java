@@ -13,7 +13,7 @@ public class Test_CHK_R5 {
 
     public static void main(String[] args)
     {
-        System.out.println(checkout("EEEB"));
+        System.out.println(checkout("EEEBB"));
     }
 
     public static Integer checkout(String skus) {
@@ -393,7 +393,11 @@ public class Test_CHK_R5 {
                     //Able to apply offer
                     if (requiredSKUCount >= offerRequiredCount && freeSKUCount >= offerFreeCount)
                     {
-
+                        //Remove free skus from skus string
+                        for (int i = 0; i < offerFreeCount; i++)
+                        {
+                            skus = skus.replace(offerFreeSKU, "");
+                        }
                     }
                 }
             }
@@ -415,3 +419,4 @@ public class Test_CHK_R5 {
         return count;
     }
 }
+

@@ -384,7 +384,7 @@ public class Test_CHK_R5 {
         return count;
     }
 
-    private static HashMap<String, Integer> sortSKUsDescendingPrice(HashMap<String, Integer> mapSKUsPrice)
+    private static ArrayList<Map.Entry<String, Integer>> sortSKUsDescendingPrice(HashMap<String, Integer> mapSKUsPrice)
     {
         ArrayList<Map.Entry<String, Integer>> entries = new ArrayList<>(mapSKUsPrice.entrySet());
 
@@ -395,13 +395,8 @@ public class Test_CHK_R5 {
             }
         });
 
-        HashMap<String, Integer> sortedMap = new HashMap<>();
-        for (Map.Entry<String, Integer> entry : entries)
-        {
-            sortedMap.put(entry.getKey(), entry.getValue());
-        }
-
-        return sortedMap;
+        return entries;
     }
 }
+
 

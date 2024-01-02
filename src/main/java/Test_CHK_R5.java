@@ -385,8 +385,16 @@ public class Test_CHK_R5 {
     private LinkedHashMap<String, Integer> sortSKUsDescendingPrice(HashMap<String, Integer> mapSKUsPrice)
     {
         ArrayList<Map.Entry<String, Integer>> entries = new ArrayList<>(mapSKUsPrice.entrySet());
+
+        Collections.sort(entries, new Comparator<Map.Entry<String, Integer>>() {
+            @Override
+            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                return 0;
+            }
+        });
     }
 }
+
 
 
 

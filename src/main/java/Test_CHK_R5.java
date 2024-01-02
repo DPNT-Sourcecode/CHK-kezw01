@@ -375,6 +375,8 @@ public class Test_CHK_R5 {
 
     private static String removeFreeSKUs(String skus, ArrayList<SpecialOffer> specialOffers)
     {
+        ArrayList<String> skusToRemove = new ArrayList<>();
+
         for (SpecialOffer specialOffer : specialOffers) {
 
             //Check only FreeOffer objects
@@ -393,15 +395,22 @@ public class Test_CHK_R5 {
                     //Able to apply offer
                     if (requiredSKUCount >= offerRequiredCount && freeSKUCount >= offerFreeCount)
                     {
-                        //Remove free skus from skus string
+                        //Track which skus should be removed
                         for (int i = 0; i < offerFreeCount; i++)
                         {
-                            skus = skus.replace(offerFreeSKU, "");
+                            skus = skus.replaceFirst(offerFreeSKU, "");
+                            skusToRemove.add(offerFreeSKU);
                         }
                     }
                 }
             }
         }
+        /*
+        for (String skuToRemove : skusToRemove)
+        {
+            skus.replace()
+        }*/
+
         return skus;
     }
 
@@ -419,4 +428,5 @@ public class Test_CHK_R5 {
         return count;
     }
 }
+
 

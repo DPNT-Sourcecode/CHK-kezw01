@@ -364,7 +364,22 @@ public class Test_CHK_R5 {
                     int offerRequiredCount = groupOffer.getRequiredCount();
 
                     int requiredSKUCount = 0;
-                    // Check if there is enough
+
+                    // Check if there is enough SKUs to apply the offer
+                    for (int i = 0; i < sortedSKUs.length(); i++)
+                    {
+                        String currentSKU = String.valueOf(sortedSKUs.charAt(i));
+                        if (offerRequiredSKUs.contains(currentSKU))
+                        {
+                            requiredSKUCount++;
+                        }
+
+                        // Apply offer
+                        if (requiredSKUCount == offerRequiredCount)
+                        {
+                            
+                        }
+                    }
 
                     System.out.println("dsd");
                 }
@@ -424,4 +439,5 @@ public class Test_CHK_R5 {
         return sbSortedSKUs.toString();
     }
 }
+
 

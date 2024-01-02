@@ -13,7 +13,7 @@ public class Test_CHK_R5 {
 
     public static void main(String[] args)
     {
-        System.out.println(checkout("EEEBB"));
+        System.out.println(checkout("EEEEBB"));
     }
 
     public static Integer checkout(String skus) {
@@ -398,7 +398,6 @@ public class Test_CHK_R5 {
                         //Track which skus should be removed
                         for (int i = 0; i < offerFreeCount; i++)
                         {
-                            skus = skus.replaceFirst(offerFreeSKU, "");
                             skusToRemove.add(offerFreeSKU);
                         }
                     }
@@ -411,6 +410,7 @@ public class Test_CHK_R5 {
             skus.replace()
         }*/
 
+        System.out.println(skus);
         return skus;
     }
 
@@ -428,5 +428,6 @@ public class Test_CHK_R5 {
         return count;
     }
 }
+
 
 

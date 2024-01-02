@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class Test_CHK_R5 {
     public static void main(String[] args)
     {
-        System.out.println(checkout("STX"));
+        System.out.println(checkout("STXZ"));
     }
 
     public static Integer checkout(String skus) {
@@ -368,8 +368,4 @@ public class Test_CHK_R5 {
         return mapSKUsCounter;
     }
 }
-
-
-
-
 

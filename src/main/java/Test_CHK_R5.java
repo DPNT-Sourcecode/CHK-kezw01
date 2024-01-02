@@ -379,18 +379,22 @@ public class Test_CHK_R5 {
 
             //Check only FreeOffer objects
             if (specialOffer instanceof FreeOffer freeOffer) {
-                String requiredSKU = freeOffer.getRequiredSKU();
-                String freeSKU = freeOffer.getFreeSKU();
+                String offerRequiredSKU = freeOffer.getRequiredSKU();
+                String offerFreeSKU = freeOffer.getFreeSKU();
 
-                if (skus.contains(requiredSKU) && skus.contains(freeSKU))
+                if (skus.contains(offerRequiredSKU) && skus.contains(offerFreeSKU))
                 {
-                    int requiredSKUAmount = freeOffer.getRequiredAmount();
-                    int freeSKUAmount = freeOffer.getFreeAmount();
+                    int offerRequiredCount = freeOffer.getRequiredAmount();
+                    int offerFreeCount = freeOffer.getFreeAmount();
 
-                    int requiredSKUCurrentAmount = countSKUs(skus, requiredSKU);
-                    int freeSKUCurrentAmount = countSKUs(skus, freeSKU);
+                    int requiredSKUCount = countSKUs(skus, offerRequiredSKU);
+                    int freeSKUCount = countSKUs(skus, offerFreeSKU);
 
-                    int j=0;
+                    //Able to apply offer
+                    if (requiredSKUCount >= offerRequiredCount && freeSKUCount >= offerFreeCount)
+                    {
+
+                    }
                 }
             }
         }
@@ -411,10 +415,3 @@ public class Test_CHK_R5 {
         return count;
     }
 }
-
-
-
-
-
-
-

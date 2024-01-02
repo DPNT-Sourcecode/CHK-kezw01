@@ -376,6 +376,7 @@ public class Test_CHK_R5 {
     private static String removeFreeSKUs(String skus, ArrayList<SpecialOffer> specialOffers)
     {
         skus = "EBBE";
+        ArrayList<String> saved = new ArrayList<>();
 
         boolean tryToApplyOfferAgain = false;
         while (true) {
@@ -400,6 +401,10 @@ public class Test_CHK_R5 {
                             //Track which skus should be removed
                             for (int i = 0; i < offerFreeCount; i++) {
                                 skus = skus.replaceFirst(offerFreeSKU, "");
+                            }
+                            for (int i = 0; i < offerRequiredCount; i++) {
+                                saved.add(offerRequiredSKU);
+                                skus = skus.replaceFirst(offerRequiredSKU, "");
                             }
                             tryToApplyOfferAgain = true;
                         }
@@ -431,6 +436,7 @@ public class Test_CHK_R5 {
         return count;
     }
 }
+
 
 
 

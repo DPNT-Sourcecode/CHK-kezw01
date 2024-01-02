@@ -346,10 +346,11 @@ public class Test_CHK_R5 {
      * */
     private static Pair<String, Integer> removeGroupOffers(String skus, ArrayList<SpecialOffer> specialOffers, HashMap<String, Integer> mapSKUsPrice)
     {
+        skus = "QPABCL";
         int totalPrice = 0;
 
         ArrayList<Pair<String, Integer>> sortedSKUsPrices = sortSKUsDescendingPrice(mapSKUsPrice);
-        StringBuilder sortedSKUs = new StringBuilder();
+        StringBuilder sbSortedSKUs = new StringBuilder();
 
         // Sort SKUs from input, according their price
         for (Pair<String, Integer> skuAndPrice : sortedSKUsPrices)
@@ -358,10 +359,11 @@ public class Test_CHK_R5 {
             {
                 if (String.valueOf(skus.charAt(i)).equals(skuAndPrice.getValue0()))
                 {
-                    sortedSKUs.append(skuAndPrice.getValue0());
+                    sbSortedSKUs.append(skuAndPrice.getValue0());
                 }
             }
         }
+        String sortedSKUs = sbSortedSKUs.toString();
 
         boolean tryToApplyOfferAgain = false;
         do {
@@ -422,4 +424,5 @@ public class Test_CHK_R5 {
         return sortedPrices;
     }
 }
+
 

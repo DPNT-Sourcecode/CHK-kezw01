@@ -7,6 +7,7 @@ import org.javatuples.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Test_CHK_R5 {
     public static void main(String[] args)
@@ -25,19 +26,16 @@ public class Test_CHK_R5 {
                 HashMap<String, Integer> mapSKUsPrice = getSinglePrices();
 
                 //Map with the count of each SKU and single price
-                HashMap<String, SKUData> mapSKUData = processSKUs(skus, mapSKUsPrice);
-
+                ArrayList<SKUData> mapSKUData = processSKUs(skus, mapSKUsPrice);
 
                 //Map with special offers
                 ArrayList<SpecialOffer> specialOffers = getSpecialOffers();
 
-                HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skus);
-
                 //Check for free items
-                HashMap<String, Integer> filteredFreeSKUs = checkForFreeItems(mapSKUsCounter, specialOffers);
+                HashMap<String, Integer> filteredFreeSKUs ;//= removeFreeSKUs(mapSKUData, specialOffers);
 
                 //A pair with a filtered map of SKUs and respective amounts (with group offers applied), and an integer representing the current total price
-                Pair<HashMap<String, Integer>, Integer> pairSKUsAmountAndTotalPrice = checkForGroupOffers(mapSKUsCounter, specialOffers);
+                Pair<HashMap<String, Integer>, Integer> pairSKUsAmountAndTotalPrice = null ;//= checkForGroupOffers(mapSKUsCounter, specialOffers);
 
                 filteredFreeSKUs = pairSKUsAmountAndTotalPrice.getValue0();
                 totalPrice = pairSKUsAmountAndTotalPrice.getValue1();
@@ -101,7 +99,7 @@ public class Test_CHK_R5 {
         return 0;
     }
 
-    private static HashMap<String, Integer> checkForFreeItems(HashMap<String, Integer> mapCurrentAmountSKUs, ArrayList<SpecialOffer> specialOffers)
+    private static HashMap<String, Integer> removeFreeSKUs(HashMap<String, Integer> mapCurrentAmountSKUs, ArrayList<SpecialOffer> specialOffers)
     {
         HashMap<String, Integer> mapFilteredAmountSKUs = new HashMap<>(mapCurrentAmountSKUs);
 
@@ -373,32 +371,36 @@ public class Test_CHK_R5 {
         return mapSKUsCounter;
     }
 
-    private static HashMap<String, SKUData> processSKUs(String skus, HashMap<String, Integer> skuPrices)
+    private static ArrayList<SKUData> processSKUs(String skus, HashMap<String, Integer> skuPrices)
     {
-        HashMap<String, SKUData> mapSKUsCounter = new HashMap<String, SKUData>();
+        ArrayList<SKUData> skuDataList = new ArrayList<>();
 
         for (int i = 0; i < skus.length(); i++)
         {
             String sku = String.valueOf(skus.charAt(i));
 
-            if (mapSKUsCounter.get(sku) != null)
+            boolean skuUpdated = false;
+            for (SKUData skuData : skuDataList)
             {
-                SKUData skuData = mapSKUsCounter.get(sku);
-                skuData.setCounter(skuData.getCounter() + 1);
-                mapSKUsCounter.put(sku, skuData);
+                //If skuData already exists, replace it
+                if (Objects.equals(skuData.getSku(), sku))
+                {
+                    skuData.setCounter(skuData.getCounter() + 1);
+                    skuUpdated = true;
+                    break;
+                }
             }
-            else {
+
+            //SKU not found, create a new one
+            if (!skuUpdated)
+            {
                 int skuPrice = skuPrices.get(sku);
                 int skuCounter = 1;
                 SKUData skuData = new SKUData(sku, skuPrice, skuCounter);
-                mapSKUsCounter.put(sku, skuData);
+                skuDataList.add(skuData);
             }
         }
-
-        return mapSKUsCounter;
+        return skuDataList;
     }
 }
-
-
-
 

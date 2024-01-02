@@ -29,8 +29,12 @@ public class Test_CHK_R5 {
                 //Map with special offers
                 ArrayList<SpecialOffer> specialOffers = getSpecialOffers();
 
-                //Remove free items
+                //1. Remove free items
                 String skusFreeRemoved = removeFreeSKUs(skus, specialOffers);
+
+                //2. Check group offers
+
+
 
                 HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skusFreeRemoved);
 
@@ -281,6 +285,9 @@ public class Test_CHK_R5 {
         return mapSKUsCounter;
     }
 
+    /*
+    * Returns the filtered string without free items
+    * */
     private static String removeFreeSKUs(String skus, ArrayList<SpecialOffer> specialOffers)
     {
         ArrayList<String> saved = new ArrayList<>();
@@ -332,6 +339,11 @@ public class Test_CHK_R5 {
         return skus;
     }
 
+    private static Pair<String, Integer> removeGroupOffers(String skus, ArrayList<SpecialOffer> specialOffers, HashMap<String, Integer> mapSKUsPrice)
+    {
+
+    }
+
     private static int countSKUs(String skus, String skuToCount)
     {
         int count = 0;
@@ -346,3 +358,4 @@ public class Test_CHK_R5 {
         return count;
     }
 }
+

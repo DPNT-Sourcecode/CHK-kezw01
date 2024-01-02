@@ -12,7 +12,7 @@ public class Test_CHK_R5 {
 
     public static void main(String[] args)
     {
-        System.out.println(checkout("XTS"));
+        System.out.println(checkout("SSSZ"));
     }
 
     public static Integer checkout(String skus) {
@@ -381,5 +381,6 @@ public class Test_CHK_R5 {
         return sbSortedSKUs.toString();
     }
 }
+
 
 

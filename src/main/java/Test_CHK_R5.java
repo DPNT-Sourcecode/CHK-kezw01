@@ -96,93 +96,6 @@ public class Test_CHK_R5 {
         return 0;
     }
 
-    private static HashMap<String, Integer> checkForFreeItems(HashMap<String, Integer> mapCurrentAmountSKUs, ArrayList<SpecialOffer> specialOffers)
-    {
-        HashMap<String, Integer> mapFilteredAmountSKUs = new HashMap<>(mapCurrentAmountSKUs);
-
-        boolean tryToApplyOfferAgain = false;
-        while (true)
-        {
-            tryToApplyOfferAgain = false;
-            for (SpecialOffer specialOffer : specialOffers)
-            {
-                //Check only DiscountOffer objects
-                if (specialOffer instanceof FreeOffer freeOffer)
-                {
-                    String requiredSKU = freeOffer.getRequiredSKU();
-                    int requiredAmount = freeOffer.getRequiredAmount();
-
-                    //Check if we have the required amount of items to apply the offer
-                    if (mapFilteredAmountSKUs.containsKey(requiredSKU))
-                    {
-                        int currentAmountRequiredSKU = mapFilteredAmountSKUs.get(requiredSKU);
-
-                        String freeSKU = freeOffer.getFreeSKU();
-
-                        //Required SKU is different from the free SKU
-                        if (!requiredSKU.equals(freeSKU))
-                        {
-                            if (currentAmountRequiredSKU >= requiredAmount)
-                            {
-                                if (mapFilteredAmountSKUs.containsKey(freeSKU))
-                                {
-                                    int currentAmountFreeSKU = mapCurrentAmountSKUs.get(freeSKU);
-
-                                    int freeAmount = freeOffer.getFreeAmount();
-
-                                    //Apply discount
-                                    if (currentAmountFreeSKU >= freeAmount)
-                                    {
-                                        currentAmountFreeSKU -= freeAmount;
-                                        mapCurrentAmountSKUs.put(freeSKU, currentAmountFreeSKU);
-
-                                        int sub = currentAmountRequiredSKU - requiredAmount;
-                                        mapFilteredAmountSKUs.put(requiredSKU, sub);
-
-                                        tryToApplyOfferAgain = true;
-                                    }
-                                }
-                            }
-                        }
-                        //Required and free are the same
-                        else
-                        {
-                            if (currentAmountRequiredSKU > requiredAmount)
-                            {
-                                if (mapFilteredAmountSKUs.containsKey(freeSKU))
-                                {
-                                    int currentAmountFreeSKU = mapCurrentAmountSKUs.get(freeSKU);
-
-                                    int freeAmount = freeOffer.getFreeAmount();
-
-                                    //Apply discount
-                                    if (currentAmountFreeSKU >= freeAmount)
-                                    {
-                                        currentAmountFreeSKU -= freeAmount;
-                                        mapCurrentAmountSKUs.put(freeSKU, currentAmountFreeSKU);
-
-                                        int sub = currentAmountRequiredSKU - requiredAmount;
-                                        mapFilteredAmountSKUs.put(requiredSKU, sub);
-
-                                        tryToApplyOfferAgain = true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (!tryToApplyOfferAgain)
-            {
-                break;
-            }
-        }
-
-        return mapCurrentAmountSKUs;
-    }
-
-
     private static Pair<HashMap<String, Integer>, Integer> checkForGroupOffers(HashMap<String, Integer> mapCurrentAmountSKUs, ArrayList<SpecialOffer> specialOffers)
     {
         int totalPrice = 0;
@@ -433,6 +346,7 @@ public class Test_CHK_R5 {
         return count;
     }
 }
+
 
 
 

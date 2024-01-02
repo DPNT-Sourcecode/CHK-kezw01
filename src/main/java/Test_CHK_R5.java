@@ -339,8 +339,14 @@ public class Test_CHK_R5 {
         return skus;
     }
 
+
+    /*
+     * Returns the filtered string without items covered by group offers, and the current total price
+     * */
     private static Pair<String, Integer> removeGroupOffers(String skus, ArrayList<SpecialOffer> specialOffers, HashMap<String, Integer> mapSKUsPrice)
     {
+        int totalPrice = 0;
+        return totalPrice;
 
     }
 
@@ -358,4 +364,5 @@ public class Test_CHK_R5 {
         return count;
     }
 }
+
 

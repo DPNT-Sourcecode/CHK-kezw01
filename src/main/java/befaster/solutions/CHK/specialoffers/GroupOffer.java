@@ -5,12 +5,12 @@ import java.util.ArrayList;
 public class GroupOffer extends SpecialOffer
 {
     private ArrayList<String> groupSKUs;
-    private int requiredAmount;
+    private int requiredCount;
     private int price;
 
-    public GroupOffer(ArrayList<String> groupSKUs, int requiredAmount, int price) {
+    public GroupOffer(ArrayList<String> groupSKUs, int requiredCount, int price) {
         this.groupSKUs = groupSKUs;
-        this.requiredAmount = requiredAmount;
+        this.requiredCount = requiredCount;
         this.price = price;
     }
 
@@ -22,12 +22,12 @@ public class GroupOffer extends SpecialOffer
         this.groupSKUs = groupSKUs;
     }
 
-    public int getRequiredAmount() {
-        return requiredAmount;
+    public int getRequiredCount() {
+        return requiredCount;
     }
 
-    public void setRequiredAmount(int requiredAmount) {
-        this.requiredAmount = requiredAmount;
+    public void setRequiredCount(int requiredCount) {
+        this.requiredCount = requiredCount;
     }
 
     public int getPrice() {
@@ -42,8 +42,9 @@ public class GroupOffer extends SpecialOffer
     public String toString() {
         return "GroupOffer{" +
                 "groupSKUs=" + groupSKUs +
-                ", requiredAmount=" + requiredAmount +
+                ", requiredCount=" + requiredCount +
                 ", price=" + price +
                 '}';
     }
 }
+

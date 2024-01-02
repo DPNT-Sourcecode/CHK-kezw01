@@ -357,9 +357,10 @@ public class Test_CHK_R5 {
             for (SpecialOffer specialOffer : specialOffers) {
 
                 //Check only GroupOffer objects
-                if (specialOffer instanceof GroupOffer freeOffer)
+                if (specialOffer instanceof GroupOffer groupOffer)
                 {
-
+                    ArrayList<String> offerRequiredSKUs = groupOffer.getGroupSKUs();
+                    int offerRequiredCount = groupOffer.getRequiredAmount();
 
 
                     System.out.println("dsd");
@@ -406,6 +407,7 @@ public class Test_CHK_R5 {
         return sortedPrices;
     }
 }
+
 
 
 

@@ -13,7 +13,7 @@ public class Test_CHK_R5 {
 
     public static void main(String[] args)
     {
-        System.out.println(checkout("EEEEBB"));
+        System.out.println(checkout("STX"));
     }
 
     public static Integer checkout(String skus) {
@@ -33,8 +33,10 @@ public class Test_CHK_R5 {
                 String skusFreeRemoved = removeFreeSKUs(skus, specialOffers);
 
                 //2. Check group offers
-
-
+                skusFreeRemoved = "STX";
+                Pair<String, Integer> skusGroupsRemovedAndPrice = removeGroupOffers(skusFreeRemoved, specialOffers, mapSKUsPrice);
+                String skusGroupsRemoved = skusGroupsRemovedAndPrice.getValue0();
+                int currentPrice = skusGroupsRemovedAndPrice.getValue1();
 
                 HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skusFreeRemoved);
 
@@ -346,8 +348,23 @@ public class Test_CHK_R5 {
     private static Pair<String, Integer> removeGroupOffers(String skus, ArrayList<SpecialOffer> specialOffers, HashMap<String, Integer> mapSKUsPrice)
     {
         int totalPrice = 0;
-        return totalPrice;
 
+        boolean tryToApplyOfferAgain = false;
+        do {
+            tryToApplyOfferAgain = false;
+
+            for (SpecialOffer specialOffer : specialOffers) {
+
+                //Check only GroupOffer objects
+                if (specialOffer instanceof GroupOffer freeOffer) {
+                    System.out.println("dsd");
+                }
+            }
+
+        } while (tryToApplyOfferAgain);
+
+        Pair<String, Integer> p = new Pair<>("", totalPrice);
+        return p;
     }
 
     private static int countSKUs(String skus, String skuToCount)
@@ -364,5 +381,6 @@ public class Test_CHK_R5 {
         return count;
     }
 }
+
 
 

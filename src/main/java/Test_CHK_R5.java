@@ -144,7 +144,7 @@ public class Test_CHK_R5 {
                                         skuDataOriginal.setCounter(currentAmountFreeSKU);
                                         mapSKUDataOriginal.put(freeSKU, skuDataOriginal);
 
-                                        skuDataUpdated.setCounter(currentAmountRequiredSKU - requiredAmount);
+                                        //skuDataUpdated.setCounter(currentAmountRequiredSKU - requiredAmount);
                                         mapSKUDataUpdated.put(requiredSKU, skuDataUpdated);
 
                                         tryToApplyOfferAgain = true;
@@ -172,7 +172,7 @@ public class Test_CHK_R5 {
                                         skuDataOriginal.setCounter(currentAmountFreeSKU);
                                         mapSKUDataOriginal.put(freeSKU, skuDataOriginal);
 
-                                        skuDataUpdated.setCounter(currentAmountRequiredSKU - requiredAmount);
+                                        //skuDataUpdated.setCounter(currentAmountRequiredSKU - requiredAmount);
                                         mapSKUDataUpdated.put(requiredSKU, skuDataUpdated);
 
                                         tryToApplyOfferAgain = true;
@@ -404,4 +404,5 @@ public class Test_CHK_R5 {
         return mapSKUDataList;
     }
 }
+
 

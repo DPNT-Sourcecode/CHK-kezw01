@@ -375,7 +375,7 @@ public class Test_CHK_R5 {
 
     private static String removeFreeSKUs(String skus, ArrayList<SpecialOffer> specialOffers)
     {
-        skus = "EBBE";
+        skus = "EEBBBEE";
         ArrayList<String> saved = new ArrayList<>();
 
         boolean tryToApplyOfferAgain = false;
@@ -417,6 +417,10 @@ public class Test_CHK_R5 {
                 break;
             }
         }
+        StringBuilder skusBuilder = new StringBuilder(skus);
+        for (String sku : saved)
+            skusBuilder.append(sku);
+        skus = skusBuilder.toString();
 
         System.out.println(skus);
         return skus;
@@ -436,6 +440,7 @@ public class Test_CHK_R5 {
         return count;
     }
 }
+
 
 
 

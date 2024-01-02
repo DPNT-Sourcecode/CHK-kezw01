@@ -375,40 +375,43 @@ public class Test_CHK_R5 {
 
     private static String removeFreeSKUs(String skus, ArrayList<SpecialOffer> specialOffers)
     {
-        ArrayList<String> skusToRemove = new ArrayList<>();
+        skus = "EBBE";
 
-        for (SpecialOffer specialOffer : specialOffers) {
+        boolean tryToApplyOfferAgain = false;
+        while (true) {
+            tryToApplyOfferAgain = false;
 
-            //Check only FreeOffer objects
-            if (specialOffer instanceof FreeOffer freeOffer) {
-                String offerRequiredSKU = freeOffer.getRequiredSKU();
-                String offerFreeSKU = freeOffer.getFreeSKU();
+            for (SpecialOffer specialOffer : specialOffers) {
 
-                if (skus.contains(offerRequiredSKU) && skus.contains(offerFreeSKU))
-                {
-                    int offerRequiredCount = freeOffer.getRequiredAmount();
-                    int offerFreeCount = freeOffer.getFreeAmount();
+                //Check only FreeOffer objects
+                if (specialOffer instanceof FreeOffer freeOffer) {
+                    String offerRequiredSKU = freeOffer.getRequiredSKU();
+                    String offerFreeSKU = freeOffer.getFreeSKU();
 
-                    int requiredSKUCount = countSKUs(skus, offerRequiredSKU);
-                    int freeSKUCount = countSKUs(skus, offerFreeSKU);
+                    if (skus.contains(offerRequiredSKU) && skus.contains(offerFreeSKU)) {
+                        int offerRequiredCount = freeOffer.getRequiredAmount();
+                        int offerFreeCount = freeOffer.getFreeAmount();
 
-                    //Able to apply offer
-                    if (requiredSKUCount >= offerRequiredCount && freeSKUCount >= offerFreeCount)
-                    {
-                        //Track which skus should be removed
-                        for (int i = 0; i < offerFreeCount; i++)
-                        {
-                            skusToRemove.add(offerFreeSKU);
+                        int requiredSKUCount = countSKUs(skus, offerRequiredSKU);
+                        int freeSKUCount = countSKUs(skus, offerFreeSKU);
+
+                        //Able to apply offer
+                        if (requiredSKUCount >= offerRequiredCount && freeSKUCount >= offerFreeCount) {
+                            //Track which skus should be removed
+                            for (int i = 0; i < offerFreeCount; i++) {
+                                skus = skus.replaceFirst(offerFreeSKU, "");
+                            }
+                            tryToApplyOfferAgain = true;
                         }
                     }
                 }
             }
+
+            if (!tryToApplyOfferAgain)
+            {
+                break;
+            }
         }
-        /*
-        for (String skuToRemove : skusToRemove)
-        {
-            skus.replace()
-        }*/
 
         System.out.println(skus);
         return skus;
@@ -428,6 +431,7 @@ public class Test_CHK_R5 {
         return count;
     }
 }
+
 
 
 

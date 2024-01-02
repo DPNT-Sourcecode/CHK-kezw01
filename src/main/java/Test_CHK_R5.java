@@ -348,7 +348,7 @@ public class Test_CHK_R5 {
     {
         int totalPrice = 0;
 
-        HashMap<String, Integer> sortedSKUsPrices = sortSKUsDescendingPrice(mapSKUsPrice);
+        ArrayList<Pair<String, Integer>> sortedSKUsPrices = sortSKUsDescendingPrice(mapSKUsPrice);
 
         boolean tryToApplyOfferAgain = false;
         do {
@@ -384,19 +384,26 @@ public class Test_CHK_R5 {
         return count;
     }
 
-    private static ArrayList<Map.Entry<String, Integer>> sortSKUsDescendingPrice(HashMap<String, Integer> mapSKUsPrice)
+    private static ArrayList<Pair<String, Integer>> sortSKUsDescendingPrice(HashMap<String, Integer> mapSKUsPrice)
     {
         ArrayList<Map.Entry<String, Integer>> entries = new ArrayList<>(mapSKUsPrice.entrySet());
 
         Collections.sort(entries, new Comparator<Map.Entry<String, Integer>>() {
             @Override
             public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-                return o1.getValue().compareTo(o2.getValue());
+                return o2.getValue().compareTo(o1.getValue());
             }
         });
 
-        return entries;
+        ArrayList<Pair<String, Integer>> sortedPrices = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : entries)
+        {
+            sortedPrices.add(new Pair<>(entry.getKey(), entry.getValue()));
+        }
+
+        return sortedPrices;
     }
 }
+
 
 

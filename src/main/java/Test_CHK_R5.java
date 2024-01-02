@@ -35,11 +35,9 @@ public class Test_CHK_R5 {
                 Pair<String, Integer> skusGroupsRemovedAndPrice = removeGroupOffers(skusFreeRemoved, specialOffers, mapSKUsPrice);
                 String skusGroupsRemoved = skusGroupsRemovedAndPrice.getValue0();
                 int currentPrice = skusGroupsRemovedAndPrice.getValue1();
+                totalPrice += currentPrice;
 
-                HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skusFreeRemoved);
-
-                //A pair with a filtered map of SKUs and respective amounts (with group offers applied), and an integer representing the current total price
-                Pair<HashMap<String, Integer>, Integer> pairSKUsAmountAndTotalPrice = checkForGroupOffers(mapSKUsCounter, specialOffers);
+                HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skusGroupsRemoved);
 
                 //Calculate price
                 for (String currentSku : mapSKUsCounter.keySet())
@@ -98,103 +96,6 @@ public class Test_CHK_R5 {
             }
         }
         return 0;
-    }
-
-    private static Pair<HashMap<String, Integer>, Integer> checkForGroupOffers(HashMap<String, Integer> mapCurrentAmountSKUs, ArrayList<SpecialOffer> specialOffers)
-    {
-        int totalPrice = 0;
-
-        boolean tryToApplyOfferAgain = false;
-        while (true)
-        {
-            tryToApplyOfferAgain = false;
-
-            for (SpecialOffer specialOffer : specialOffers)
-            {
-                //Check only DiscountOffer objects
-                if (specialOffer instanceof GroupOffer groupOffer)
-                {
-                    int requiredSKUsAmount = groupOffer.getRequiredCount();
-                    int matchSKUsAmount = 0;
-
-                    HashMap<String, Integer> mapSKUsToDecrease = new HashMap<>();
-
-                    //Loop through SKUs in input SKUs counter map
-                    for (String currentSKUInput : mapCurrentAmountSKUs.keySet())
-                    {
-                        //SKU is in a group offer
-                        if (groupOffer.getGroupSKUs().contains(currentSKUInput))
-                        {
-                            int currentSKUInputAmount = mapCurrentAmountSKUs.get(currentSKUInput);
-
-                            //For each SKU occurrence in the input
-                            for (int i = 0; i < currentSKUInputAmount; i++)
-                            {
-                                matchSKUsAmount++;
-
-                                mapSKUsToDecrease.put(currentSKUInput, i + 1);
-
-                                //Apply group offer
-                                if (matchSKUsAmount == requiredSKUsAmount)
-                                {
-                                    //Update price
-                                    totalPrice += groupOffer.getPrice();
-
-                                    //Decrease the counter of the SKUs in the map
-                                    for (String skuToDecrease : mapSKUsToDecrease.keySet())
-                                    {
-                                        int currentAmount = mapCurrentAmountSKUs.get(currentSKUInput);
-                                        int amountToDecrease = mapSKUsToDecrease.get(skuToDecrease);
-                                        int updateAmount = currentAmount - amountToDecrease;
-                                        mapCurrentAmountSKUs.put(skuToDecrease, updateAmount);
-                                    }
-                                    mapSKUsToDecrease.clear();
-                                    matchSKUsAmount = 0;
-                                    tryToApplyOfferAgain = true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (!tryToApplyOfferAgain)
-            {
-                break;
-            }
-        }
-
-        return new Pair<>(mapCurrentAmountSKUs, totalPrice);
-    }
-
-    private static DiscountOffer getBestDiscountOffer(String skuRequired, int amountOfItems, ArrayList<SpecialOffer> specialOffers)
-    {
-        float bestSingleItemPrice = Integer.MAX_VALUE;
-
-        DiscountOffer bestDiscountOffer = null;
-
-        for (SpecialOffer specialOffer : specialOffers)
-        {
-            //Check only DiscountOffer objects
-            if (specialOffer instanceof DiscountOffer discountOffer)
-            {
-                if (skuRequired.equals(discountOffer.getRequiredSKU()))
-                {
-                    int offerAmount = discountOffer.getRequiredAmount();
-                    int offerPrice = discountOffer.getPrice();
-
-                    float singleItemPrice = (float) offerPrice / offerAmount;
-
-                    if (amountOfItems >= offerAmount && singleItemPrice < bestSingleItemPrice)
-                    {
-                        bestSingleItemPrice = singleItemPrice;
-                        bestDiscountOffer = discountOffer;
-                    }
-                }
-            }
-        }
-
-        return bestDiscountOffer;
     }
 
     private static HashMap<String, Integer> getSinglePrices()
@@ -261,6 +162,36 @@ public class Test_CHK_R5 {
         offers.add(groupOffer);
 
         return offers;
+    }
+
+    private static DiscountOffer getBestDiscountOffer(String skuRequired, int amountOfItems, ArrayList<SpecialOffer> specialOffers)
+    {
+        float bestSingleItemPrice = Integer.MAX_VALUE;
+
+        DiscountOffer bestDiscountOffer = null;
+
+        for (SpecialOffer specialOffer : specialOffers)
+        {
+            //Check only DiscountOffer objects
+            if (specialOffer instanceof DiscountOffer discountOffer)
+            {
+                if (skuRequired.equals(discountOffer.getRequiredSKU()))
+                {
+                    int offerAmount = discountOffer.getRequiredAmount();
+                    int offerPrice = discountOffer.getPrice();
+
+                    float singleItemPrice = (float) offerPrice / offerAmount;
+
+                    if (amountOfItems >= offerAmount && singleItemPrice < bestSingleItemPrice)
+                    {
+                        bestSingleItemPrice = singleItemPrice;
+                        bestDiscountOffer = discountOffer;
+                    }
+                }
+            }
+        }
+
+        return bestDiscountOffer;
     }
 
     private static HashMap<String, Integer> getMapSKUSCounter(String skus)
@@ -450,4 +381,5 @@ public class Test_CHK_R5 {
         return sbSortedSKUs.toString();
     }
 }
+
 

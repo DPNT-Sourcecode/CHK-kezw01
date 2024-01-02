@@ -360,7 +360,7 @@ public class Test_CHK_R5 {
                 if (specialOffer instanceof GroupOffer freeOffer)
                 {
 
-                    
+
 
                     System.out.println("dsd");
                 }
@@ -406,6 +406,7 @@ public class Test_CHK_R5 {
         return sortedPrices;
     }
 }
+
 
 
 

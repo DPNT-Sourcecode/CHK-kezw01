@@ -6,8 +6,7 @@ import befaster.solutions.CHK.specialoffers.GroupOffer;
 import befaster.solutions.CHK.specialoffers.SpecialOffer;
 import org.javatuples.Pair;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class Test_CHK_R5 {
 
@@ -382,7 +381,13 @@ public class Test_CHK_R5 {
         }
         return count;
     }
+
+    private LinkedHashMap<String, Integer> sortSKUsDescendingPrice(HashMap<String, Integer> mapSKUsPrice)
+    {
+        ArrayList<Map.Entry<String, Integer>> entries = new ArrayList
+    }
 }
+
 
 
 

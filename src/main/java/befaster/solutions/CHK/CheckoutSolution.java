@@ -194,7 +194,7 @@ public class CheckoutSolution {
                 //Check only DiscountOffer objects
                 if (specialOffer instanceof GroupOffer groupOffer)
                 {
-                    int requiredSKUsAmount = groupOffer.getRequiredAmount();
+                    int requiredSKUsAmount = groupOffer.getRequiredCount();
                     int matchSKUsAmount = 0;
 
                     HashMap<String, Integer> mapSKUsToDecrease = new HashMap<>();

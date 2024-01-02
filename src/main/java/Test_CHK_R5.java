@@ -115,7 +115,7 @@ public class Test_CHK_R5 {
                 //Check only DiscountOffer objects
                 if (specialOffer instanceof GroupOffer groupOffer)
                 {
-                    int requiredSKUsAmount = groupOffer.getRequiredAmount();
+                    int requiredSKUsAmount = groupOffer.getRequiredCount();
                     int matchSKUsAmount = 0;
 
                     HashMap<String, Integer> mapSKUsToDecrease = new HashMap<>();
@@ -350,6 +350,9 @@ public class Test_CHK_R5 {
 
         ArrayList<Pair<String, Integer>> sortedSKUsPrices = sortSKUsDescendingPrice(mapSKUsPrice);
 
+        // Sort SKUs from input, according their price
+
+
         boolean tryToApplyOfferAgain = false;
         do {
             tryToApplyOfferAgain = false;
@@ -360,8 +363,10 @@ public class Test_CHK_R5 {
                 if (specialOffer instanceof GroupOffer groupOffer)
                 {
                     ArrayList<String> offerRequiredSKUs = groupOffer.getGroupSKUs();
-                    int offerRequiredCount = groupOffer.getRequiredAmount();
+                    int offerRequiredCount = groupOffer.getRequiredCount();
 
+                    int requiredSKUCount = 0;
+                    // Check if there is enough
 
                     System.out.println("dsd");
                 }
@@ -407,9 +412,3 @@ public class Test_CHK_R5 {
         return sortedPrices;
     }
 }
-
-
-
-
-
-

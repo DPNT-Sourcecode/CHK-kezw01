@@ -7,7 +7,6 @@ import org.javatuples.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
 public class Test_CHK_R5 {
     public static void main(String[] args)
@@ -26,16 +25,16 @@ public class Test_CHK_R5 {
                 HashMap<String, Integer> mapSKUsPrice = getSinglePrices();
 
                 //Map with the count of each SKU and single price
-                ArrayList<SKUData> mapSKUData = processSKUs(skus, mapSKUsPrice);
+                HashMap<String, SKUData> mapSKUData = processSKUs(skus, mapSKUsPrice);
 
                 //Map with special offers
                 ArrayList<SpecialOffer> specialOffers = getSpecialOffers();
 
                 //Check for free items
-                HashMap<String, Integer> filteredFreeSKUs ;//= removeFreeSKUs(mapSKUData, specialOffers);
+                HashMap<String, Integer> filteredFreeSKUs = removeFreeSKUs(mapSKUData, specialOffers);
 
                 //A pair with a filtered map of SKUs and respective amounts (with group offers applied), and an integer representing the current total price
-                Pair<HashMap<String, Integer>, Integer> pairSKUsAmountAndTotalPrice = null ;//= checkForGroupOffers(mapSKUsCounter, specialOffers);
+                Pair<HashMap<String, Integer>, Integer> pairSKUsAmountAndTotalPrice = checkForGroupOffers(mapSKUsCounter, specialOffers);
 
                 filteredFreeSKUs = pairSKUsAmountAndTotalPrice.getValue0();
                 totalPrice = pairSKUsAmountAndTotalPrice.getValue1();
@@ -371,36 +370,30 @@ public class Test_CHK_R5 {
         return mapSKUsCounter;
     }
 
-    private static ArrayList<SKUData> processSKUs(String skus, HashMap<String, Integer> skuPrices)
+    private static HashMap<String, SKUData> processSKUs(String skus, HashMap<String, Integer> skuPrices)
     {
-        ArrayList<SKUData> skuDataList = new ArrayList<>();
+        HashMap<String, SKUData> mapSKUDataList = new HashMap<>();
 
         for (int i = 0; i < skus.length(); i++)
         {
             String sku = String.valueOf(skus.charAt(i));
 
-            boolean skuUpdated = false;
-            for (SKUData skuData : skuDataList)
+            if (mapSKUDataList.get(sku) != null)
             {
-                //If skuData already exists, replace it
-                if (Objects.equals(skuData.getSku(), sku))
-                {
-                    skuData.setCounter(skuData.getCounter() + 1);
-                    skuUpdated = true;
-                    break;
-                }
+                SKUData skuData = mapSKUDataList.get(sku);
+                skuData.setCounter(skuData.getCounter() + 1);
+                mapSKUDataList.put(sku, skuData);
             }
-
-            //SKU not found, create a new one
-            if (!skuUpdated)
-            {
+            else {
                 int skuPrice = skuPrices.get(sku);
                 int skuCounter = 1;
                 SKUData skuData = new SKUData(sku, skuPrice, skuCounter);
-                skuDataList.add(skuData);
+                mapSKUDataList.put(sku, skuData);
             }
         }
-        return skuDataList;
+
+        return mapSKUDataList;
     }
 }
+
 

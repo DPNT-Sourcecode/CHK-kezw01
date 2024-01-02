@@ -349,21 +349,7 @@ public class Test_CHK_R5 {
         skus = "XXXTS";
         int totalPrice = 0;
 
-        ArrayList<Pair<String, Integer>> sortedSKUsPrices = sortSKUsDescendingPrice(mapSKUsPrice);
-        StringBuilder sbSortedSKUs = new StringBuilder();
-
-        // Sort SKUs from input, according their price
-        for (Pair<String, Integer> skuAndPrice : sortedSKUsPrices)
-        {
-            for (int i = 0; i < skus.length(); i++)
-            {
-                if (String.valueOf(skus.charAt(i)).equals(skuAndPrice.getValue0()))
-                {
-                    sbSortedSKUs.append(skuAndPrice.getValue0());
-                }
-            }
-        }
-        String sortedSKUs = sbSortedSKUs.toString();
+        String sortedSKUs = sortSKUsDescendingPrice(mapSKUsPrice, skus);
 
         boolean tryToApplyOfferAgain = false;
         do {
@@ -404,7 +390,7 @@ public class Test_CHK_R5 {
         return count;
     }
 
-    private static ArrayList<Pair<String, Integer>> sortSKUsDescendingPrice(HashMap<String, Integer> mapSKUsPrice)
+    private static String sortSKUsDescendingPrice(HashMap<String, Integer> mapSKUsPrice, String skus)
     {
         ArrayList<Map.Entry<String, Integer>> entries = new ArrayList<>(mapSKUsPrice.entrySet());
 
@@ -421,6 +407,21 @@ public class Test_CHK_R5 {
             sortedPrices.add(new Pair<>(entry.getKey(), entry.getValue()));
         }
 
-        return sortedPrices;
+        StringBuilder sbSortedSKUs = new StringBuilder();
+
+        // Sort SKUs from input, according their price
+        for (Pair<String, Integer> skuAndPrice : sortedPrices)
+        {
+            for (int i = 0; i < skus.length(); i++)
+            {
+                if (String.valueOf(skus.charAt(i)).equals(skuAndPrice.getValue0()))
+                {
+                    sbSortedSKUs.append(skuAndPrice.getValue0());
+                }
+            }
+        }
+
+        return sbSortedSKUs.toString();
     }
 }
+

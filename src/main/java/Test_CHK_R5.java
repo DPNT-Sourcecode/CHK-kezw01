@@ -1,3 +1,4 @@
+import befaster.solutions.CHK.sku.DataSKU;
 import befaster.solutions.CHK.specialoffers.DiscountOffer;
 import befaster.solutions.CHK.specialoffers.FreeOffer;
 import befaster.solutions.CHK.specialoffers.GroupOffer;
@@ -19,6 +20,8 @@ public class Test_CHK_R5 {
             if (skus.matches("[A-Z]+"))
             {
                 int totalPrice = 0;
+
+                HashMap<String, DataSKU> mapDataSKU;
 
                 //Map with the price for each SKU
                 HashMap<String, Integer> mapSKUsPrice = getSinglePrices();
@@ -368,5 +371,6 @@ public class Test_CHK_R5 {
         return mapSKUsCounter;
     }
 }
+
 
 

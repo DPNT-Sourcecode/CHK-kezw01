@@ -365,6 +365,7 @@ public class Test_CHK_R5 {
 
                     int requiredSKUCount = 0;
                     ArrayList<String> skusToRemove = new ArrayList<>();
+                    boolean offerApplied = false;
 
                     // Check if there is enough SKUs to apply the offer
                     for (int i = 0; i < sortedSKUs.length(); i++)
@@ -379,9 +380,18 @@ public class Test_CHK_R5 {
                         // Apply offer
                         if (requiredSKUCount == offerRequiredCount)
                         {
-
-
                             tryToApplyOfferAgain = true;
+                            offerApplied = true;
+                            break;
+                        }
+                    }
+
+                    // Update SKUs input list
+                    if (offerApplied)
+                    {
+                        for (String sku : skusToRemove)
+                        {
+                            sortedSKUs = sortedSKUs.replaceFirst(sku, "");
                         }
                     }
 
@@ -443,6 +453,7 @@ public class Test_CHK_R5 {
         return sbSortedSKUs.toString();
     }
 }
+
 
 
 

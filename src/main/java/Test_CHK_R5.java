@@ -10,7 +10,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Test_CHK_R5 {
-    public  Integer checkout(String skus) {
+
+    public static void main(String[] args)
+    {
+        System.out.println(checkout("FF"));
+    }
+
+    public static Integer checkout(String skus) {
         if (!skus.isEmpty())
         {
             if (skus.matches("[A-Z]+"))
@@ -93,7 +99,7 @@ public class Test_CHK_R5 {
         return 0;
     }
 
-    private  HashMap<String, Integer> checkForFreeItems(HashMap<String, Integer> mapCurrentAmountSKUs, ArrayList<SpecialOffer> specialOffers)
+    private static HashMap<String, Integer> checkForFreeItems(HashMap<String, Integer> mapCurrentAmountSKUs, ArrayList<SpecialOffer> specialOffers)
     {
         HashMap<String, Integer> mapFilteredAmountSKUs = new HashMap<>(mapCurrentAmountSKUs);
 
@@ -180,7 +186,7 @@ public class Test_CHK_R5 {
     }
 
 
-    private  Pair<HashMap<String, Integer>, Integer> checkForGroupOffers(HashMap<String, Integer> mapCurrentAmountSKUs, ArrayList<SpecialOffer> specialOffers)
+    private static Pair<HashMap<String, Integer>, Integer> checkForGroupOffers(HashMap<String, Integer> mapCurrentAmountSKUs, ArrayList<SpecialOffer> specialOffers)
     {
         int totalPrice = 0;
 
@@ -247,7 +253,7 @@ public class Test_CHK_R5 {
         return new Pair<>(mapCurrentAmountSKUs, totalPrice);
     }
 
-    private  DiscountOffer getBestDiscountOffer(String skuRequired, int amountOfItems, ArrayList<SpecialOffer> specialOffers)
+    private static DiscountOffer getBestDiscountOffer(String skuRequired, int amountOfItems, ArrayList<SpecialOffer> specialOffers)
     {
         float bestSingleItemPrice = Integer.MAX_VALUE;
 
@@ -277,7 +283,7 @@ public class Test_CHK_R5 {
         return bestDiscountOffer;
     }
 
-    private  HashMap<String, Integer> getSinglePrices()
+    private static HashMap<String, Integer> getSinglePrices()
     {
         HashMap<String, Integer> mapSKUsPrice = new HashMap<>();
 
@@ -311,7 +317,7 @@ public class Test_CHK_R5 {
         return mapSKUsPrice;
     }
 
-    private  ArrayList<SpecialOffer> getSpecialOffers()
+    private static ArrayList<SpecialOffer> getSpecialOffers()
     {
         ArrayList<SpecialOffer> offers = new ArrayList<>();
 
@@ -343,7 +349,7 @@ public class Test_CHK_R5 {
         return offers;
     }
 
-    private  HashMap<String, Integer> getMapSKUSCounter(String skus)
+    private static HashMap<String, Integer> getMapSKUSCounter(String skus)
     {
         HashMap<String, Integer> mapSKUsCounter = new HashMap<String, Integer>();
 
@@ -365,6 +371,7 @@ public class Test_CHK_R5 {
         return mapSKUsCounter;
     }
 }
+
 
 
 

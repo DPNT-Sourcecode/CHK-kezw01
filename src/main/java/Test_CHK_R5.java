@@ -29,6 +29,8 @@ public class Test_CHK_R5 {
                 //Map with special offers
                 ArrayList<SpecialOffer> specialOffers = getSpecialOffers();
 
+                String skusFreeRemoved = removeFreeSKUs(skus, specialOffers);
+
                 HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skus);
 
                 //Check for free items
@@ -370,7 +372,27 @@ public class Test_CHK_R5 {
 
         return mapSKUsCounter;
     }
+
+    private String removeFreeSKUs(String skus, ArrayList<SpecialOffer> specialOffers)
+    {
+        for (SpecialOffer specialOffer : specialOffers) {
+
+            //Check only FreeOffer objects
+            if (specialOffer instanceof FreeOffer freeOffer) {
+                String requiredSKU = freeOffer.getRequiredSKU();
+                String freeSKU = freeOffer.getFreeSKU();
+
+                if (skus.contains(requiredSKU) && skus.contains(freeSKU))
+                {
+                    int freeAmount = freeOffer.getFreeAmount();
+                    int requiredAmount = freeOffer.getRequiredAmount();
+                }
+            }
+        }
+        return skus;
+    }
 }
+
 
 
 

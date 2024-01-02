@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class Test_CHK_R5 {
     public static void main(String[] args)
     {
-        System.out.println(checkout("SSSZ"));
+        System.out.println(checkout("EEB"));
     }
 
     public static Integer checkout(String skus) {
@@ -36,15 +36,15 @@ public class Test_CHK_R5 {
                 HashMap<String, SKUData> filteredFreeSKUs = removeFreeSKUs(mapSKUData, specialOffers);
 
                 //A pair with a filtered map of SKUs and respective amounts (with group offers applied), and an integer representing the current total price
-                Pair<HashMap<String, Integer>, Integer> pairSKUsAmountAndTotalPrice = checkForGroupOffers(mapSKUsCounter, specialOffers);
+                //Pair<HashMap<String, Integer>, Integer> pairSKUsAmountAndTotalPrice = checkForGroupOffers(filteredFreeSKUs, specialOffers);
 
-                filteredFreeSKUs = pairSKUsAmountAndTotalPrice.getValue0();
-                totalPrice = pairSKUsAmountAndTotalPrice.getValue1();
+                //filteredFreeSKUs = pairSKUsAmountAndTotalPrice.getValue0();
+                //totalPrice = pairSKUsAmountAndTotalPrice.getValue1();
 
                 //Calculate price
                 for (String currentSku : filteredFreeSKUs.keySet())
                 {
-                    int amount = filteredFreeSKUs.get(currentSku);
+                    int amount = filteredFreeSKUs.get(currentSku).getCounter();
 
                     while (amount > 0)
                     {
@@ -113,26 +113,27 @@ public class Test_CHK_R5 {
                 //Check only FreeOffer objects
                 if (specialOffer instanceof FreeOffer freeOffer)
                 {
-                    String requiredOfferSKU = freeOffer.getRequiredSKU();
-                    int requiredOfferAmount = freeOffer.getRequiredAmount();
+                    String requiredSKU = freeOffer.getRequiredSKU();
+                    int requiredAmount = freeOffer.getRequiredAmount();
 
                     //Check if we have the required amount of items to apply the offer
-                    if (mapSKUDataUpdated.containsKey(requiredOfferSKU))
+                    if (mapSKUDataUpdated.containsKey(requiredSKU))
                     {
-                        SKUData skuDataFiltered = mapSKUDataUpdated.get(requiredOfferSKU);
+                        SKUData skuDataUpdated = mapSKUDataUpdated.get(requiredSKU);
 
-                        int currentAmountRequiredSKU = skuDataFiltered.getCounter();
+                        int currentAmountRequiredSKU = skuDataUpdated.getCounter();
 
                         String freeSKU = freeOffer.getFreeSKU();
 
                         //Required SKU is different from the free SKU
-                        if (!requiredOfferSKU.equals(freeSKU))
+                        if (!requiredSKU.equals(freeSKU))
                         {
                             if (currentAmountRequiredSKU >= requiredAmount)
                             {
                                 if (mapSKUDataUpdated.containsKey(freeSKU))
                                 {
-                                    int currentAmountFreeSKU = mapSKUDataOriginal.get(freeSKU);
+                                    SKUData skuDataOriginal = mapSKUDataOriginal.get(freeSKU);
+                                    int currentAmountFreeSKU = skuDataOriginal.getCounter();
 
                                     int freeAmount = freeOffer.getFreeAmount();
 
@@ -140,10 +141,11 @@ public class Test_CHK_R5 {
                                     if (currentAmountFreeSKU >= freeAmount)
                                     {
                                         currentAmountFreeSKU -= freeAmount;
-                                        mapSKUDataOriginal.put(freeSKU, currentAmountFreeSKU);
+                                        skuDataOriginal.setCounter(currentAmountFreeSKU);
+                                        mapSKUDataOriginal.put(freeSKU, skuDataOriginal);
 
-                                        int sub = currentAmountRequiredSKU - requiredAmount;
-                                        mapSKUDataUpdated.put(requiredOfferSKU, sub);
+                                        skuDataUpdated.setCounter(currentAmountRequiredSKU - requiredAmount);
+                                        mapSKUDataUpdated.put(requiredSKU, skuDataUpdated);
 
                                         tryToApplyOfferAgain = true;
                                     }
@@ -157,7 +159,8 @@ public class Test_CHK_R5 {
                             {
                                 if (mapSKUDataUpdated.containsKey(freeSKU))
                                 {
-                                    int currentAmountFreeSKU = mapSKUDataOriginal.get(freeSKU);
+                                    SKUData skuDataOriginal = mapSKUDataOriginal.get(freeSKU);
+                                    int currentAmountFreeSKU = skuDataOriginal.getCounter();
 
                                     int freeAmount = freeOffer.getFreeAmount();
 
@@ -165,10 +168,12 @@ public class Test_CHK_R5 {
                                     if (currentAmountFreeSKU >= freeAmount)
                                     {
                                         currentAmountFreeSKU -= freeAmount;
-                                        mapSKUDataOriginal.put(freeSKU, currentAmountFreeSKU);
 
-                                        int sub = currentAmountRequiredSKU - requiredAmount;
-                                        mapSKUDataUpdated.put(requiredOfferSKU, sub);
+                                        skuDataOriginal.setCounter(currentAmountFreeSKU);
+                                        mapSKUDataOriginal.put(freeSKU, skuDataOriginal);
+
+                                        skuDataUpdated.setCounter(currentAmountRequiredSKU - requiredAmount);
+                                        mapSKUDataUpdated.put(requiredSKU, skuDataUpdated);
 
                                         tryToApplyOfferAgain = true;
                                     }
@@ -185,7 +190,7 @@ public class Test_CHK_R5 {
             }
         }
 
-        return mapCurrentAmountSKUs;
+        return mapSKUDataUpdated;
     }
 
 
@@ -399,6 +404,7 @@ public class Test_CHK_R5 {
         return mapSKUDataList;
     }
 }
+
 
 
 

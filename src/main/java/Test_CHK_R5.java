@@ -346,7 +346,7 @@ public class Test_CHK_R5 {
      * */
     private static Pair<String, Integer> removeGroupOffers(String skus, ArrayList<SpecialOffer> specialOffers, HashMap<String, Integer> mapSKUsPrice)
     {
-        skus = "XXXTS";
+        skus = "XXXTSS";
         int totalPrice = 0;
 
         String sortedSKUs = sortSKUsDescendingPrice(mapSKUsPrice, skus);
@@ -443,6 +443,7 @@ public class Test_CHK_R5 {
         return sbSortedSKUs.toString();
     }
 }
+
 
 
 

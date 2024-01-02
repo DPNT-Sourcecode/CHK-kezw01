@@ -346,7 +346,7 @@ public class Test_CHK_R5 {
      * */
     private static Pair<String, Integer> removeGroupOffers(String skus, ArrayList<SpecialOffer> specialOffers, HashMap<String, Integer> mapSKUsPrice)
     {
-        skus = "QPABCL";
+        skus = "XXXTS";
         int totalPrice = 0;
 
         ArrayList<Pair<String, Integer>> sortedSKUsPrices = sortSKUsDescendingPrice(mapSKUsPrice);
@@ -424,5 +424,6 @@ public class Test_CHK_R5 {
         return sortedPrices;
     }
 }
+
 
 

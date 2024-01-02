@@ -13,7 +13,7 @@ public class Test_CHK_R5 {
 
     public static void main(String[] args)
     {
-        System.out.println(checkout("FF"));
+        System.out.println(checkout("EEEB"));
     }
 
     public static Integer checkout(String skus) {
@@ -373,7 +373,7 @@ public class Test_CHK_R5 {
         return mapSKUsCounter;
     }
 
-    private String removeFreeSKUs(String skus, ArrayList<SpecialOffer> specialOffers)
+    private static String removeFreeSKUs(String skus, ArrayList<SpecialOffer> specialOffers)
     {
         for (SpecialOffer specialOffer : specialOffers) {
 
@@ -387,15 +387,31 @@ public class Test_CHK_R5 {
                     int requiredSKUAmount = freeOffer.getRequiredAmount();
                     int freeSKUAmount = freeOffer.getFreeAmount();
 
-                    int requiredSKUCurrentAmount = skus.length() - skus.replace(, "").length();
-                    int freeSKUCurrentAmount = skus.length() - skus.replace(".", "").length();
+                    int requiredSKUCurrentAmount = countSKUs(skus, requiredSKU);
+                    int freeSKUCurrentAmount = countSKUs(skus, freeSKU);
 
+                    int j=0;
                 }
             }
         }
         return skus;
     }
+
+    private static int countSKUs(String skus, String skuToCount)
+    {
+        int count = 0;
+        for (int i = 0; i < skus.length(); i++)
+        {
+            String sku = String.valueOf(skus.charAt(i));
+            if (sku.equals(skuToCount))
+            {
+                count++;
+            }
+        }
+        return count;
+    }
 }
+
 
 
 

@@ -291,7 +291,7 @@ public class Test_CHK_R5 {
     * */
     private static String removeFreeSKUs(String skus, ArrayList<SpecialOffer> specialOffers)
     {
-        ArrayList<String> saved = new ArrayList<>();
+        ArrayList<String> skusToKeep = new ArrayList<>();
 
         boolean tryToApplyOfferAgain = false;
         do {
@@ -318,7 +318,7 @@ public class Test_CHK_R5 {
                                 skus = skus.replaceFirst(offerFreeSKU, "");
                             }
                             for (int i = 0; i < offerRequiredCount; i++) {
-                                saved.add(offerRequiredSKU);
+                                skusToKeep.add(offerRequiredSKU);
                                 skus = skus.replaceFirst(offerRequiredSKU, "");
                             }
                             tryToApplyOfferAgain = true;
@@ -331,7 +331,7 @@ public class Test_CHK_R5 {
 
         StringBuilder skusBuilder = new StringBuilder(skus);
 
-        for (String sku : saved)
+        for (String sku : skusToKeep)
         {
             skusBuilder.append(sku);
         }
@@ -364,6 +364,7 @@ public class Test_CHK_R5 {
                     int offerRequiredCount = groupOffer.getRequiredCount();
 
                     int requiredSKUCount = 0;
+                    ArrayList<String> skusToRemove = new ArrayList<>();
 
                     // Check if there is enough SKUs to apply the offer
                     for (int i = 0; i < sortedSKUs.length(); i++)
@@ -372,12 +373,15 @@ public class Test_CHK_R5 {
                         if (offerRequiredSKUs.contains(currentSKU))
                         {
                             requiredSKUCount++;
+                            skusToRemove.add(currentSKU);
                         }
 
                         // Apply offer
                         if (requiredSKUCount == offerRequiredCount)
                         {
-                            
+
+
+                            tryToApplyOfferAgain = true;
                         }
                     }
 
@@ -439,5 +443,6 @@ public class Test_CHK_R5 {
         return sbSortedSKUs.toString();
     }
 }
+
 
 

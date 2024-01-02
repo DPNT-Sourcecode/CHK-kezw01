@@ -348,6 +348,8 @@ public class Test_CHK_R5 {
     {
         int totalPrice = 0;
 
+        HashMap<String, Integer> sortedSKUsPrices = sortSKUsDescendingPrice(mapSKUsPrice);
+
         boolean tryToApplyOfferAgain = false;
         do {
             tryToApplyOfferAgain = false;
@@ -382,7 +384,7 @@ public class Test_CHK_R5 {
         return count;
     }
 
-    private LinkedHashMap<String, Integer> sortSKUsDescendingPrice(HashMap<String, Integer> mapSKUsPrice)
+    private static HashMap<String, Integer> sortSKUsDescendingPrice(HashMap<String, Integer> mapSKUsPrice)
     {
         ArrayList<Map.Entry<String, Integer>> entries = new ArrayList<>(mapSKUsPrice.entrySet());
 
@@ -392,5 +394,14 @@ public class Test_CHK_R5 {
                 return o1.getValue().compareTo(o2.getValue());
             }
         });
+
+        HashMap<String, Integer> sortedMap = new HashMap<>();
+        for (Map.Entry<String, Integer> entry : entries)
+        {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+
+        return sortedMap;
     }
 }
+

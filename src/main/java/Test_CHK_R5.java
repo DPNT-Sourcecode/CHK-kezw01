@@ -29,23 +29,18 @@ public class Test_CHK_R5 {
                 //Map with special offers
                 ArrayList<SpecialOffer> specialOffers = getSpecialOffers();
 
+                //Remove free items
                 String skusFreeRemoved = removeFreeSKUs(skus, specialOffers);
 
-                HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skus);
-
-                //Check for free items
-                HashMap<String, Integer> filteredFreeSKUs = checkForFreeItems(mapSKUsCounter, specialOffers);
+                HashMap<String, Integer> mapSKUsCounter = getMapSKUSCounter(skusFreeRemoved);
 
                 //A pair with a filtered map of SKUs and respective amounts (with group offers applied), and an integer representing the current total price
                 Pair<HashMap<String, Integer>, Integer> pairSKUsAmountAndTotalPrice = checkForGroupOffers(mapSKUsCounter, specialOffers);
 
-                filteredFreeSKUs = pairSKUsAmountAndTotalPrice.getValue0();
-                totalPrice = pairSKUsAmountAndTotalPrice.getValue1();
-
                 //Calculate price
-                for (String currentSku : filteredFreeSKUs.keySet())
+                for (String currentSku : mapSKUsCounter.keySet())
                 {
-                    int amount = filteredFreeSKUs.get(currentSku);
+                    int amount = mapSKUsCounter.get(currentSku);
 
                     while (amount > 0)
                     {
@@ -375,7 +370,6 @@ public class Test_CHK_R5 {
 
     private static String removeFreeSKUs(String skus, ArrayList<SpecialOffer> specialOffers)
     {
-        skus = "FFFFFFF";
         ArrayList<String> saved = new ArrayList<>();
 
         boolean tryToApplyOfferAgain = false;
@@ -413,12 +407,15 @@ public class Test_CHK_R5 {
             }
 
         } while (tryToApplyOfferAgain);
+
         StringBuilder skusBuilder = new StringBuilder(skus);
+
         for (String sku : saved)
+        {
             skusBuilder.append(sku);
+        }
         skus = skusBuilder.toString();
 
-        System.out.println(skus);
         return skus;
     }
 
@@ -436,6 +433,7 @@ public class Test_CHK_R5 {
         return count;
     }
 }
+
 
 
 
